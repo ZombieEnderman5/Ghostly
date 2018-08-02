@@ -1,0 +1,448 @@
+{
+    "entity.shade.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/ambient1"
+        }, {
+            "name": "ghostly:entity/shade/ambient2"
+        }]
+    },
+    "entity.shade.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/hurt"
+        }]
+    },
+    "entity.shade.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/death"
+        }]
+    },
+    "entity.shade.dissipate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/dissipate"
+        }]
+    },
+	"entity.shade.infest_enderman": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/infest_enderman"
+        }]
+    },
+    "entity.shade.destroy_entity": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/destroy_entity"
+        }]
+    },
+    "entity.shade.possess_entity": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/possess_entity"
+        }]
+    },
+    "entity.possessed_sword.swoop": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_sword/swoop1"
+        }, {
+            "name": "ghostly:entity/possessed_sword/swoop2"
+        }]
+    },
+    "entity.possessed_zombie.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_zombie/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_zombie/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_zombie/ambient3"
+        }]
+    },
+    "entity.possessed_zombie.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_zombie/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_zombie/hurt2"
+        }]
+    },
+    "entity.possessed_zombie.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_zombie/death"
+        }]
+    },
+    "entity.possessed_skeleton.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_skeleton/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/ambient3"
+        }]
+    },
+    "entity.possessed_skeleton.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_skeleton/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/hurt2"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/hurt3"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/hurt4"
+        }]
+    },
+    "entity.possessed_skeleton.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_skeleton/death"
+        }]
+    },
+    "entity.possessed_husk.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_husk/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_husk/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_husk/ambient3"
+        }]
+    },
+    "entity.possessed_husk.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_husk/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_husk/hurt2"
+        }]
+    },
+    "entity.possessed_husk.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_husk/death1"
+        }, {
+            "name": "ghostly:entity/possessed_husk/death2"
+        }]
+    },
+    "entity.possessed_wither_skeleton.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_wither_skeleton/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/ambient3"
+        }]
+    },
+    "entity.possessed_wither_skeleton.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt2"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt3"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt4"
+        }]
+    },
+    "entity.possessed_wither_skeleton.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_wither_skeleton/death1"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/death2"
+        }]
+    },
+    "entity.possessed_stray.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_stray/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_stray/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_stray/ambient3"
+        }, {
+            "name": "ghostly:entity/possessed_stray/ambient4"
+        }]
+    },
+    "entity.possessed_stray.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_stray/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_stray/hurt2"
+        }, {
+            "name": "ghostly:entity/possessed_stray/hurt3"
+        }, {
+            "name": "ghostly:entity/possessed_stray/hurt4"
+        }]
+    },
+    "entity.possessed_stray.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_stray/death1"
+        }, {
+            "name": "ghostly:entity/possessed_stray/death2"
+        }]
+    },
+	"entity.infested_endermen.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/infested_endermen/ambient1"
+        }, {
+            "name": "ghostly:entity/infested_endermen/ambient2"
+        }, {
+            "name": "ghostly:entity/infested_endermen/ambient3"
+        }, {
+            "name": "ghostly:entity/infested_endermen/ambient4"
+        }, {
+            "name": "ghostly:entity/infested_endermen/ambient5"
+        }]
+    },
+	"entity.infested_endermen.scream": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/infested_endermen/scream1"
+        }, {
+            "name": "ghostly:entity/infested_endermen/scream2"
+        }, {
+            "name": "ghostly:entity/infested_endermen/scream3"
+        }, {
+            "name": "ghostly:entity/infested_endermen/scream4"
+        }]
+    },
+	"entity.infested_endermen.infest_enderman": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/infested_endermen/infest_enderman"
+        }]
+    },
+    "entity.possessed_boxer_zombie.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_zombie/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_zombie/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_zombie/ambient3"
+        }]
+    },
+    "entity.possessed_boxer_zombie.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_zombie/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_zombie/hurt2"
+        }]
+    },
+    "entity.possessed_boxer_zombie.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_zombie/death"
+        }]
+    },
+    "entity.possessed_boxer_skeleton.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_skeleton/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/ambient3"
+        }]
+    },
+    "entity.possessed_boxer_skeleton.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_skeleton/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/hurt2"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/hurt3"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/hurt4"
+        }]
+    },
+    "entity.possessed_boxer_skeleton.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_skeleton/death"
+        }]
+    },
+    "entity.possessed_boxer_husk.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_husk/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_husk/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_husk/ambient3"
+        }]
+    },
+    "entity.possessed_boxer_husk.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_husk/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_husk/hurt2"
+        }]
+    },
+    "entity.possessed_boxer_husk.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_husk/death1"
+        }, {
+            "name": "ghostly:entity/possessed_husk/death2"
+        }]
+    },
+    "entity.possessed_boxer_wither_skeleton.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_wither_skeleton/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/ambient3"
+        }]
+    },
+    "entity.possessed_boxer_wither_skeleton.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt2"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt3"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt4"
+        }]
+    },
+    "entity.possessed_boxer_wither_skeleton.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_wither_skeleton/death1"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/death2"
+        }]
+    },
+    "entity.possessed_boxer_stray.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_stray/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_stray/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_stray/ambient3"
+        }, {
+            "name": "ghostly:entity/possessed_stray/ambient4"
+        }]
+    },
+    "entity.possessed_boxer_stray.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_stray/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_stray/hurt2"
+        }, {
+            "name": "ghostly:entity/possessed_stray/hurt3"
+        }, {
+            "name": "ghostly:entity/possessed_stray/hurt4"
+        }]
+    },
+    "entity.possessed_boxer_stray.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_stray/death1"
+        }, {
+            "name": "ghostly:entity/possessed_stray/death2"
+        }]
+    },
+    "entity.possessed_hunchbone.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_skeleton/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/ambient3"
+        }]
+    },
+    "entity.possessed_hunchbone.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_skeleton/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/hurt2"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/hurt3"
+        }, {
+            "name": "ghostly:entity/possessed_skeleton/hurt4"
+        }]
+    },
+    "entity.possessed_hunchbone.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_skeleton/death"
+        }]
+    },
+    "entity.possessed_wither_hunchbone.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_wither_skeleton/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/ambient3"
+        }]
+    },
+    "entity.possessed_wither_hunchbone.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt2"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt3"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/hurt4"
+        }]
+    },
+    "entity.possessed_wither_hunchbone.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_wither_skeleton/death1"
+        }, {
+            "name": "ghostly:entity/possessed_wither_skeleton/death2"
+        }]
+    },
+    "entity.possessed_withered_zombie.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_zombie/ambient1"
+        }, {
+            "name": "ghostly:entity/possessed_zombie/ambient2"
+        }, {
+            "name": "ghostly:entity/possessed_zombie/ambient3"
+        }]
+    },
+    "entity.possessed_withered_zombie.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_zombie/hurt1"
+        }, {
+            "name": "ghostly:entity/possessed_zombie/hurt2"
+        }]
+    },
+    "entity.possessed_withered_zombie.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/possessed_zombie/death"
+        }]
+    }
+}
