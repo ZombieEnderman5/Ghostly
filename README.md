@@ -1,2 +1,5 @@
 ### Ghostly
-The repository for the Minecraft mod Ghostly. Made so that people can submit issues for suggestions - and, of course, pull requests if they change something.
+The repository for the Minecraft mod Ghostly. Made so that people can submit issues (includes suggestion issues) - and, of course, pull requests if they change something.
+
+### Releases
+Releases are available on CurseForge. Link: https://minecraft.curseforge.com/projects/ghostly (copy + paste into browser address bar, which is what contains the URL for the current tab)
