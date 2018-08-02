@@ -13,6 +13,12 @@
             "name": "ghostly:entity/shade/hurt"
         }]
     },
+    "entity.shade.hurt_alternate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/hurt_alternate"
+        }]
+    },
     "entity.shade.death": {
         "replace": false,
         "sounds": [{
@@ -443,6 +449,92 @@
         "replace": false,
         "sounds": [{
             "name": "ghostly:entity/possessed_zombie/death"
+        }]
+    },
+    "entity.darkness_mage.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/ambient1"
+        }, {
+            "name": "ghostly:entity/darkness_mage/ambient2"
+        }]
+    },
+    "entity.darkness_mage.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/hurt1"
+        }, {
+            "name": "ghostly:entity/darkness_mage/hurt2"
+        }]
+    },
+    "entity.darkness_mage.hurt_alternate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/hurt1_alternate"
+        }, {
+            "name": "ghostly:entity/darkness_mage/hurt2_alternate"
+        }, {
+            "name": "ghostly:entity/darkness_mage/hurt3_alternate"
+        }]
+    },
+    "entity.darkness_mage.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/death"
+        }]
+    },
+    "entity.darkness_mage.dissipate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/dissipate"
+        }]
+    },
+    "entity.darkness_mage.cast_spell": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/cast_spell"
+        }]
+    },
+    "entity.darkness_mage.cast_spell_alternate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/cast_spell_alternate"
+        }]
+    },
+    "entity.darkness_mage.prepare_blindness": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/prepare_blindness"
+        }]
+    },
+    "entity.darkness_mage.prepare_blindness_alternate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/prepare_blindness_alternate"
+        }]
+    },
+    "entity.darkness_mage.prepare_wither": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/prepare_wither"
+        }]
+    },
+    "entity.darkness_mage.prepare_wither_alternate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/prepare_wither_alternate"
+        }]
+    },
+    "entity.darkness_mage.prepare_orb": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/prepare_orb"
+        }]
+    },
+    "entity.darkness_mage.prepare_summon": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/prepare_summon"
         }]
     }
 }
