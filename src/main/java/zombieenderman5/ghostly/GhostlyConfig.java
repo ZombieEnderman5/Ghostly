@@ -72,6 +72,8 @@ public class GhostlyConfig {
 		public double shadeDissipationLightLevel = 0.15D;
 		@Config.RangeDouble(min = -0.1D, max = 1.0D)
 		public double darknessMageDissipationLightLevel = 0.30D;
+		@Config.RangeDouble(min = -0.1D, max = 1.0D)
+		public double shadowRemnantDissipationLightLevel = 0.10D;
 		public boolean possessedZombies = true;
 		public boolean possessedHusks = true;
 		public boolean possessedSkeletons = true;

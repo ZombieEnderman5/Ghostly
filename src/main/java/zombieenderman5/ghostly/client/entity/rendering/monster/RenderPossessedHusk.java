@@ -1,23 +1,21 @@
 package zombieenderman5.ghostly.client.entity.rendering.monster;
 
-import org.apache.logging.log4j.core.config.status.StatusConfiguration;
-
 import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderZombie;
-import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zombieenderman5.ghostly.client.entity.rendering.layer.LayerPossessedHuskEyes;
-import zombieenderman5.ghostly.client.entity.rendering.layer.LayerPossessedZombieEyes;
 import zombieenderman5.ghostly.client.entity.rendering.model.ModelPossessedZombie;
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedHusk;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedZombie;
 
+@SideOnly(Side.CLIENT)
 public class RenderPossessedHusk extends RenderBiped<EntityZombie> {
 	
 	private static final ResourceLocation POSSESSED_HUSK_TEXTURES = new ResourceLocation("textures/entity/zombie/husk.png");

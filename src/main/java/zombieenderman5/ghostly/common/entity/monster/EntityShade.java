@@ -87,19 +87,19 @@ public class EntityShade extends EntityMob {
 	    {
 	        net.minecraftforge.event.entity.living.LivingKnockBackEvent event = net.minecraftforge.common.ForgeHooks.onLivingKnockBack(this, entityIn, strength, xRatio, zRatio);
 	        if(event.isCanceled()) return;
-	        strength = event.getStrength(); xRatio = event.getRatioX(); zRatio = event.getRatioZ();
+	        strength = event.getStrength() / 3; xRatio = event.getRatioX(); zRatio = event.getRatioZ();
 	        if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue())
 	        {
 	            this.isAirBorne = true;
 	            float f = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
-	            this.motionX /= 6.0D;
-	            this.motionZ /= 6.0D;
+	            this.motionX /= 2.0D;
+	            this.motionZ /= 2.0D;
 	            this.motionX -= xRatio / (double)f * (double)strength;
 	            this.motionZ -= zRatio / (double)f * (double)strength;
 
 	            if (this.onGround)
 	            {
-	                this.motionY /= 6.0D;
+	                this.motionY /= 2.0D;
 	                this.motionY += (double)strength;
 
 	                if (this.motionY > 0.4000000059604645D)
@@ -244,7 +244,7 @@ public class EntityShade extends EntityMob {
 	@Override
 	public float getBlockPathWeight(BlockPos pos) {
 
-		return this.world.getLightBrightness(pos) > (float)GhostlyConfig.MOBS.shadeDissipationLightLevel ? -10.0F : super.getBlockPathWeight(pos);
+		return this.world.getLightBrightness(pos) >= (float)GhostlyConfig.MOBS.shadeDissipationLightLevel ? -10.0F : super.getBlockPathWeight(pos);
 	}
 
 	@Override
@@ -398,14 +398,33 @@ public class EntityShade extends EntityMob {
             }
             else
             {
-            	Random random = this.entity.getRNG();
                 List<EntityLiving> entities = this.entity.world.getEntitiesWithinAABB(EntityLiving.class, this.entity.getEntityBoundingBox().grow(5.0D), entity -> {
                 	return POSSESSABLE_ENTITY_CLASSES.keySet().contains(EntityList.getKey(entity)) && entity.getHealth() > 0.0F;
                 });
                 
                 if (!entities.isEmpty()) {
                 	
-                	this.toPossess = entities.get(random.nextInt(entities.size()));
+                	EntityLiving healthiestEntity = null;
+                	
+                	for (EntityLiving entity : entities) {
+                		
+                		if (healthiestEntity != null) {
+                			
+                			if (entity.getHealth() > healthiestEntity.getHealth()) {
+                				
+                				healthiestEntity = entity;
+                				
+                			}
+                			
+                		} else {
+                			
+                			healthiestEntity = entity;
+                			
+                		}
+                		
+                	}
+                	
+                	this.toPossess = healthiestEntity;
                 	
                 	if (this.toPossess instanceof IPossessed && ((IPossessed) EntityList.createEntityByIDFromName(POSSESSABLE_ENTITY_CLASSES.get(EntityList.getKey(this.toPossess)), null)).canExist()) {
                 		

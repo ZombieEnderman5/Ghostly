@@ -2,6 +2,9 @@ package zombieenderman5.ghostly.common.entity.monster;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,6 +18,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +31,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
@@ -39,6 +46,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import zombieenderman5.ghostly.GhostlyConfig;
+import zombieenderman5.ghostly.common.core.GhostlyItemManager;
+import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityTinyShadowOrb;
 
 public class EntityShadowRemnant extends EntityMob
@@ -105,6 +115,37 @@ public class EntityShadowRemnant extends EntityMob
     public static void registerFixesShadowRemnant(DataFixer fixer)
     {
         EntityLiving.registerFixesMob(fixer, EntityShadowRemnant.class);
+    }
+    
+    @Override
+	public void fall(float distance, float damageMultiplier) {}
+    
+    @Override
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio)
+    {
+        net.minecraftforge.event.entity.living.LivingKnockBackEvent event = net.minecraftforge.common.ForgeHooks.onLivingKnockBack(this, entityIn, strength, xRatio, zRatio);
+        if(event.isCanceled()) return;
+        strength = event.getStrength() / 5; xRatio = event.getRatioX(); zRatio = event.getRatioZ();
+        if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue())
+        {
+            this.isAirBorne = true;
+            float f = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
+            this.motionX /= 2.0D;
+            this.motionZ /= 2.0D;
+            this.motionX -= xRatio / (double)f * (double)strength;
+            this.motionZ -= zRatio / (double)f * (double)strength;
+
+            if (this.onGround)
+            {
+                this.motionY /= 2.0D;
+                this.motionY += (double)strength;
+
+                if (this.motionY > 0.4000000059604645D)
+                {
+                    this.motionY = 0.4000000059604645D;
+                }
+            }
+        }
     }
 
     /**
@@ -225,13 +266,113 @@ public class EntityShadowRemnant extends EntityMob
     {
         return SoundEvents.ENTITY_VEX_HURT;
     }
+    
+    protected SoundEvent getStepSound()
+    {
+		return null;
+	}
 
     @Override
     @Nullable
     protected ResourceLocation getLootTable()
     {
-        return LootTableList.ENTITIES_VEX;
+        return null;
     }
+    
+    @Override
+	protected void playStepSound(BlockPos pos, Block blockIn)
+    {
+		this.playSound(this.getStepSound(), 0.15F, 1.0F);
+
+	}
+    
+    @Override
+	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+
+		return false;
+
+	}
+
+	@Override
+	public float getBlockPathWeight(BlockPos pos) {
+
+		return this.world.getLightBrightness(pos) >= (float)GhostlyConfig.MOBS.shadowRemnantDissipationLightLevel ? -10.0F : super.getBlockPathWeight(pos);
+	}
+	
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+
+		EntityLivingBase sourceLiving = null;
+		
+		if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase) {
+			
+			sourceLiving = (EntityLivingBase) source.getTrueSource();
+			
+		}
+		
+		if (source.isExplosion()) {
+
+			return false;
+
+		} else if (source.isFireDamage()) {
+
+			return false;
+
+		} else if (source.isMagicDamage()) {
+
+			return false;
+
+		} else if (source instanceof EntityDamageSourceIndirect && !(source.getImmediateSource() instanceof EntityCorporealityArrow)) {
+
+			return false;
+
+		} else if (source.getTrueSource() != null && sourceLiving != null && (sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.swordOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.axeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.pickaxeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.shovelOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.hoeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.bowOfCorporeality)) {
+
+			return super.attackEntityFrom(source, amount);
+
+		} else {
+			
+			return super.attackEntityFrom(source, amount / 5);
+			
+		}
+
+	}
+	
+	@Override
+	public void onDeathUpdate() {
+		
+		++this.deathTime;
+
+        if (this.deathTime == 20)
+        {
+            if (!this.world.isRemote && (this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot() && this.world.getGameRules().getBoolean("doMobLoot")))
+            {
+                int i = this.getExperiencePoints(this.attackingPlayer);
+                i = net.minecraftforge.event.ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
+                while (i > 0)
+                {
+                    int j = EntityXPOrb.getXPSplit(i);
+                    i -= j;
+                    this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, j));
+                }
+            }
+
+            this.setDead();
+
+            for (int k = 0; k < 20; ++k)
+            {
+                if (Minecraft.getMinecraft().world != null && this.world.isRemote) {
+                	
+                	double d2 = this.rand.nextGaussian() * 0.02D;
+                    double d0 = this.rand.nextGaussian() * 0.02D;
+                    double d1 = this.rand.nextGaussian() * 0.02D;
+                    Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
+                	
+                }
+            }
+        }
+		
+	}
     
     static class AIShadowOrbAttack extends EntityAIBase
     {
@@ -246,6 +387,7 @@ public class EntityShadowRemnant extends EntityMob
         /**
          * Returns whether the EntityAIBase should begin execution.
          */
+        @Override
         public boolean shouldExecute()
         {
             return this.parentEntity.getAttackTarget() != null;
@@ -254,6 +396,7 @@ public class EntityShadowRemnant extends EntityMob
         /**
          * Execute a one shot task or start executing a continuous task
          */
+        @Override
         public void startExecuting()
         {
             this.attackTimer = 0;
@@ -262,12 +405,13 @@ public class EntityShadowRemnant extends EntityMob
         /**
          * Keep ticking a continuous task that has already been started
          */
+        @Override
         public void updateTask()
         {
             EntityLivingBase entitylivingbase = this.parentEntity.getAttackTarget();
             double d0 = 7.0D;
 
-            if (entitylivingbase.getDistanceSq(this.parentEntity) < d0 * d0 && this.parentEntity.canEntityBeSeen(entitylivingbase))
+            if (entitylivingbase.getDistanceSq(this.parentEntity) <= d0 * d0 && this.parentEntity.canEntityBeSeen(entitylivingbase))
             {
                 World world = this.parentEntity.world;
                 --this.attackTimer;
@@ -301,6 +445,7 @@ public class EntityShadowRemnant extends EntityMob
         /**
          * Returns whether the EntityAIBase should begin execution.
          */
+        @Override
         public boolean shouldExecute()
         {
             return EntityShadowRemnant.this.owner != null && EntityShadowRemnant.this.owner.getAttackTarget() != null && this.isSuitableTarget(EntityShadowRemnant.this.owner.getAttackTarget(), false);
@@ -309,6 +454,7 @@ public class EntityShadowRemnant extends EntityMob
         /**
          * Execute a one shot task or start executing a continuous task
          */
+        @Override
         public void startExecuting()
         {
             EntityShadowRemnant.this.setAttackTarget(EntityShadowRemnant.this.owner.getAttackTarget());
@@ -318,11 +464,12 @@ public class EntityShadowRemnant extends EntityMob
 
     class AIMoveControl extends EntityMoveHelper
     {
-        public AIMoveControl(EntityShadowRemnant vex)
+        public AIMoveControl(EntityShadowRemnant shadowRemnant)
         {
-            super(vex);
+            super(shadowRemnant);
         }
 
+        @Override
         public void onUpdateMoveHelper()
         {
             if (this.action == EntityMoveHelper.Action.MOVE_TO)
@@ -373,6 +520,7 @@ public class EntityShadowRemnant extends EntityMob
         /**
          * Returns whether the EntityAIBase should begin execution.
          */
+        @Override
         public boolean shouldExecute()
         {
             return !EntityShadowRemnant.this.getMoveHelper().isUpdating() && EntityShadowRemnant.this.rand.nextInt(7) == 0;
@@ -381,6 +529,7 @@ public class EntityShadowRemnant extends EntityMob
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
+        @Override
         public boolean shouldContinueExecuting()
         {
             return false;
@@ -389,6 +538,7 @@ public class EntityShadowRemnant extends EntityMob
         /**
          * Keep ticking a continuous task that has already been started
          */
+        @Override
         public void updateTask()
         {
             BlockPos blockpos = EntityShadowRemnant.this.getBoundOrigin();
@@ -401,8 +551,13 @@ public class EntityShadowRemnant extends EntityMob
             for (int i = 0; i < 3; ++i)
             {
                 BlockPos blockpos1 = blockpos.add(EntityShadowRemnant.this.rand.nextInt(15) - 7, EntityShadowRemnant.this.rand.nextInt(11) - 5, EntityShadowRemnant.this.rand.nextInt(15) - 7);
+                
+                if (EntityShadowRemnant.this.getAttackTarget() != null && EntityShadowRemnant.this.getAttackTarget().getDistanceSqToCenter(blockpos1) > 49.0D)
+                {
+                	blockpos1 = new BlockPos(EntityShadowRemnant.this.getAttackTarget().posX + (EntityShadowRemnant.this.rand.nextInt(7) - 3), EntityShadowRemnant.this.getAttackTarget().posY + (EntityShadowRemnant.this.rand.nextInt(9) - 4), EntityShadowRemnant.this.getAttackTarget().posZ + (EntityShadowRemnant.this.rand.nextInt(7) - 3));
+                }
 
-                if (EntityShadowRemnant.this.world.isAirBlock(blockpos1) && (EntityShadowRemnant.this.getAttackTarget() != null ? EntityShadowRemnant.this.getAttackTarget().getDistanceSqToCenter(blockpos1) < 100.0D : true))
+                if (EntityShadowRemnant.this.world.isAirBlock(blockpos1))
                 {
                     EntityShadowRemnant.this.moveHelper.setMoveTo((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 0.25D);
 

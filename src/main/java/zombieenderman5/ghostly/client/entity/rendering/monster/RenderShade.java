@@ -7,9 +7,12 @@ import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zombieenderman5.ghostly.GhostlyReference;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
 
+@SideOnly(Side.CLIENT)
 public class RenderShade extends RenderBiped<EntityShade> {
 
 	private static final ResourceLocation SHADE_TEXTURES = new ResourceLocation(GhostlyReference.MOD_ID, "textures/entity/shade.png");
