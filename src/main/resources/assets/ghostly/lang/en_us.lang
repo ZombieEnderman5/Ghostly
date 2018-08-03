@@ -185,3 +185,9 @@ entity.ghostly:possessed_boxer_stray.name=Possessed Boxer Stray
 entity.ghostly:possessed_hunchbone.name=Possessed Hunchbone
 entity.ghostly:possessed_wither_hunchbone.name=Possessed Wither Hunchbone
 entity.ghostly:possessed_withered_zombie.name=Possessed Withered Zombie
+
+item.sword_of_corporeality.name=Sword of Corporeality
+item.axe_of_corporeality.name=Axe of Corporeality
+item.pickaxe_of_corporeality.name=Pickaxe of Corporeality
+item.shovel_of_corporeality.name=Shovel of Corporeality
+item.hoe_of_corporeality.name=Hoe of Corporeality

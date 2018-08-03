@@ -77,6 +77,7 @@ public class GhostlySoundManager {
 	public static final SoundEvent DARKNESS_MAGE_PREPARE_WITHER_ALTERNATE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_wither_alternate"));
 	public static final SoundEvent DARKNESS_MAGE_PREPARE_ORB = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_orb"));
 	public static final SoundEvent DARKNESS_MAGE_PREPARE_SUMMON = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_summon"));
+	public static final SoundEvent CORPOREALITY_TOOL_HIT = register(new ResourceLocation(GhostlyReference.MOD_ID, "item.tool_of_corporeality.hit"));
 
 	public static SoundEvent register(ResourceLocation name) {
         

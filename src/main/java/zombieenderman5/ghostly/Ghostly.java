@@ -3,12 +3,8 @@ package zombieenderman5.ghostly;
 import org.apache.logging.log4j.Logger;
 
 import gatocreador887.hardcoredimensionexpansion.util.HDEReference;
-import net.minecraft.entity.monster.EntityHusk;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityStray;
-import net.minecraft.entity.monster.EntityWitherSkeleton;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -18,27 +14,14 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import zombieenderman5.ghostly.common.core.GhostlyEntityManager;
+import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedBoxerHusk;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedBoxerSkeleton;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedBoxerStray;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedBoxerWitherSkeleton;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedBoxerZombie;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedHusk;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedSkeleton;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedStray;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedWitherSkeleton;
-import zombieenderman5.ghostly.common.entity.monster.EntityPossessedZombie;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
 import zombieenderman5.ghostly.common.proxy.CommonProxy;
 import zombieenderman5.theboxingdead.TBDReference;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerHusk;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerSkeleton;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerStray;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerWitherSkeleton;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerZombie;
 
 @Mod(modid = GhostlyReference.MOD_ID, name = GhostlyReference.MOD_NAME, version = GhostlyReference.MOD_VERSION, dependencies = GhostlyReference.MOD_DEPENDENCIES)
 public class Ghostly {
@@ -68,8 +51,10 @@ public class Ghostly {
 		proxy.entityRegisterRenders(event);
 
 		GhostlyEntityManager.preInitialization(event);
+		GhostlyItemManager.preInitialization(event);
 
 		MinecraftForge.EVENT_BUS.register(new GhostlySoundManager());
+		MinecraftForge.EVENT_BUS.register(Ghostly.class);
 		
 		MinecraftForge.TERRAIN_GEN_BUS.register(new GhostlyTerrainGenEventHandler());
 
@@ -158,4 +143,23 @@ public class Ghostly {
 
 	}
 
+	@SubscribeEvent
+	public static void registerModels(ModelRegistryEvent event) {
+		
+		if (GhostlyConfig.logging) {
+			
+			logger.info("<Ghostly> Registering item models");
+			
+		}
+		
+		proxy.registerRenders();
+		
+		if (GhostlyConfig.logging) {
+			
+			logger.info("<Ghostly> Item models registered");
+			
+		}
+		
+	}
+	
 }
