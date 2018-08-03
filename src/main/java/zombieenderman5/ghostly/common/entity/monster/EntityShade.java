@@ -201,7 +201,7 @@ public class EntityShade extends EntityMob {
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 
-		return GhostlySoundManager.SHADE_HURT;
+		return GhostlyConfig.AUDIO.alternateShadeAudio ? GhostlySoundManager.SHADE_HURT_ALTERNATE : GhostlySoundManager.SHADE_HURT;
 
 	}
 
@@ -374,14 +374,10 @@ public class EntityShade extends EntityMob {
         		return false;
         		
         	}
-        	else if (this.entity.getAttackTarget() != null)
+            /*else if (!this.entity.getNavigator().noPath())
             {
                 return false;
-            }
-            else if (!this.entity.getNavigator().noPath())
-            {
-                return false;
-            }
+            }*/
             else if (this.entity.getHealth() > this.entity.getMaxHealth() / 4.0F)
             {
                 return false;
@@ -428,7 +424,7 @@ public class EntityShade extends EntityMob {
                 World world = this.entity.world;
                 Random random = this.entity.getRNG();
                 
-                if (random.nextInt(3) == 0 && this.toPossess.getHealth() > 0.0F) {
+                if (random.nextInt(3) == 0 && this.toPossess.isEntityAlive()) {
                 	
                 	EntityLiving newMob = (EntityLiving) EntityList.createEntityByIDFromName(POSSESSABLE_ENTITY_CLASSES.get(EntityList.getKey(this.toPossess)), world);
 					newMob.setLocationAndAngles(this.toPossess.posX, this.toPossess.posY, this.toPossess.posZ, this.toPossess.rotationYaw, this.toPossess.rotationPitch);
