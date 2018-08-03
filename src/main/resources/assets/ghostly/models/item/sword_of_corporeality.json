@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "ghostly:items/sword_of_corporeality"
+    }
+}

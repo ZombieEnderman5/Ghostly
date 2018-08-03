@@ -49,6 +49,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import scala.tools.nsc.doc.model.Public;
 import zombieenderman5.ghostly.Ghostly;
 import zombieenderman5.ghostly.GhostlyConfig;
+import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIFleeLight;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIRestrictLight;
@@ -255,6 +256,14 @@ public class EntityShade extends EntityMob {
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 
+		EntityLivingBase sourceLiving = null;
+		
+		if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase) {
+			
+			sourceLiving = (EntityLivingBase) source.getTrueSource();
+			
+		}
+		
 		if (source.isExplosion()) {
 
 			return false;
@@ -271,10 +280,14 @@ public class EntityShade extends EntityMob {
 
 			return false;
 
+		} else if (source.getTrueSource() != null && sourceLiving != null && (sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.swordOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.axeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.pickaxeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.shovelOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.hoeOfCorporeality)) {
+
+			return super.attackEntityFrom(source, amount);
+
 		} else {
-
+			
 			return super.attackEntityFrom(source, amount / 3);
-
+			
 		}
 
 	}

@@ -536,5 +536,11 @@
         "sounds": [{
             "name": "ghostly:entity/darkness_mage/prepare_summon"
         }]
+    },
+    "item.tool_of_corporeality.hit": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:item/corporeality_tool_hit"
+        }]
     }
 }
