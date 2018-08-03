@@ -53,6 +53,7 @@ import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIFleeLight;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIRestrictLight;
+import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
 import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerHusk;
 import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerSkeleton;
 import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerStray;
@@ -209,7 +210,7 @@ public class EntityShade extends EntityMob {
 	@Override
 	protected SoundEvent getDeathSound() {
 
-		return GhostlySoundManager.SHADE_DEATH;
+		return GhostlyConfig.AUDIO.alternateShadeAudio ? GhostlySoundManager.SHADE_DEATH_ALTERNATE : GhostlySoundManager.SHADE_DEATH;
 
 	}
 
@@ -276,11 +277,11 @@ public class EntityShade extends EntityMob {
 
 			return false;
 
-		} else if (source instanceof EntityDamageSourceIndirect) {
+		} else if (source instanceof EntityDamageSourceIndirect && !(source.getImmediateSource() instanceof EntityCorporealityArrow)) {
 
 			return false;
 
-		} else if (source.getTrueSource() != null && sourceLiving != null && (sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.swordOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.axeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.pickaxeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.shovelOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.hoeOfCorporeality)) {
+		} else if (source.getTrueSource() != null && sourceLiving != null && (sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.swordOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.axeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.pickaxeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.shovelOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.hoeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.bowOfCorporeality)) {
 
 			return super.attackEntityFrom(source, amount);
 
@@ -451,7 +452,15 @@ public class EntityShade extends EntityMob {
 					newMob.setHealth(this.toPossess.getHealth() / this.toPossess.getMaxHealth() * newMob.getMaxHealth());
 					newMob.setLeftHanded(this.toPossess.isLeftHanded());
 					newMob.setAlwaysRenderNameTag(this.toPossess.getAlwaysRenderNameTag());
-					newMob.setCanPickUpLoot(!(this.toPossess instanceof IBoxer) ? true : false);
+					if (Loader.isModLoaded("theboxingdead")) {
+						try {
+							newMob.setCanPickUpLoot(!(this.toPossess instanceof IBoxer) ? true : false);
+						} catch (NoClassDefFoundError ncdfe) {
+							
+						}
+					} else {
+						newMob.setCanPickUpLoot(true);
+					}
 					newMob.setCustomNameTag(this.toPossess.getCustomNameTag());
 					newMob.setEntityInvulnerable(this.toPossess.getIsInvulnerable());
 					newMob.setGlowing(this.toPossess.isGlowing());

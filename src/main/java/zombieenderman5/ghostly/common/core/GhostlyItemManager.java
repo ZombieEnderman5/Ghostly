@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import zombieenderman5.ghostly.GhostlyReference;
 import zombieenderman5.ghostly.common.item.ItemAxeOfCorporeality;
+import zombieenderman5.ghostly.common.item.ItemBowOfCorporeality;
 import zombieenderman5.ghostly.common.item.ItemHoeOfCorporeality;
 import zombieenderman5.ghostly.common.item.ItemPickaxeOfCorporeality;
 import zombieenderman5.ghostly.common.item.ItemShovelOfCorporeality;
@@ -23,6 +24,7 @@ public class GhostlyItemManager {
 	public static Item pickaxeOfCorporeality;
 	public static Item shovelOfCorporeality;
 	public static Item hoeOfCorporeality;
+	public static Item bowOfCorporeality;
 	
 	public static final Item.ToolMaterial CORPOREALITY_TOOL_MATERIAL = EnumHelper.addToolMaterial("corporeality_tool_material", 2, 299, 6.5F, 2.0F, 0);
 	
@@ -33,12 +35,14 @@ public class GhostlyItemManager {
 		pickaxeOfCorporeality = new ItemPickaxeOfCorporeality();
 		shovelOfCorporeality = new ItemShovelOfCorporeality();
 		hoeOfCorporeality = new ItemHoeOfCorporeality();
+		bowOfCorporeality = new ItemBowOfCorporeality();
 		
 		ForgeRegistries.ITEMS.register(swordOfCorporeality);
 		ForgeRegistries.ITEMS.register(axeOfCorporeality);
 		ForgeRegistries.ITEMS.register(pickaxeOfCorporeality);
 		ForgeRegistries.ITEMS.register(shovelOfCorporeality);
 		ForgeRegistries.ITEMS.register(hoeOfCorporeality);
+		ForgeRegistries.ITEMS.register(bowOfCorporeality);
 		
 	}
 	
@@ -49,6 +53,7 @@ public class GhostlyItemManager {
 		registerRender(pickaxeOfCorporeality);
 		registerRender(shovelOfCorporeality);
 		registerRender(hoeOfCorporeality);
+		registerRender(bowOfCorporeality);
 		
 	}
 	

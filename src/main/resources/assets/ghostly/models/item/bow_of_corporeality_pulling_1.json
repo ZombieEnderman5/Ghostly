@@ -1,0 +1,6 @@
+{
+    "parent": "ghostly:item/bow_of_corporeality",
+    "textures": {
+        "layer0": "ghostly:items/bow_of_corporeality_pulling_1"
+    }
+}

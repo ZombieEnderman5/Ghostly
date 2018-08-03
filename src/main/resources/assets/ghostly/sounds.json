@@ -25,6 +25,12 @@
             "name": "ghostly:entity/shade/death"
         }]
     },
+    "entity.shade.death_alternate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/death_alternate"
+        }]
+    },
     "entity.shade.dissipate": {
         "replace": false,
         "sounds": [{
