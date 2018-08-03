@@ -338,4 +338,10 @@ public class EntityPossessedBoxerStray extends AbstractSkeleton implements IRang
     	
     }
     
+    public boolean canExist() {
+    	
+    	return GhostlyConfig.MOBS.possessedBoxerStrays;
+    	
+    }
+    
 }

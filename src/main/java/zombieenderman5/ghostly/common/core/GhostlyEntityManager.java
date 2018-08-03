@@ -50,6 +50,7 @@ import zombieenderman5.ghostly.common.entity.monster.EntityPossessedWitherSkelet
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedWitheredZombie;
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedZombie;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
+import zombieenderman5.ghostly.common.entity.monster.EntityShadowRemnant;
 import zombieenderman5.ghostly.common.entity.projectile.EntityGiantShadowOrb;
 import zombieenderman5.ghostly.common.entity.projectile.EntityShadowOrb;
 import zombieenderman5.ghostly.common.entity.projectile.EntityTinyShadowOrb;
@@ -148,6 +149,11 @@ public class GhostlyEntityManager {
 		} else {
 			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "possessed_withered_zombie"), EntityPossessedWitheredZombie.class, GhostlyReference.MOD_ID + ":possessed_withered_zombie", id++, mod, 64, 1, false);
 		}
+		if (GhostlyConfig.MOBS.shadowRemnants) {
+			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "shadow_remnant"), EntityShadowRemnant.class, GhostlyReference.MOD_ID + ":shadow_remnant", id++, mod, 32, 1, false, 0x000000, 0xE91111);
+		} else {
+			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "shadow_remnant"), EntityShadowRemnant.class, GhostlyReference.MOD_ID + ":shadow_remnant", id++, mod, 32, 1, false);
+		}
 		
 		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "shadow_orb"), EntityShadowOrb.class, GhostlyReference.MOD_ID + ":shadow_orb", id++, mod, 64, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "giant_shadow_orb"), EntityGiantShadowOrb.class, GhostlyReference.MOD_ID + ":giant_shadow_orb", id++, mod, 64, 1, true);
@@ -181,7 +187,11 @@ public class GhostlyEntityManager {
 			
 		}
 		
-		RenderingRegistry.registerEntityRenderingHandler(EntityTinyShadowOrb.class, RenderShadowOrb.TINY_SHADOW_ORB_FACTORY);
+		if (GhostlyConfig.MOBS.shadowRemnants) {
+			
+			RenderingRegistry.registerEntityRenderingHandler(EntityTinyShadowOrb.class, RenderShadowOrb.TINY_SHADOW_ORB_FACTORY);
+			
+		}
 		
 	}
 

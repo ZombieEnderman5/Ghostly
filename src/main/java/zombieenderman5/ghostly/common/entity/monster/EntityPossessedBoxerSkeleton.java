@@ -291,4 +291,10 @@ public class EntityPossessedBoxerSkeleton extends AbstractSkeleton implements IR
     	
     }
 	
+    public boolean canExist() {
+    	
+    	return GhostlyConfig.MOBS.possessedBoxerSkeletons;
+    	
+    }
+	
 }

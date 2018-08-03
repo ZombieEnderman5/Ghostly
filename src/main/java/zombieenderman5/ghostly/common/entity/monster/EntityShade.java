@@ -405,6 +405,13 @@ public class EntityShade extends EntityMob {
                 if (!entities.isEmpty()) {
                 	
                 	this.toPossess = entities.get(random.nextInt(entities.size()));
+                	
+                	if (this.toPossess instanceof IPossessed && ((IPossessed) EntityList.createEntityByIDFromName(POSSESSABLE_ENTITY_CLASSES.get(EntityList.getKey(this.toPossess)), null)).canExist()) {
+                		
+                		return false;
+                		
+                	}
+                	
                 	this.doMerge = true;
                 	return true;
                 	
@@ -437,7 +444,7 @@ public class EntityShade extends EntityMob {
                 World world = this.entity.world;
                 Random random = this.entity.getRNG();
                 
-                if (random.nextInt(3) == 0 && this.toPossess.isEntityAlive()) {
+                if (random.nextInt(3) == 0 && this.toPossess.isEntityAlive() && this.toPossess.getHealth() >= this.toPossess.getMaxHealth() * 0.75F) {
                 	
                 	EntityLiving newMob = (EntityLiving) EntityList.createEntityByIDFromName(POSSESSABLE_ENTITY_CLASSES.get(EntityList.getKey(this.toPossess)), world);
 					newMob.setLocationAndAngles(this.toPossess.posX, this.toPossess.posY, this.toPossess.posZ, this.toPossess.rotationYaw, this.toPossess.rotationPitch);
@@ -501,7 +508,7 @@ public class EntityShade extends EntityMob {
 					this.entity.setDead();
 					this.entity.playSound(GhostlySoundManager.SHADE_POSSESS_ENTITY, 1.0F, 1.0F);
                 	
-                } else if (this.toPossess.getHealth() > 0.0F) {
+                } else if (this.toPossess.isEntityAlive()) {
                 	
                 	this.entity.heal(this.toPossess.getHealth() / 2.0F);
                 	

@@ -300,4 +300,10 @@ public class EntityPossessedWitherSkeleton extends AbstractSkeleton implements I
     	
     }
     
+    public boolean canExist() {
+    	
+    	return GhostlyConfig.MOBS.possessedWitherSkeletons;
+    	
+    }
+    
 }

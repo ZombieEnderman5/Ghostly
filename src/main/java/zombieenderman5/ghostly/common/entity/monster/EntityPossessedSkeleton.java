@@ -210,4 +210,10 @@ public class EntityPossessedSkeleton extends AbstractSkeleton implements IRanged
     	
     }
 	
+    public boolean canExist() {
+    	
+    	return GhostlyConfig.MOBS.possessedSkeletons;
+    	
+    }
+	
 }

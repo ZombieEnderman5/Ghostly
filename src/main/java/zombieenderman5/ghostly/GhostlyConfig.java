@@ -88,6 +88,7 @@ public class GhostlyConfig {
 		public boolean possessedWitherHunchbones = true;
 		public boolean possessedWitheredZombies = true;
 		public boolean darknessMages = true;
+		public boolean shadowRemnants = true;
 		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
 		public int possessedSwordSpawnRate = 100;
 		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
@@ -97,6 +98,8 @@ public class GhostlyConfig {
 		public boolean shadesPossessUndead = true;
 		@Config.RangeInt(min = 0, max = 13)
 		public int shadePossessionEyeType = 3;
+		@Config.RangeDouble(min = 0.0D, max = 1.0D)
+		public double shadowRemnantChance = 0.1D;
 		
 	}
 

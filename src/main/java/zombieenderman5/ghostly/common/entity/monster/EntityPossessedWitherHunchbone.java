@@ -279,4 +279,10 @@ public class EntityPossessedWitherHunchbone extends AbstractSkeleton implements 
     	
     }
 	
+	public boolean canExist() {
+    	
+    	return GhostlyConfig.MOBS.possessedWitherHunchbones;
+    	
+    }
+	
 }

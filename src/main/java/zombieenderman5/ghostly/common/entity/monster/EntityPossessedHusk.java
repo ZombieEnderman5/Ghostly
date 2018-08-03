@@ -255,5 +255,11 @@ public class EntityPossessedHusk extends EntityZombie implements IPossessed {
     	return false;
     	
     }
+    
+    public boolean canExist() {
+    	
+    	return GhostlyConfig.MOBS.possessedHusks;
+    	
+    }
 
 }
