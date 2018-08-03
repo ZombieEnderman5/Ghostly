@@ -33,6 +33,9 @@ import zombieenderman5.ghostly.client.entity.rendering.monster.RenderPossessedWi
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderPossessedWitheredZombie;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderPossessedZombie;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderShade;
+import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderCorporealityArrow;
+import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderSpectralCorporealityArrow;
+import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderTippedCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.monster.EntityInfestedEnderman;
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedBoxerHusk;
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedBoxerSkeleton;
@@ -49,6 +52,9 @@ import zombieenderman5.ghostly.common.entity.monster.EntityPossessedWitherSkelet
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedWitheredZombie;
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedZombie;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
+import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
+import zombieenderman5.ghostly.common.entity.projectile.EntitySpectralCorporealityArrow;
+import zombieenderman5.ghostly.common.entity.projectile.EntityTippedCorporealityArrow;
 
 public class GhostlyEntityManager {
 
@@ -145,6 +151,10 @@ public class GhostlyEntityManager {
 			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "possessed_withered_zombie"), EntityPossessedWitheredZombie.class, GhostlyReference.MOD_ID + ":possessed_withered_zombie", id++, mod, 64, 1, false);
 		}
 		
+		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "arrow_of_corporeality"), EntityCorporealityArrow.class, GhostlyReference.MOD_ID + ":arrow_of_corporeality", id++, mod, 64, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "tipped_arrow_of_corporeality"), EntityTippedCorporealityArrow.class, GhostlyReference.MOD_ID + ":tipped_arrow_of_corporeality", id++, mod, 64, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "spectral_arrow_of_corporeality"), EntitySpectralCorporealityArrow.class, GhostlyReference.MOD_ID + ":spectral_arrow_of_corporeality", id++, mod, 64, 1, true);
+		
 	}
 
 	public static void registerEntityRenderingHandlers(FMLPreInitializationEvent event) {
@@ -165,6 +175,10 @@ public class GhostlyEntityManager {
 		if (GhostlyConfig.MOBS.possessedHunchbones) RenderingRegistry.registerEntityRenderingHandler(EntityPossessedHunchbone.class, RenderPossessedHunchbone.FACTORY);
 		if (GhostlyConfig.MOBS.possessedWitherHunchbones) RenderingRegistry.registerEntityRenderingHandler(EntityPossessedWitherHunchbone.class, RenderPossessedWitherHunchbone.FACTORY);
 		if (GhostlyConfig.MOBS.possessedWitheredZombies) RenderingRegistry.registerEntityRenderingHandler(EntityPossessedWitheredZombie.class, RenderPossessedWitheredZombie.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityCorporealityArrow.class, RenderCorporealityArrow.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityTippedCorporealityArrow.class, RenderTippedCorporealityArrow.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySpectralCorporealityArrow.class, RenderSpectralCorporealityArrow.FACTORY);
 		
 	}
 

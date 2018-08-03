@@ -12,6 +12,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import zombieenderman5.ghostly.client.core.GhostlyCreativeTabManager;
 import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
@@ -24,6 +25,7 @@ public class ItemSwordOfCorporeality extends ItemSword {
 		
 		setUnlocalizedName("sword_of_corporeality");
 		setRegistryName("sword_of_corporeality");
+		setCreativeTab(GhostlyCreativeTabManager.combat);
 		
 	}
 	
