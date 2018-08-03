@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import zombieenderman5.ghostly.client.core.GhostlyCreativeTabManager;
 import zombieenderman5.ghostly.common.core.GhostlyEntityManager;
 import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
@@ -51,6 +52,7 @@ public class Ghostly {
 		proxy.entityRegisterRenders(event);
 
 		GhostlyEntityManager.preInitialization(event);
+		GhostlyCreativeTabManager.preInitialization(event);
 		GhostlyItemManager.preInitialization(event);
 
 		MinecraftForge.EVENT_BUS.register(new GhostlySoundManager());
