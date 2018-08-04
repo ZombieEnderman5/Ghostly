@@ -1,5 +1,7 @@
 package zombieenderman5.ghostly.common.entity.monster;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
@@ -24,6 +26,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -46,8 +49,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import zombieenderman5.ghostly.Ghostly;
 import zombieenderman5.ghostly.GhostlyConfig;
 import zombieenderman5.ghostly.common.core.GhostlyItemManager;
+import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityTinyShadowOrb;
 
@@ -58,15 +63,12 @@ public class EntityShadowRemnant extends EntityMob
     private EntityLiving owner;
     @Nullable
     private BlockPos boundOrigin;
-    private boolean limitedLifespan;
-    private int limitedLifeTicks;
 
     public EntityShadowRemnant(World worldIn)
     {
         super(worldIn);
         this.isImmuneToFire = true;
         this.moveHelper = new EntityShadowRemnant.AIMoveControl(this);
-        this.setSize(0.4F, 0.4F);
         this.experienceValue = 3;
     }
 
@@ -78,23 +80,67 @@ public class EntityShadowRemnant extends EntityMob
     {
         super.onUpdate();
         this.setNoGravity(true);
-
-        if (this.limitedLifespan && --this.limitedLifeTicks <= 0)
+        
+    	if (!this.world.isRemote)
+    	{
+    		this.setSize(this.getSize() - (0.003F * (this.world.getLightBrightness(new BlockPos(this)) + 0.05F)));
+    	}
+    	
+        if (this.getSize() <= 0.0F)
         {
-            this.limitedLifeTicks = 20;
-            this.attackEntityFrom(DamageSource.STARVE, 1.0F);
+        	this.setDead();
+        }
+        else if (this.getSize() > 4.0F)
+        {
+        	if (Ghostly.side == Side.CLIENT && Minecraft.getMinecraft().world != null)
+        	{
+        		for (int k = 0; k < 100; ++k)
+                {
+        			double d2 = this.rand.nextGaussian() * 0.08D;
+                    double d0 = this.rand.nextGaussian() * 0.08D;
+                    double d1 = this.rand.nextGaussian() * 0.08D;
+                    Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
+                }
+        	}
+        	
+        	if (!this.world.isRemote)
+        	{
+        		List<EntityLivingBase> entities = this.world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(3.5D));
+        		
+        		for (EntityLivingBase entity : entities)
+        		{
+        			entity.addPotionEffect(new PotionEffect(MobEffects.WITHER, 100));
+        		}
+        	}
+        	
+        	this.playSound(GhostlySoundManager.SHADOW_REMNANT_EXPLODE, this.getSoundVolume(), this.getSoundPitch());
+        	this.setDead();
         }
     }
+    
+    @Override
+	public void onLivingUpdate()
+	{
+		if (!GhostlyConfig.MOBS.shadowRemnants) this.setDead();
+		
+		super.onLivingUpdate();
+	}
 
     @Override
     protected void initEntityAI()
     {
         super.initEntityAI();
-        this.tasks.addTask(4, new EntityShadowRemnant.AIMoveRandom());
-        this.tasks.addTask(5, new EntityShadowRemnant.AIShadowOrbAttack(this));
+        this.tasks.addTask(4, new EntityShadowRemnant.AILeechAttack(this));
+        this.tasks.addTask(4, new EntityShadowRemnant.AIMerge());
+        this.tasks.addTask(5, new EntityShadowRemnant.AIMoveRandom());
+        this.tasks.addTask(6, new EntityShadowRemnant.AIShadowOrbAttack(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[] {}));
         this.targetTasks.addTask(2, new EntityShadowRemnant.AICopyOwnerTarget(this));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLivingBase.class, 10, true, false, entity -> {
+        	
+        	return !(entity instanceof EntityShadowRemnant);
+        	
+        }));
     }
 
     @Override
@@ -110,6 +156,7 @@ public class EntityShadowRemnant extends EntityMob
     {
         super.entityInit();
         this.dataManager.register(SIZE, Float.valueOf(1.0F));
+        this.setSize(0.4F * this.getSize(), 0.4F * this.getSize());
     }
 
     public static void registerFixesShadowRemnant(DataFixer fixer)
@@ -165,11 +212,6 @@ public class EntityShadowRemnant extends EntityMob
         {
             this.boundOrigin = new BlockPos(compound.getInteger("BoundX"), compound.getInteger("BoundY"), compound.getInteger("BoundZ"));
         }
-
-        if (compound.hasKey("LifeTicks"))
-        {
-            this.setLimitedLife(compound.getInteger("LifeTicks"));
-        }
         
         if (compound.hasKey("Size", 99))
         {
@@ -195,11 +237,6 @@ public class EntityShadowRemnant extends EntityMob
             compound.setInteger("BoundX", this.boundOrigin.getX());
             compound.setInteger("BoundY", this.boundOrigin.getY());
             compound.setInteger("BoundZ", this.boundOrigin.getZ());
-        }
-
-        if (this.limitedLifespan)
-        {
-            compound.setInteger("LifeTicks", this.limitedLifeTicks);
         }
         
         compound.setFloat("Size", this.getSize());
@@ -235,6 +272,7 @@ public class EntityShadowRemnant extends EntityMob
 
     private void setSize(float value)
     {
+    	this.setSize(0.4F * value, 0.4F * value);
         this.dataManager.set(SIZE, Float.valueOf(value));
     }
 
@@ -243,28 +281,22 @@ public class EntityShadowRemnant extends EntityMob
         this.owner = ownerIn;
     }
 
-    public void setLimitedLife(int limitedLifeTicksIn)
-    {
-        this.limitedLifespan = true;
-        this.limitedLifeTicks = limitedLifeTicksIn;
-    }
-
     @Override
     protected SoundEvent getAmbientSound()
     {
-        return SoundEvents.ENTITY_VEX_AMBIENT;
+        return GhostlySoundManager.SHADOW_REMNANT_AMBIENT;
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        return SoundEvents.ENTITY_VEX_DEATH;
+        return GhostlySoundManager.SHADOW_REMNANT_DEATH;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-        return SoundEvents.ENTITY_VEX_HURT;
+        return GhostlySoundManager.SHADOW_REMNANT_HURT;
     }
     
     protected SoundEvent getStepSound()
@@ -291,12 +323,6 @@ public class EntityShadowRemnant extends EntityMob
 
 		return false;
 
-	}
-
-	@Override
-	public float getBlockPathWeight(BlockPos pos) {
-
-		return this.world.getLightBrightness(pos) >= (float)GhostlyConfig.MOBS.shadowRemnantDissipationLightLevel ? -10.0F : super.getBlockPathWeight(pos);
 	}
 	
 	@Override
@@ -328,13 +354,15 @@ public class EntityShadowRemnant extends EntityMob
 
 		} else if (source.getTrueSource() != null && sourceLiving != null && (sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.swordOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.axeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.pickaxeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.shovelOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.hoeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.bowOfCorporeality)) {
 
-			return super.attackEntityFrom(source, amount);
+			this.setSize(this.getSize() - amount / 50.0F);
 
 		} else {
 			
-			return super.attackEntityFrom(source, amount / 5);
+			this.setSize(this.getSize() - amount / 250.0F);
 			
 		}
+		
+		return super.attackEntityFrom(source, 0);
 
 	}
 	
@@ -361,18 +389,80 @@ public class EntityShadowRemnant extends EntityMob
 
             for (int k = 0; k < 20; ++k)
             {
-                if (Minecraft.getMinecraft().world != null && this.world.isRemote) {
+                if (Ghostly.side == Side.CLIENT && Minecraft.getMinecraft().world != null && this.world.isRemote) {
                 	
                 	double d2 = this.rand.nextGaussian() * 0.02D;
                     double d0 = this.rand.nextGaussian() * 0.02D;
                     double d1 = this.rand.nextGaussian() * 0.02D;
-                    Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
+                    Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
                 	
                 }
             }
         }
 		
 	}
+	
+	static class AILeechAttack extends EntityAIBase
+    {
+        private final EntityShadowRemnant parentEntity;
+        public int attackTimer;
+        public int maxTime;
+
+        public AILeechAttack(EntityShadowRemnant shadowRemnant)
+        {
+            this.parentEntity = shadowRemnant;
+        }
+
+        /**
+         * Returns whether the EntityAIBase should begin execution.
+         */
+        @Override
+        public boolean shouldExecute()
+        {
+            return this.parentEntity.owner == null && this.parentEntity.getAttackTarget() != null;
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        @Override
+        public void startExecuting()
+        {
+            this.attackTimer = 0;
+            this.maxTime = 0;
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        @Override
+        public void updateTask()
+        {
+            EntityLivingBase entitylivingbase = this.parentEntity.getAttackTarget();
+            double d0 = 3.0D;
+
+            if (entitylivingbase.getDistanceSq(this.parentEntity) <= d0 * d0 && this.parentEntity.canEntityBeSeen(entitylivingbase))
+            {
+                World world = this.parentEntity.world;
+                --this.attackTimer;
+                ++this.maxTime;
+                
+                this.parentEntity.setLocationAndAngles(entitylivingbase.posX, entitylivingbase.posY + entitylivingbase.getEyeHeight(), entitylivingbase.posZ, entitylivingbase.rotationYaw, entitylivingbase.rotationPitch);
+
+                if (this.attackTimer <= 0)
+                {
+        			this.parentEntity.setSize(this.parentEntity.getSize() + 0.05F);
+        			entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(this.parentEntity), 1.0F);
+                    this.attackTimer = 15;
+                }
+                
+                if (this.maxTime >= 300)
+                {
+                	this.parentEntity.setAttackTarget(null);
+                }
+            }
+        }
+    }
     
     static class AIShadowOrbAttack extends EntityAIBase
     {
@@ -390,7 +480,7 @@ public class EntityShadowRemnant extends EntityMob
         @Override
         public boolean shouldExecute()
         {
-            return this.parentEntity.getAttackTarget() != null;
+            return this.parentEntity.owner != null && this.parentEntity.getAttackTarget() != null;
         }
 
         /**
@@ -418,7 +508,7 @@ public class EntityShadowRemnant extends EntityMob
 
                 if (this.attackTimer <= 0)
                 {
-                    double d1 = 4.0D;
+                	double d1 = 4.0D;
                     Vec3d vec3d = this.parentEntity.getLook(1.0F);
                     double d2 = entitylivingbase.posX - (this.parentEntity.posX + vec3d.x * (this.parentEntity.width / 2.0F + 0.1F));
                     double d3 = entitylivingbase.posY - (this.parentEntity.posY + vec3d.y * (this.parentEntity.height / 2.0F + 0.1F));
@@ -426,7 +516,7 @@ public class EntityShadowRemnant extends EntityMob
                     this.parentEntity.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, (this.parentEntity.getRNG().nextFloat() - this.parentEntity.getRNG().nextFloat()) * 0.2F + 1.4F);
                     EntityTinyShadowOrb tinyshadoworb = new EntityTinyShadowOrb(world, this.parentEntity, d2, d3, d4);
                     tinyshadoworb.posX = this.parentEntity.posX + vec3d.x * (this.parentEntity.width / 2.0F + 0.1F);
-                    tinyshadoworb.posY = this.parentEntity.posY + (double)(this.parentEntity.height / 2.0F) + 0.5D;
+                    tinyshadoworb.posY = this.parentEntity.posY + vec3d.y * (this.parentEntity.height / 2.0F + 0.1F);
                     tinyshadoworb.posZ = this.parentEntity.posZ + vec3d.z * (this.parentEntity.width / 2.0F + 0.1F);
                     world.spawnEntity(tinyshadoworb);
                     this.attackTimer = 60;
@@ -552,9 +642,14 @@ public class EntityShadowRemnant extends EntityMob
             {
                 BlockPos blockpos1 = blockpos.add(EntityShadowRemnant.this.rand.nextInt(15) - 7, EntityShadowRemnant.this.rand.nextInt(11) - 5, EntityShadowRemnant.this.rand.nextInt(15) - 7);
                 
-                if (EntityShadowRemnant.this.getAttackTarget() != null && EntityShadowRemnant.this.getAttackTarget().getDistanceSqToCenter(blockpos1) > 49.0D)
+                if (EntityShadowRemnant.this.getAttackTarget() != null && EntityShadowRemnant.this.getAttackTarget().getDistanceSqToCenter(blockpos1) > 9.0D)
                 {
-                	blockpos1 = new BlockPos(EntityShadowRemnant.this.getAttackTarget().posX + (EntityShadowRemnant.this.rand.nextInt(7) - 3), EntityShadowRemnant.this.getAttackTarget().posY + (EntityShadowRemnant.this.rand.nextInt(9) - 4), EntityShadowRemnant.this.getAttackTarget().posZ + (EntityShadowRemnant.this.rand.nextInt(7) - 3));
+                	blockpos1 = new BlockPos(EntityShadowRemnant.this.getAttackTarget().posX + (EntityShadowRemnant.this.rand.nextInt(7) - 3), EntityShadowRemnant.this.getAttackTarget().posY + EntityShadowRemnant.this.getAttackTarget().getEyeHeight() + (EntityShadowRemnant.this.rand.nextInt(5) - 2), EntityShadowRemnant.this.getAttackTarget().posZ + (EntityShadowRemnant.this.rand.nextInt(7) - 3));
+                }
+                
+                if (EntityShadowRemnant.this.world.getBlockState(blockpos1.down()).getMaterial().isSolid())
+                {
+                	blockpos1 = blockpos1.up();
                 }
 
                 if (EntityShadowRemnant.this.world.isAirBlock(blockpos1))
@@ -569,6 +664,86 @@ public class EntityShadowRemnant extends EntityMob
                     break;
                 }
             }
+        }
+    }
+    
+    class AIMerge extends EntityAIBase
+    {
+    	EntityShadowRemnant toMerge = null;
+    	
+        /**
+         * Returns whether the EntityAIBase should begin execution.
+         */
+        @Override
+        public boolean shouldExecute()
+        {
+        	EntityShadowRemnant biggest = null;
+        	
+            for (EntityShadowRemnant remnant : EntityShadowRemnant.this.world.getEntitiesWithinAABB(EntityShadowRemnant.class, EntityShadowRemnant.this.getEntityBoundingBox().grow(3.0D)))
+            {
+            	if (remnant == EntityShadowRemnant.this || !remnant.isEntityAlive())
+            	{
+            		continue;
+            	}
+            	
+            	if (biggest == null)
+            	{
+            		biggest = remnant;
+            	}
+            	else if (remnant.getSize() > biggest.getSize())
+            	{
+            		biggest = remnant;
+            	}
+            	else if (remnant.getSize() == biggest.getSize())
+            	{
+            		biggest = EntityShadowRemnant.this.rand.nextBoolean() ? remnant : biggest;
+            	}
+            }
+            
+            this.toMerge = biggest;
+            
+            return this.toMerge != null;
+        }
+        
+        /**
+         * Reset the task's internal state. Called when this task is interrupted by another one
+         */
+        @Override
+        public void resetTask()
+        {
+        	this.toMerge = null;
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        @Override
+        public void startExecuting()
+        {
+        	EntityShadowRemnant owner = EntityShadowRemnant.this;
+        	EntityShadowRemnant biggest = null;
+        	
+        	if (owner.getSize() > this.toMerge.getSize())
+            {
+            	biggest = owner;
+            }
+            else if (this.toMerge.getSize() > owner.getSize())
+            {
+            	biggest = this.toMerge;
+            }
+            else
+            {
+            	biggest = owner.rand.nextBoolean() ? this.toMerge : owner;
+            }
+        	
+            EntityShadowRemnant newRemnant = new EntityShadowRemnant(EntityShadowRemnant.this.world);
+            newRemnant.setSize(owner.getSize() + this.toMerge.getSize());
+            newRemnant.setLocationAndAngles(biggest.posX, biggest.posY, biggest.posZ, biggest.rotationYaw, biggest.rotationPitch);
+            newRemnant.setNoAI(biggest.isAIDisabled());
+            owner.world.spawnEntity(newRemnant);
+            this.toMerge.setDead();
+            EntityShadowRemnant.this.setDead();
+            this.resetTask();
         }
     }
 }

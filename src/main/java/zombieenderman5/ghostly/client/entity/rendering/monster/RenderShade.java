@@ -33,7 +33,7 @@ public class RenderShade extends RenderBiped<EntityShade> {
 		GlStateManager.colorMask(false, false, false, false);
 		GlStateManager.color(1, 1, 1, 1);
 
-		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+		//super.doRender(entity, x, y, z, entityYaw, partialTicks);
 
 		GlStateManager.colorMask(true, true, true, true);
 		GlStateManager.enableBlend();
