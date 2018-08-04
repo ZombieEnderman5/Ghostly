@@ -1,0 +1,26 @@
+{
+    "display": {
+        "icon": {
+            "item": "ghostly:corporealite_ore"
+        },
+        "title": {
+            "translate": "advancements.ghostly.obtain_corporealite_ore.title"
+        },
+        "description": {
+            "translate": "advancements.ghostly.obtain_corporealite_ore.description"
+        }
+    },
+    "parent": "minecraft:nether/root",
+    "criteria": {
+        "corporealite_ore": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "ghostly:corporealite_ore"
+                    }
+                ]
+            }
+        }
+    }
+}

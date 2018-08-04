@@ -62,7 +62,7 @@ public class EntitySpectralCorporealityArrow extends EntityCorporealityArrow
 
     public static void registerFixesSpectralArrow(DataFixer fixer)
     {
-        EntityCorporealityArrow.registerFixesArrow(fixer, "SpectralArrow");
+        EntityCorporealityArrow.registerFixesArrow(fixer, "SpectralCorporealityArrow");
     }
 
     /**

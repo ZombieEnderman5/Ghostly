@@ -1,0 +1,36 @@
+{
+  "parent": "ghostly:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ghostly:bow_of_corporeality"
+    ]
+  },
+  "criteria": {
+    "has_at_least_3_string": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:string",
+            "count": {
+              "min": 3
+            }
+          }
+        ]
+      }
+    },
+    "has_at_least_3_corporealite_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ghostly:corporealite_ingot",
+            "count": {
+              "min": 3
+            }
+          }
+        ]
+      }
+    }
+  }
+}

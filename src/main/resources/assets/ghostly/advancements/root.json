@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "ghostly:shadow_dust"
+        },
+        "title": {
+            "translate": "advancements.ghostly.root.title"
+        },
+        "description": {
+            "translate": "advancements.ghostly.root.description"
+        },
+        "background": "ghostly:textures/blocks/corporealite_ore.png",
+        "show_toast": false,
+        "announce_to_chat": false
+    },
+    "criteria": {
+        "tick": {
+            "trigger": "minecraft:tick"
+        }
+    }
+}

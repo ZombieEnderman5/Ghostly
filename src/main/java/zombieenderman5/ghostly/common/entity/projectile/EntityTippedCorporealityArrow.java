@@ -173,7 +173,7 @@ public class EntityTippedCorporealityArrow extends EntityCorporealityArrow {
 
     public static void registerFixesTippedArrow(DataFixer fixer)
     {
-        EntityCorporealityArrow.registerFixesArrow(fixer, "TippedArrow");
+        EntityCorporealityArrow.registerFixesArrow(fixer, "TippedCorporealityArrow");
     }
 
     /**

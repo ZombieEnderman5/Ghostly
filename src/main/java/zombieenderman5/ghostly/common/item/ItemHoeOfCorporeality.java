@@ -52,7 +52,7 @@ public class ItemHoeOfCorporeality extends ItemHoe {
 	@Override
 	public EnumRarity getRarity(ItemStack stack)
     {
-        return EnumRarity.UNCOMMON;
+        return GhostlyItemManager.CORPOREAL_RARITY;
     }
 	
 	@Override

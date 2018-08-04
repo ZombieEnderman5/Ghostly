@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "normal": [{"model": "ghostly:corporealite_ore"}, {"model": "ghostly:corporealite_ore_mirrored"}, {"model": "ghostly:corporealite_ore", "y": 180}, {"model": "ghostly:corporealite_ore_mirrored", "y": 180}]
+    }
+}

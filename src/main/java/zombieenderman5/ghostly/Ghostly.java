@@ -15,13 +15,17 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import zombieenderman5.ghostly.client.core.GhostlyCreativeTabManager;
+import zombieenderman5.ghostly.common.core.GhostlyBlockManager;
 import zombieenderman5.ghostly.common.core.GhostlyEntityManager;
 import zombieenderman5.ghostly.common.core.GhostlyItemManager;
+import zombieenderman5.ghostly.common.core.GhostlyRecipeManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
 import zombieenderman5.ghostly.common.proxy.CommonProxy;
+import zombieenderman5.ghostly.common.world.gen.GhostlyOreGenerator;
 import zombieenderman5.theboxingdead.TBDReference;
 
 @Mod(modid = GhostlyReference.MOD_ID, name = GhostlyReference.MOD_NAME, version = GhostlyReference.MOD_VERSION, dependencies = GhostlyReference.MOD_DEPENDENCIES)
@@ -53,7 +57,9 @@ public class Ghostly {
 
 		GhostlyEntityManager.preInitialization(event);
 		GhostlyCreativeTabManager.preInitialization(event);
+		GhostlyBlockManager.preInitialization(event);
 		GhostlyItemManager.preInitialization(event);
+		GhostlyRecipeManager.preInitialization(event);
 
 		MinecraftForge.EVENT_BUS.register(new GhostlySoundManager());
 		MinecraftForge.EVENT_BUS.register(Ghostly.class);
@@ -76,7 +82,9 @@ public class Ghostly {
 			logger.info("<Ghostly> Beginning initialization stage");
 
 		}
-
+		
+		GameRegistry.registerWorldGenerator(new GhostlyOreGenerator(), 0);
+		
 		GhostlyEntityManager.initialization(event);
 
 		if (GhostlyConfig.logging) {
@@ -128,6 +136,7 @@ public class Ghostly {
             	
             	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(HDEReference.ID, "hunchbone"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_hunchbone"));
             	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(HDEReference.ID, "wither_hunchbone"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_wither_hunchbone"));
+            	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(HDEReference.ID, "withered_zombie"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_withered_zombie"));
             	
             } catch (NoClassDefFoundError ncdfe) {
             	

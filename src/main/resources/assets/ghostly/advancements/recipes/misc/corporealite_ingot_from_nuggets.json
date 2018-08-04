@@ -1,0 +1,36 @@
+{
+  "parent": "ghostly:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ghostly:corporealite_nugget",
+      "ghostly:corporealite_ingot_from_nuggets"
+    ]
+  },
+  "criteria": {
+    "has_at_least_9_corporealite_nugget": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ghostly:corporealite_nugget",
+            "count": {
+              "min": 9
+            }
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ghostly:corporealite_ingot_from_nuggets"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_at_least_9_corporealite_nugget",
+      "has_the_recipe"
+    ]
+  ]
+}

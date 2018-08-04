@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CC",
+    " S",
+    " S"
+  ],
+  "key": {
+    "C": {
+      "item": "ghostly:corporealite_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "ghostly:hoe_of_corporeality"
+  }
+}

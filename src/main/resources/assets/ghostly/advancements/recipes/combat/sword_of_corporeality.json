@@ -1,0 +1,33 @@
+{
+  "parent": "ghostly:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ghostly:sword_of_corporeality"
+    ]
+  },
+  "criteria": {
+    "has_stick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:stick"
+          }
+        ]
+      }
+    },
+    "has_at_least_2_corporealite_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ghostly:corporealite_ingot",
+            "count": {
+              "min": 2
+            }
+          }
+        ]
+      }
+    }
+  }
+}

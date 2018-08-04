@@ -5,13 +5,10 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntitySpectralArrow;
-import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -36,6 +33,7 @@ import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
+import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntitySpectralCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityTippedCorporealityArrow;
 
@@ -193,12 +191,6 @@ public class ItemBowOfCorporeality extends Item
         }
     }
 
-    private EntitySpectralCorporealityArrow createArrowSpectral(World worldIn, ItemStack itemstack, EntityPlayer entityplayer) {
-		
-		return new EntitySpectralCorporealityArrow(worldIn, entityplayer);
-		
-	}
-
 	/**
      * Gets the velocity of the arrow entity from the bow's charge
      */
@@ -284,7 +276,7 @@ public class ItemBowOfCorporeality extends Item
 	@Override
 	public EnumRarity getRarity(ItemStack stack)
     {
-        return EnumRarity.UNCOMMON;
+        return GhostlyItemManager.CORPOREAL_RARITY;
     }
 	
 	@Override
@@ -300,11 +292,24 @@ public class ItemBowOfCorporeality extends Item
         if (stack.getItem() instanceof ItemSpectralArrow) {
         	EntitySpectralCorporealityArrow entityspectralarrow = new EntitySpectralCorporealityArrow(worldIn, shooter);
             return entityspectralarrow;
+        } else if (stack.getItem() instanceof ItemDustedCorporealityArrow) {
+        	EntityDustedCorporealityArrow entitydustedcorporealityarrow = new EntityDustedCorporealityArrow(worldIn, shooter);
+            return entitydustedcorporealityarrow;
         } else {
         	EntityTippedCorporealityArrow entitytippedarrow = new EntityTippedCorporealityArrow(worldIn, shooter);
             entitytippedarrow.setPotionEffect(stack);
             return entitytippedarrow;
         }
     }
+	
+	@Override
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+		
+		toRepair = new ItemStack(this, 1);
+		repair = new ItemStack(Items.STRING, 1);
+		
+		return true;
+		
+	}
 	
 }

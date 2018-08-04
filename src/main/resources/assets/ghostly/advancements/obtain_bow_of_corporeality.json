@@ -1,0 +1,26 @@
+{
+    "display": {
+        "icon": {
+            "item": "ghostly:bow_of_corporeality"
+        },
+        "title": {
+            "translate": "advancements.ghostly.obtain_bow_of_corporeality.title"
+        },
+        "description": {
+            "translate": "advancements.ghostly.obtain_bow_of_corporeality.description"
+        }
+    },
+    "parent": "ghostly:root",
+    "criteria": {
+        "bow_of_corporeality": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "ghostly:bow_of_corporeality"
+                    }
+                ]
+            }
+        }
+    }
+}
