@@ -9,6 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,9 +42,9 @@ public class ItemDustedCorporealityArrow extends ItemArrow {
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		
-		tooltip.add("Damages Shades by 1.5x");
-		tooltip.add("Accepted by normal bows, however it will be counted as an ordinary arrow");
-		tooltip.add("You should probably only use this with a Bow of Corporeality");
+		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.damage_information"));
+		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.arrow_information"));
+		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.bow_information"));
 		
 	}
 	
