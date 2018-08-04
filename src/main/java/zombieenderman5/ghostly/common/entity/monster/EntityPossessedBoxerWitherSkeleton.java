@@ -316,4 +316,10 @@ public class EntityPossessedBoxerWitherSkeleton extends AbstractSkeleton impleme
     	
     }
     
+    public boolean canExist() {
+    	
+    	return GhostlyConfig.MOBS.possessedBoxerWitherSkeletons;
+    	
+    }
+    
 }

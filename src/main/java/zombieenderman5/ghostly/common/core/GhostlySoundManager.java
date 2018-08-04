@@ -80,6 +80,10 @@ public class GhostlySoundManager {
 	public static final SoundEvent DARKNESS_MAGE_PREPARE_ORB = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_orb"));
 	public static final SoundEvent DARKNESS_MAGE_PREPARE_SUMMON = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_summon"));
 	public static final SoundEvent CORPOREALITY_TOOL_HIT = register(new ResourceLocation(GhostlyReference.MOD_ID, "item.tool_of_corporeality.hit"));
+	public static final SoundEvent SHADOW_REMNANT_AMBIENT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shadow_remnant.ambient"));
+	public static final SoundEvent SHADOW_REMNANT_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shadow_remnant.hurt"));
+	public static final SoundEvent SHADOW_REMNANT_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shadow_remnant.death"));
+	public static final SoundEvent SHADOW_REMNANT_EXPLODE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shadow_remnant.explode"));
 
 	public static SoundEvent register(ResourceLocation name) {
         

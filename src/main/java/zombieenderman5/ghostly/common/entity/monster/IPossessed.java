@@ -6,5 +6,6 @@ public interface IPossessed {
 	
 	public int getEyeType();
 	
+	public boolean canExist();
 	
 }

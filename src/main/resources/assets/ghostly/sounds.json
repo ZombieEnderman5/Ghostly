@@ -554,5 +554,29 @@
         "sounds": [{
             "name": "ghostly:item/corporeality_tool_hit"
         }]
+    },
+    "entity.shadow_remnant.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shadow_remnant/ambient"
+        }]
+    },
+    "entity.shadow_remnant.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shadow_remnant/hurt"
+        }]
+    },
+    "entity.shadow_remnant.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shadow_remnant/death"
+        }]
+    },
+    "entity.shadow_remnant.explode": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shadow_remnant/explode"
+        }]
     }
 }

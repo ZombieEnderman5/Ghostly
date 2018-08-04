@@ -81,19 +81,19 @@ public class EntityShade extends EntityMob {
 	    {
 	        net.minecraftforge.event.entity.living.LivingKnockBackEvent event = net.minecraftforge.common.ForgeHooks.onLivingKnockBack(this, entityIn, strength, xRatio, zRatio);
 	        if(event.isCanceled()) return;
-	        strength = event.getStrength(); xRatio = event.getRatioX(); zRatio = event.getRatioZ();
+	        strength = event.getStrength() / 3; xRatio = event.getRatioX(); zRatio = event.getRatioZ();
 	        if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue())
 	        {
 	            this.isAirBorne = true;
 	            float f = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
-	            this.motionX /= 6.0D;
-	            this.motionZ /= 6.0D;
+	            this.motionX /= 2.0D;
+	            this.motionZ /= 2.0D;
 	            this.motionX -= xRatio / (double)f * (double)strength;
 	            this.motionZ -= zRatio / (double)f * (double)strength;
 
 	            if (this.onGround)
 	            {
-	                this.motionY /= 6.0D;
+	                this.motionY /= 2.0D;
 	                this.motionY += (double)strength;
 
 	                if (this.motionY > 0.4000000059604645D)
@@ -197,7 +197,7 @@ public class EntityShade extends EntityMob {
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 
-		return GhostlySoundManager.SHADE_HURT;
+		return GhostlyConfig.AUDIO.alternateShadeAudio ? GhostlySoundManager.SHADE_HURT_ALTERNATE : GhostlySoundManager.SHADE_HURT;
 
 	}
 
@@ -238,7 +238,7 @@ public class EntityShade extends EntityMob {
 	@Override
 	public float getBlockPathWeight(BlockPos pos) {
 
-		return this.world.getLightBrightness(pos) > (float)GhostlyConfig.MOBS.shadeDissipationLightLevel ? -10.0F : super.getBlockPathWeight(pos);
+		return this.world.getLightBrightness(pos) >= (float)GhostlyConfig.MOBS.shadeDissipationLightLevel ? -10.0F : super.getBlockPathWeight(pos);
 	}
 
 	@Override
@@ -390,28 +390,50 @@ public class EntityShade extends EntityMob {
         		return false;
         		
         	}
-        	else if (this.entity.getAttackTarget() != null)
+            /*else if (!this.entity.getNavigator().noPath())
             {
                 return false;
-            }
-            else if (!this.entity.getNavigator().noPath())
-            {
-                return false;
-            }
+            }*/
             else if (this.entity.getHealth() > this.entity.getMaxHealth() / 4.0F)
             {
                 return false;
             }
             else
             {
-            	Random random = this.entity.getRNG();
                 List<EntityLiving> entities = this.entity.world.getEntitiesWithinAABB(EntityLiving.class, this.entity.getEntityBoundingBox().grow(5.0D), entity -> {
                 	return POSSESSABLE_ENTITY_CLASSES.keySet().contains(EntityList.getKey(entity)) && entity.getHealth() > 0.0F;
                 });
                 
                 if (!entities.isEmpty()) {
                 	
-                	this.toPossess = entities.get(random.nextInt(entities.size()));
+                	EntityLiving healthiestEntity = null;
+                	
+                	for (EntityLiving entity : entities) {
+                		
+                		if (healthiestEntity != null) {
+                			
+                			if (entity.getHealth() > healthiestEntity.getHealth()) {
+                				
+                				healthiestEntity = entity;
+                				
+                			}
+                			
+                		} else {
+                			
+                			healthiestEntity = entity;
+                			
+                		}
+                		
+                	}
+                	
+                	this.toPossess = healthiestEntity;
+                	
+                	if (this.toPossess instanceof IPossessed && ((IPossessed) EntityList.createEntityByIDFromName(POSSESSABLE_ENTITY_CLASSES.get(EntityList.getKey(this.toPossess)), null)).canExist()) {
+                		
+                		return false;
+                		
+                	}
+                	
                 	this.doMerge = true;
                 	return true;
                 	
@@ -444,7 +466,7 @@ public class EntityShade extends EntityMob {
                 World world = this.entity.world;
                 Random random = this.entity.getRNG();
                 
-                if (random.nextInt(3) == 0 && this.toPossess.getHealth() > 0.0F) {
+                if (random.nextInt(3) == 0 && this.toPossess.isEntityAlive() && this.toPossess.getHealth() >= this.toPossess.getMaxHealth() * 0.75F) {
                 	
                 	EntityLiving newMob = (EntityLiving) EntityList.createEntityByIDFromName(POSSESSABLE_ENTITY_CLASSES.get(EntityList.getKey(this.toPossess)), world);
 					newMob.setLocationAndAngles(this.toPossess.posX, this.toPossess.posY, this.toPossess.posZ, this.toPossess.rotationYaw, this.toPossess.rotationPitch);
@@ -516,7 +538,7 @@ public class EntityShade extends EntityMob {
 					this.entity.setDead();
 					this.entity.playSound(GhostlySoundManager.SHADE_POSSESS_ENTITY, 1.0F, 1.0F);
                 	
-                } else if (this.toPossess.getHealth() > 0.0F) {
+                } else if (this.toPossess.isEntityAlive()) {
                 	
                 	this.entity.heal(this.toPossess.getHealth() / 2.0F);
                 	

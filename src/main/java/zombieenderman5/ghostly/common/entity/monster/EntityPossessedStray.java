@@ -254,4 +254,10 @@ public class EntityPossessedStray extends AbstractSkeleton implements IRangedAtt
     	
     }
     
+    public boolean canExist() {
+    	
+    	return GhostlyConfig.MOBS.possessedStrays;
+    	
+    }
+    
 }

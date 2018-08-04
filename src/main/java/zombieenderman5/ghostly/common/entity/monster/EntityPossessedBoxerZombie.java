@@ -349,4 +349,10 @@ public class EntityPossessedBoxerZombie extends EntityZombie implements IPossess
     	
     }
     
+    public boolean canExist() {
+    	
+    	return GhostlyConfig.MOBS.possessedBoxerZombies;
+    	
+    }
+    
 }

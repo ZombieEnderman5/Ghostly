@@ -10,11 +10,14 @@ import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zombieenderman5.ghostly.client.entity.rendering.layer.LayerPossessedWitheredZombieEyes;
 import zombieenderman5.ghostly.client.entity.rendering.model.ModelPossessedZombie;
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedHusk;
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedWitheredZombie;
 
+@SideOnly(Side.CLIENT)
 public class RenderPossessedWitheredZombie extends RenderBiped<EntityZombie> {
 	
 	private static final ResourceLocation POSSESSED_WITHERED_ZOMBIE_TEXTURES = new ResourceLocation(HDEReference.ID, "textures/entity/withered_zombie.png");
