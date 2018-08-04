@@ -1,0 +1,26 @@
+{
+    "display": {
+        "icon": {
+            "item": "ghostly:corporealite_ingot"
+        },
+        "title": {
+            "translate": "advancements.ghostly.obtain_corporealite_ingot.title"
+        },
+        "description": {
+            "translate": "advancements.ghostly.obtain_corporealite_ingot.description"
+        }
+    },
+    "parent": "ghostly:obtain_corporealite_ore",
+    "criteria": {
+        "corporealite_ingot": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "ghostly:corporealite_ingot"
+                    }
+                ]
+            }
+        }
+    }
+}

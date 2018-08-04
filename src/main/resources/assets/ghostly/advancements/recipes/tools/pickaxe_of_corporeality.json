@@ -1,0 +1,36 @@
+{
+  "parent": "ghostly:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ghostly:pickaxe_of_corporeality"
+    ]
+  },
+  "criteria": {
+    "has_at_least_2_stick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:stick",
+            "count": {
+              "min": 2
+            }
+          }
+        ]
+      }
+    },
+    "has_at_least_3_corporealite_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ghostly:corporealite_ingot",
+            "count": {
+              "min": 3
+            }
+          }
+        ]
+      }
+    }
+  }
+}

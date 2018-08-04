@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CS",
+    "C S",
+    " CS"
+  ],
+  "key": {
+    "C": {
+      "item": "ghostly:corporealite_ingot"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "ghostly:bow_of_corporeality"
+  }
+}

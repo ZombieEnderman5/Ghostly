@@ -8,7 +8,6 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.TreeMultiset;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -29,7 +28,6 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -46,19 +44,15 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
-import scala.tools.nsc.doc.model.Public;
 import zombieenderman5.ghostly.Ghostly;
 import zombieenderman5.ghostly.GhostlyConfig;
 import zombieenderman5.ghostly.common.core.GhostlyItemManager;
+import zombieenderman5.ghostly.common.core.GhostlyLootTableManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIFleeLight;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIRestrictLight;
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerHusk;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerSkeleton;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerStray;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerWitherSkeleton;
-import zombieenderman5.theboxingdead.common.entity.monster.EntityBoxerZombie;
+import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
 import zombieenderman5.theboxingdead.common.entity.monster.IBoxer;
 
 public class EntityShade extends EntityMob {
@@ -196,7 +190,7 @@ public class EntityShade extends EntityMob {
 	@Override
 	protected SoundEvent getAmbientSound() {
 
-		return GhostlySoundManager.SHADE_AMBIENT;
+		return GhostlyConfig.AUDIO.alternateShadeAudio ? GhostlySoundManager.SHADE_AMBIENT_ALTERNATE : GhostlySoundManager.SHADE_AMBIENT;
 
 	}
 
@@ -223,7 +217,7 @@ public class EntityShade extends EntityMob {
 	@Override
 	protected ResourceLocation getLootTable() {
 
-		return null;
+		return GhostlyLootTableManager.ENTITIES_SHADE;
 
 	}
 
@@ -277,9 +271,17 @@ public class EntityShade extends EntityMob {
 
 			return false;
 
-		} else if (source instanceof EntityDamageSourceIndirect && !(source.getImmediateSource() instanceof EntityCorporealityArrow)) {
+		} else if (source instanceof EntityDamageSourceIndirect && !(source.getImmediateSource() instanceof EntityCorporealityArrow) && !(source.getImmediateSource() instanceof EntityDustedCorporealityArrow)) {
 
 			return false;
+
+		} else if (source instanceof EntityDamageSourceIndirect && source.getImmediateSource() instanceof EntityCorporealityArrow && !(source.getImmediateSource() instanceof EntityDustedCorporealityArrow)) {
+
+			return super.attackEntityFrom(source, amount);
+
+		} else if (source.getImmediateSource() instanceof EntityDustedCorporealityArrow) {
+
+			return super.attackEntityFrom(source, amount * 1.5F);
 
 		} else if (source.getTrueSource() != null && sourceLiving != null && (sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.swordOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.axeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.pickaxeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.shovelOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.hoeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.bowOfCorporeality)) {
 

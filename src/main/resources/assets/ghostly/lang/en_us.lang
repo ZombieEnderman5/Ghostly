@@ -188,6 +188,10 @@ entity.ghostly:possessed_withered_zombie.name=Possessed Withered Zombie
 entity.ghostly:arrow_of_corporeality.name=Arrow of Corporeality
 entity.ghostly:tipped_arrow_of_corporeality.name=Tipped Arrow of Corporeality
 entity.ghostly:spectral_arrow_of_corporeality.name=Spectral Arrow of Corporeality
+entity.ghostly:dusted_arrow_of_corporeality.name=Dusted Arrow of Corporeality
+
+tile.corporealite_ore.name=Corporealite Ore
+tile.corporealite_block.name=Block of Corporealite
 
 item.sword_of_corporeality.name=Sword of Corporeality
 item.axe_of_corporeality.name=Axe of Corporeality
@@ -195,3 +199,23 @@ item.pickaxe_of_corporeality.name=Pickaxe of Corporeality
 item.shovel_of_corporeality.name=Shovel of Corporeality
 item.hoe_of_corporeality.name=Hoe of Corporeality
 item.bow_of_corporeality.name=Bow of Corporeality
+item.corporealite_ingot.name=Corporealite Ingot
+item.corporealite_nugget.name=Corporealite Nugget
+item.dusted_arrow_of_corporeality.name=Dusted Arrow of Corporeality
+item.shadow_dust.name=Shadow Dust
+
+itemGroup.ghostly_combat=Ghostly Combat
+itemGroup.ghostly_tools=Ghostly Tools
+itemGroup.ghostly_blocks=Ghostly Blocks
+itemGroup.ghostly_miscellaneous=Ghostly Miscellaneous
+
+advancements.ghostly.obtain_corporealite_ore.title=What's This?
+advancements.ghostly.obtain_corporealite_ore.description=Obtain Corporealite Ore
+advancements.ghostly.obtain_corporealite_ingot.title=Acquire Corporealware
+advancements.ghostly.obtain_corporealite_ingot.description=Obtain a Corporealite Ingot
+advancements.ghostly.obtain_pickaxe_of_corporeality.title=Isn't it Pickaxe of Corporeality
+advancements.ghostly.obtain_pickaxe_of_corporeality.description=Obtain a Pickaxe of Corporeality
+advancements.ghostly.root.title=Ghostly
+advancements.ghostly.root.description=The root advancement for Ghostly
+advancements.ghostly.obtain_bow_of_corporeality.title=Evil Spirits, Beware
+advancements.ghostly.obtain_bow_of_corporeality.description=Obtain a Bow of Corporeality

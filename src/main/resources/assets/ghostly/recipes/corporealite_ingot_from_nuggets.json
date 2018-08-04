@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "corporealite_ingot",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "ghostly:corporealite_nugget"
+    }
+  },
+  "result": {
+    "item": "ghostly:corporealite_ingot"
+  }
+}

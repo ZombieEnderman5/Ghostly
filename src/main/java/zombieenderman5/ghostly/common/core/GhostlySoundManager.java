@@ -14,6 +14,7 @@ public class GhostlySoundManager {
 	public static final List<SoundEvent> SOUNDS = new ArrayList<>();
 
 	public static final SoundEvent SHADE_AMBIENT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shade.ambient"));
+	public static final SoundEvent SHADE_AMBIENT_ALTERNATE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shade.ambient_alternate"));
 	public static final SoundEvent SHADE_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shade.hurt"));
 	public static final SoundEvent SHADE_HURT_ALTERNATE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shade.hurt_alternate"));
 	public static final SoundEvent SHADE_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shade.death"));
