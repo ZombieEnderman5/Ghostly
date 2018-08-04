@@ -37,6 +37,7 @@ import zombieenderman5.ghostly.client.entity.rendering.monster.RenderShade;
 import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderShadowOrb;
 =======
 import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderCorporealityArrow;
+import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderDustedCorporealityArrow;
 import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderSpectralCorporealityArrow;
 import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderTippedCorporealityArrow;
 >>>>>>> b05d1f0d60093003ea94a73646db743b0121c9cd
@@ -62,6 +63,7 @@ import zombieenderman5.ghostly.common.entity.projectile.EntityShadowOrb;
 import zombieenderman5.ghostly.common.entity.projectile.EntityTinyShadowOrb;
 =======
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
+import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntitySpectralCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityTippedCorporealityArrow;
 >>>>>>> b05d1f0d60093003ea94a73646db743b0121c9cd
@@ -169,7 +171,11 @@ public class GhostlyEntityManager {
 		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "arrow_of_corporeality"), EntityCorporealityArrow.class, GhostlyReference.MOD_ID + ":arrow_of_corporeality", id++, mod, 64, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "tipped_arrow_of_corporeality"), EntityTippedCorporealityArrow.class, GhostlyReference.MOD_ID + ":tipped_arrow_of_corporeality", id++, mod, 64, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "spectral_arrow_of_corporeality"), EntitySpectralCorporealityArrow.class, GhostlyReference.MOD_ID + ":spectral_arrow_of_corporeality", id++, mod, 64, 1, true);
+<<<<<<< HEAD
 >>>>>>> b05d1f0d60093003ea94a73646db743b0121c9cd
+=======
+		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "dusted_arrow_of_corporeality"), EntityDustedCorporealityArrow.class, GhostlyReference.MOD_ID + ":dusted_arrow_of_corporeality", id++, mod, 64, 1, true);
+>>>>>>> 314390b53ceccb5bd01782a5e58c39cf75e4e235
 		
 	}
 
@@ -205,7 +211,11 @@ public class GhostlyEntityManager {
 		RenderingRegistry.registerEntityRenderingHandler(EntityCorporealityArrow.class, RenderCorporealityArrow.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTippedCorporealityArrow.class, RenderTippedCorporealityArrow.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpectralCorporealityArrow.class, RenderSpectralCorporealityArrow.FACTORY);
+<<<<<<< HEAD
 >>>>>>> b05d1f0d60093003ea94a73646db743b0121c9cd
+=======
+		RenderingRegistry.registerEntityRenderingHandler(EntityDustedCorporealityArrow.class, RenderDustedCorporealityArrow.FACTORY);
+>>>>>>> 314390b53ceccb5bd01782a5e58c39cf75e4e235
 		
 	}
 

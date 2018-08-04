@@ -1,0 +1,26 @@
+{
+    "display": {
+        "icon": {
+            "item": "ghostly:pickaxe_of_corporeality"
+        },
+        "title": {
+            "translate": "advancements.ghostly.obtain_pickaxe_of_corporeality.title"
+        },
+        "description": {
+            "translate": "advancements.ghostly.obtain_pickaxe_of_corporeality.description"
+        }
+    },
+    "parent": "ghostly:obtain_corporealite_ingot",
+    "criteria": {
+        "pickaxe_of_corporeality": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "ghostly:pickaxe_of_corporeality"
+                    }
+                ]
+            }
+        }
+    }
+}

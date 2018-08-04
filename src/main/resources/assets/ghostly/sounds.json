@@ -7,6 +7,12 @@
             "name": "ghostly:entity/shade/ambient2"
         }]
     },
+    "entity.shade.ambient_alternate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shade/ambient_alternate"
+        }]
+    },
     "entity.shade.hurt": {
         "replace": false,
         "sounds": [{

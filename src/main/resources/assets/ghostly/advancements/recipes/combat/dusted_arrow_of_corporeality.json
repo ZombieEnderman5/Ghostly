@@ -1,0 +1,33 @@
+{
+  "parent": "ghostly:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ghostly:dusted_arrow_of_corporeality"
+    ]
+  },
+  "criteria": {
+    "has_at_least_4_shadow_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ghostly:shadow_dust",
+            "count": {
+              "min": 4
+            }
+          }
+        ]
+      }
+    },
+    "has_arrow": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:arrow"
+          }
+        ]
+      }
+    }
+  }
+}
