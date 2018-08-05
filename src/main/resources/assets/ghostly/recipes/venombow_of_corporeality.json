@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CV",
+    "C V",
+    " CV"
+  ],
+  "key": {
+    "C": {
+      "item": "ghostly:corporealite_ingot"
+    },
+    "V": {
+      "item": "ghostly:venomstring"
+    }
+  },
+  "result": {
+    "item": "ghostly:venombow_of_corporeality"
+  }
+}

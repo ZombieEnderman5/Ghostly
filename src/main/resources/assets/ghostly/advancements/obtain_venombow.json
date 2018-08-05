@@ -1,0 +1,26 @@
+{
+    "display": {
+        "icon": {
+            "item": "ghostly:venombow"
+        },
+        "title": {
+            "translate": "advancements.ghostly.obtain_venombow.title"
+        },
+        "description": {
+            "translate": "advancements.ghostly.obtain_venombow.description"
+        }
+    },
+    "parent": "ghostly:root",
+    "criteria": {
+        "venombow": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "ghostly:venombow"
+                    }
+                ]
+            }
+        }
+    }
+}

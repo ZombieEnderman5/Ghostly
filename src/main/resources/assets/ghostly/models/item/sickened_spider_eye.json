@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "ghostly:items/sickened_spider_eye"
+    }
+}

@@ -61,6 +61,8 @@ public class Ghostly {
 		GhostlyItemManager.preInitialization(event);
 		GhostlyRecipeManager.preInitialization(event);
 
+		MinecraftForge.EVENT_BUS.register(new GhostlyBlockManager());
+		MinecraftForge.EVENT_BUS.register(new GhostlyItemManager());
 		MinecraftForge.EVENT_BUS.register(new GhostlySoundManager());
 		MinecraftForge.EVENT_BUS.register(Ghostly.class);
 		

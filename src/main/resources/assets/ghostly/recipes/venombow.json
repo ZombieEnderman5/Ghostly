@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " SV",
+    "S V",
+    " SV"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "V": {
+      "item": "ghostly:venomstring"
+    }
+  },
+  "result": {
+    "item": "ghostly:venombow"
+  }
+}

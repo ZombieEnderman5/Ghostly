@@ -1,0 +1,6 @@
+{
+    "parent": "ghostly:item/venombow_of_corporeality",
+    "textures": {
+        "layer0": "ghostly:items/venombow_of_corporeality_pulling_1"
+    }
+}

@@ -35,7 +35,8 @@ public class ItemShadowDust extends Item {
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		
-		tooltip.add(I18n.translateToLocal("ghostly.shadow_dust.information"));
+		tooltip.add(I18n.translateToLocal("ghostly.shadow_dust.damage_information"));
+		tooltip.add(I18n.translateToLocal("ghostly.shadow_dust.wither_information"));
 		
 	}
 	

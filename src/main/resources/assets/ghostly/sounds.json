@@ -604,5 +604,31 @@
         }, {
             "name": "ghostly:entity/spiritual_turret/death2"
         }]
+    },
+    "entity.sickened_spider.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/sickened_spider/ambient1"
+        }, {
+            "name": "ghostly:entity/sickened_spider/ambient2"
+        }, {
+            "name": "ghostly:entity/sickened_spider/ambient3"
+        }]
+    },
+    "entity.sickened_spider.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/sickened_spider/ambient1"
+        }, {
+            "name": "ghostly:entity/sickened_spider/ambient2"
+        }, {
+            "name": "ghostly:entity/sickened_spider/ambient3"
+        }]
+    },
+    "entity.sickened_spider.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/sickened_spider/death"
+        }]
     }
 }

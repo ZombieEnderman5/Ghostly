@@ -87,6 +87,9 @@ public class GhostlySoundManager {
 	public static final SoundEvent SPIRITUAL_TURRET_AMBIENT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.spiritual_turret.ambient"));
 	public static final SoundEvent SPIRITUAL_TURRET_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.spiritual_turret.hurt"));
 	public static final SoundEvent SPIRITUAL_TURRET_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.spiritual_turret.death"));
+	public static final SoundEvent SICKENED_SPIDER_AMBIENT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.sickened_spider.ambient"));
+	public static final SoundEvent SICKENED_SPIDER_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.sickened_spider.hurt"));
+	public static final SoundEvent SICKENED_SPIDER_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.sickened_spider.death"));
 
 	public static SoundEvent register(ResourceLocation name) {
         

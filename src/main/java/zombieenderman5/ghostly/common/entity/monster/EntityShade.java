@@ -54,6 +54,7 @@ import zombieenderman5.ghostly.common.entity.ai.EntityAIFleeLight;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIRestrictLight;
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
+import zombieenderman5.ghostly.common.entity.projectile.EntityDustedVenomCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.ICorporealityProjectile;
 import zombieenderman5.ghostly.common.item.IToolOfCorporeality;
 import zombieenderman5.theboxingdead.common.entity.monster.IBoxer;
@@ -88,9 +89,9 @@ public class EntityShade extends EntityMob implements IPartiallyIncorporeal {
 	        if (entityIn != null && !(entityIn instanceof IProjectile)) livingEntity = (EntityLivingBase) entityIn;
 	        if (entityIn != null && livingEntity != null && livingEntity.getHeldItemMainhand().getItem() instanceof IToolOfCorporeality) {
 	        	strength = event.getStrength();
-	        } else if (entityIn != null && entityIn instanceof ICorporealityProjectile && !(entityIn instanceof EntityDustedCorporealityArrow)) {
+	        } else if (entityIn != null && entityIn instanceof ICorporealityProjectile && !(entityIn instanceof EntityDustedCorporealityArrow || entityIn instanceof EntityDustedVenomCorporealityArrow)) {
 	        	strength = event.getStrength();
-	        } else if (entityIn != null && entityIn instanceof EntityDustedCorporealityArrow) {
+	        } else if (entityIn != null && (entityIn instanceof EntityDustedCorporealityArrow || entityIn instanceof EntityDustedVenomCorporealityArrow)) {
 	        	strength = event.getStrength() * 1.5F;
 	        } else {
 	        	strength = event.getStrength() / 3;
@@ -285,15 +286,15 @@ public class EntityShade extends EntityMob implements IPartiallyIncorporeal {
 
 			return false;
 
-		} else if (source instanceof EntityDamageSourceIndirect && !(source.getImmediateSource() instanceof EntityCorporealityArrow) && !(source.getImmediateSource() instanceof EntityDustedCorporealityArrow)) {
+		} else if (source instanceof EntityDamageSourceIndirect && !(source.getImmediateSource() instanceof EntityCorporealityArrow) && !(source.getImmediateSource() instanceof EntityDustedCorporealityArrow || source.getImmediateSource() instanceof EntityDustedVenomCorporealityArrow)) {
 
 			return false;
 
-		} else if (source instanceof EntityDamageSourceIndirect && source.getImmediateSource() instanceof EntityCorporealityArrow && !(source.getImmediateSource() instanceof EntityDustedCorporealityArrow)) {
+		} else if (source instanceof EntityDamageSourceIndirect && source.getImmediateSource() instanceof EntityCorporealityArrow && !(source.getImmediateSource() instanceof EntityDustedCorporealityArrow || source.getImmediateSource() instanceof EntityDustedVenomCorporealityArrow)) {
 
 			return super.attackEntityFrom(source, amount);
 
-		} else if (source.getImmediateSource() instanceof EntityDustedCorporealityArrow) {
+		} else if (source.getImmediateSource() instanceof EntityDustedCorporealityArrow || source.getImmediateSource() instanceof EntityDustedVenomCorporealityArrow) {
 
 			return super.attackEntityFrom(source, amount * 1.5F);
 

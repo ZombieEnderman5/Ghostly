@@ -1,0 +1,6 @@
+{
+    "parent": "ghostly:item/venombow",
+    "textures": {
+        "layer0": "ghostly:items/venombow_pulling_1"
+    }
+}

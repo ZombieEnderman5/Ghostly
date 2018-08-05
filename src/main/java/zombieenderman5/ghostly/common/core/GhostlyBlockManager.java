@@ -4,7 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import zombieenderman5.ghostly.GhostlyReference;
 import zombieenderman5.ghostly.common.block.BlockCorporealite;
@@ -19,6 +21,11 @@ public class GhostlyBlockManager {
 		
 		corporealiteOre = new BlockCorporealiteOre();
 		corporealiteBlock = new BlockCorporealite();
+		
+	}
+	
+	@SubscribeEvent
+    public void registerBlocks(RegistryEvent.Register<Block> event) {
 		
 		ForgeRegistries.BLOCKS.register(corporealiteOre);
 		ForgeRegistries.BLOCKS.register(corporealiteBlock);

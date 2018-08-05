@@ -1,0 +1,36 @@
+{
+  "parent": "ghostly:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ghostly:venombow"
+    ]
+  },
+  "criteria": {
+    "has_at_least_3_venomstring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ghostly:venomstring",
+            "count": {
+              "min": 3
+            }
+          }
+        ]
+      }
+    },
+    "has_at_least_3_stick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:stick",
+            "count": {
+              "min": 3
+            }
+          }
+        ]
+      }
+    }
+  }
+}

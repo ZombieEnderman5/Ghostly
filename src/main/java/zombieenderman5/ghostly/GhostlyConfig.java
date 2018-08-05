@@ -70,6 +70,8 @@ public class GhostlyConfig {
 		public int darknessMageSpawnRate = 0;
 		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
 		public int spiritualTurretSpawnRate = 90;
+		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
+		public int sickenedSpiderSpawnRate = 50;
 		@Config.RangeDouble(min = -0.1D, max = 1.0D)
 		public double shadeDissipationLightLevel = 0.15D;
 		@Config.RangeDouble(min = -0.1D, max = 1.0D)
@@ -92,6 +94,7 @@ public class GhostlyConfig {
 		public boolean darknessMages = true;
 		public boolean shadowRemnants = true;
 		public boolean spiritualTurrets = false;
+		public boolean sickenedSpiders = true;
 		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
 		public int possessedSwordSpawnRate = 100;
 		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)

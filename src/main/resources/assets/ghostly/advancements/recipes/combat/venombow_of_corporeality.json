@@ -1,0 +1,36 @@
+{
+  "parent": "ghostly:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ghostly:venombow_of_corporeality"
+    ]
+  },
+  "criteria": {
+    "has_at_least_3_venomstring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ghostly:venomstring",
+            "count": {
+              "min": 3
+            }
+          }
+        ]
+      }
+    },
+    "has_at_least_3_corporealite_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ghostly:corporealite_ingot",
+            "count": {
+              "min": 3
+            }
+          }
+        ]
+      }
+    }
+  }
+}

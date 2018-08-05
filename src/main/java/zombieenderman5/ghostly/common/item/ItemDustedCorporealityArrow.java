@@ -45,6 +45,7 @@ public class ItemDustedCorporealityArrow extends ItemArrow {
 		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.damage_information"));
 		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.arrow_information"));
 		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.bow_information"));
+		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.wither_information"));
 		
 	}
 	
