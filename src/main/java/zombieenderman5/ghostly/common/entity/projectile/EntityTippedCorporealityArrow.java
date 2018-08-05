@@ -25,9 +25,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.monster.EntityShade;
+import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
 
-public class EntityTippedCorporealityArrow extends EntityCorporealityArrow {
+public class EntityTippedCorporealityArrow extends EntityCorporealityArrow implements ICorporealityProjectile {
 
 	private static final DataParameter<Integer> COLOR = EntityDataManager.<Integer>createKey(EntityTippedArrow.class, DataSerializers.VARINT);
     private PotionType potion = PotionTypes.EMPTY;
@@ -253,7 +253,7 @@ public class EntityTippedCorporealityArrow extends EntityCorporealityArrow {
             }
         }
         
-        if (living instanceof EntityShade) living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
+        if (living instanceof IPartiallyIncorporeal) living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
         
     }
 

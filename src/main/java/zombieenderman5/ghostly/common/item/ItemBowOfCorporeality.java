@@ -32,13 +32,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import zombieenderman5.ghostly.client.core.GhostlyCreativeTabManager;
 import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.monster.EntityShade;
+import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntitySpectralCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityTippedCorporealityArrow;
 
-public class ItemBowOfCorporeality extends Item
+public class ItemBowOfCorporeality extends Item implements IToolOfCorporeality
 {
     public ItemBowOfCorporeality()
     {
@@ -261,7 +261,7 @@ public class ItemBowOfCorporeality extends Item
     @Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
     {
-        if (target instanceof EntityShade) {
+        if (target instanceof IPartiallyIncorporeal) {
         	target.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
         }
         return true;

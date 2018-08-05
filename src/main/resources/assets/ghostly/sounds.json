@@ -578,5 +578,31 @@
         "sounds": [{
             "name": "ghostly:entity/shadow_remnant/explode"
         }]
+    },
+    "entity.spiritual_turret.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/spiritual_turret/ambient1"
+        }, {
+            "name": "ghostly:entity/spiritual_turret/ambient2"
+        }, {
+            "name": "ghostly:entity/spiritual_turret/ambient3"
+        }]
+    },
+    "entity.spiritual_turret.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/spiritual_turret/hurt1"
+        }, {
+            "name": "ghostly:entity/spiritual_turret/hurt2"
+        }]
+    },
+    "entity.spiritual_turret.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/spiritual_turret/death1"
+        }, {
+            "name": "ghostly:entity/spiritual_turret/death2"
+        }]
     }
 }

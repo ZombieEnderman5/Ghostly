@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -29,6 +30,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -46,11 +48,16 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import zombieenderman5.ghostly.GhostlyConfig;
+import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIFleeLight;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIRestrictLight;
+import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
+import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
+import zombieenderman5.ghostly.common.entity.projectile.ICorporealityProjectile;
+import zombieenderman5.ghostly.common.item.IToolOfCorporeality;
 
-public class EntityInfestedEnderman extends EntityEnderman {
+public class EntityInfestedEnderman extends EntityEnderman implements IPartiallyIncorporeal {
 
 	private static final Set<Block> CARRIABLE_BLOCKS = Sets.<Block>newIdentityHashSet();
 	
@@ -118,19 +125,30 @@ public class EntityInfestedEnderman extends EntityEnderman {
 	    {
 	        net.minecraftforge.event.entity.living.LivingKnockBackEvent event = net.minecraftforge.common.ForgeHooks.onLivingKnockBack(this, entityIn, strength, xRatio, zRatio);
 	        if(event.isCanceled()) return;
-	        strength = event.getStrength(); xRatio = event.getRatioX(); zRatio = event.getRatioZ();
+	        EntityLivingBase livingEntity = null;
+	        if (entityIn != null && !(entityIn instanceof IProjectile)) livingEntity = (EntityLivingBase) entityIn;
+	        if (entityIn != null && livingEntity != null && livingEntity.getHeldItemMainhand().getItem() instanceof IToolOfCorporeality) {
+	        	strength = event.getStrength();
+	        } else if (entityIn != null && entityIn instanceof ICorporealityProjectile && !(entityIn instanceof EntityDustedCorporealityArrow)) {
+	        	strength = event.getStrength();
+	        } else if (entityIn != null && entityIn instanceof EntityDustedCorporealityArrow) {
+	        	strength = event.getStrength() * 1.5F;
+	        } else {
+	        	strength = event.getStrength() * 0.7F;
+	        }
+	        xRatio = event.getRatioX(); zRatio = event.getRatioZ();
 	        if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue())
 	        {
 	            this.isAirBorne = true;
 	            float f = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
-	            this.motionX /= 4.0D;
-	            this.motionZ /= 4.0D;
+	            this.motionX /= 2.0D;
+	            this.motionZ /= 2.0D;
 	            this.motionX -= xRatio / (double)f * (double)strength;
 	            this.motionZ -= zRatio / (double)f * (double)strength;
 
 	            if (this.onGround)
 	            {
-	                this.motionY /= 4.0D;
+	                this.motionY /= 2.0D;
 	                this.motionY += (double)strength;
 
 	                if (this.motionY > 0.4000000059604645D)
@@ -161,7 +179,7 @@ public class EntityInfestedEnderman extends EntityEnderman {
 		
 		if (!this.onGround && this.motionY < 0.0D)
         {
-            this.motionY *= 0.6D;
+            this.motionY *= 0.7D;
         }
 		
 		if (this.world.getLightBrightness(new BlockPos(this)) > (float)GhostlyConfig.MOBS.shadeDissipationLightLevel)
@@ -212,25 +230,29 @@ public class EntityInfestedEnderman extends EntityEnderman {
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		
-		if (source.isExplosion()) {
+		EntityLivingBase sourceLiving = null;
+		
+		if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase) {
+			
+			sourceLiving = (EntityLivingBase) source.getTrueSource();
+			
+		}
+		
+		if (source instanceof EntityDamageSourceIndirect && source.getImmediateSource() instanceof EntityCorporealityArrow && !(source.getImmediateSource() instanceof EntityDustedCorporealityArrow)) {
 
-			return super.attackEntityFrom(source, amount / 3);
+			return super.attackEntityFrom(source, amount);
 
-		} else if (source.isFireDamage()) {
+		} else if (source.getImmediateSource() instanceof EntityDustedCorporealityArrow) {
 
-			return super.attackEntityFrom(source, amount / 3);
+			return super.attackEntityFrom(source, amount * 1.5F);
 
-		} else if (source.isMagicDamage()) {
+		} else if (source.getTrueSource() != null && sourceLiving != null && sourceLiving.getHeldItemMainhand().getItem() instanceof IToolOfCorporeality) {
 
-			return super.attackEntityFrom(source, amount / 3);
-
-		} else if (source instanceof EntityDamageSourceIndirect) {
-
-			return super.attackEntityFrom(source, amount / 3);
+			return super.attackEntityFrom(source, amount);
 
 		} else {
 
-			return super.attackEntityFrom(source, amount / 3 * 2);
+			return super.attackEntityFrom(source, amount * 0.7F);
 
 		}
 		

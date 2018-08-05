@@ -6,9 +6,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.monster.EntityShade;
+import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
 
-public class EntityCorporealityArrow extends EntityArrow {
+public class EntityCorporealityArrow extends EntityArrow implements ICorporealityProjectile {
 
 	public EntityCorporealityArrow(World worldIn) {
 		
@@ -39,7 +39,7 @@ public class EntityCorporealityArrow extends EntityArrow {
 		
 		super.arrowHit(living);
 		
-		if (living instanceof EntityShade) living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
+		if (living instanceof IPartiallyIncorporeal) living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
 		
 	}
 	

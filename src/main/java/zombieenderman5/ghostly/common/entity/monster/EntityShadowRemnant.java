@@ -10,26 +10,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.MoverType;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITarget;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -44,19 +35,18 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import zombieenderman5.ghostly.Ghostly;
 import zombieenderman5.ghostly.GhostlyConfig;
-import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
+import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityTinyShadowOrb;
+import zombieenderman5.ghostly.common.entity.projectile.ICorporealityProjectile;
+import zombieenderman5.ghostly.common.item.IToolOfCorporeality;
 
-public class EntityShadowRemnant extends EntityMob
+public class EntityShadowRemnant extends EntityMob implements IPartiallyIncorporeal
 {
     protected static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntityShadowRemnant.class, DataSerializers.FLOAT);
     @Nullable
@@ -172,7 +162,18 @@ public class EntityShadowRemnant extends EntityMob
     {
         net.minecraftforge.event.entity.living.LivingKnockBackEvent event = net.minecraftforge.common.ForgeHooks.onLivingKnockBack(this, entityIn, strength, xRatio, zRatio);
         if(event.isCanceled()) return;
-        strength = event.getStrength() / 5; xRatio = event.getRatioX(); zRatio = event.getRatioZ();
+        EntityLivingBase livingEntity = null;
+        if (entityIn != null && !(entityIn instanceof IProjectile)) livingEntity = (EntityLivingBase) entityIn;
+        if (entityIn != null && livingEntity != null && livingEntity.getHeldItemMainhand().getItem() instanceof IToolOfCorporeality) {
+        	strength = event.getStrength();
+        } else if (entityIn != null && entityIn instanceof ICorporealityProjectile && !(entityIn instanceof EntityDustedCorporealityArrow)) {
+        	strength = event.getStrength();
+        } else if (entityIn != null && entityIn instanceof EntityDustedCorporealityArrow) {
+        	strength = event.getStrength() * 1.5F;
+        } else {
+        	strength = event.getStrength() / 5;
+        }
+        xRatio = event.getRatioX(); zRatio = event.getRatioZ();
         if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue())
         {
             this.isAirBorne = true;
@@ -352,7 +353,15 @@ public class EntityShadowRemnant extends EntityMob
 
 			return false;
 
-		} else if (source.getTrueSource() != null && sourceLiving != null && (sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.swordOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.axeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.pickaxeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.shovelOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.hoeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.bowOfCorporeality)) {
+		} else if (source instanceof EntityDamageSourceIndirect && source.getImmediateSource() instanceof EntityCorporealityArrow && !(source.getImmediateSource() instanceof EntityDustedCorporealityArrow)) {
+
+			this.setSize(this.getSize() - amount / 50.0F);
+
+		} else if (source instanceof EntityDamageSourceIndirect && source.getImmediateSource() instanceof EntityDustedCorporealityArrow) {
+
+			this.setSize(this.getSize() - amount / 33.3F);
+
+		} else if (source.getTrueSource() != null && sourceLiving != null && sourceLiving.getHeldItemMainhand().getItem() instanceof IToolOfCorporeality) {
 
 			this.setSize(this.getSize() - amount / 50.0F);
 

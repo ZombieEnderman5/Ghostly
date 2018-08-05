@@ -84,6 +84,9 @@ public class GhostlySoundManager {
 	public static final SoundEvent SHADOW_REMNANT_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shadow_remnant.hurt"));
 	public static final SoundEvent SHADOW_REMNANT_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shadow_remnant.death"));
 	public static final SoundEvent SHADOW_REMNANT_EXPLODE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shadow_remnant.explode"));
+	public static final SoundEvent SPIRITUAL_TURRET_AMBIENT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.spiritual_turret.ambient"));
+	public static final SoundEvent SPIRITUAL_TURRET_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.spiritual_turret.hurt"));
+	public static final SoundEvent SPIRITUAL_TURRET_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.spiritual_turret.death"));
 
 	public static SoundEvent register(ResourceLocation name) {
         

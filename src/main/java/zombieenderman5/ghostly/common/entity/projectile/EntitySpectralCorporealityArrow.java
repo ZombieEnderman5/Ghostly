@@ -10,9 +10,9 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.monster.EntityShade;
+import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
 
-public class EntitySpectralCorporealityArrow extends EntityCorporealityArrow
+public class EntitySpectralCorporealityArrow extends EntityCorporealityArrow implements ICorporealityProjectile
 {
     private int duration = 200;
 
@@ -57,7 +57,7 @@ public class EntitySpectralCorporealityArrow extends EntityCorporealityArrow
         super.arrowHit(living);
         PotionEffect potioneffect = new PotionEffect(MobEffects.GLOWING, this.duration, 0);
         living.addPotionEffect(potioneffect);
-        if (living instanceof EntityShade) living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
+        if (living instanceof IPartiallyIncorporeal) living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
     }
 
     public static void registerFixesSpectralArrow(DataFixer fixer)

@@ -1,18 +1,17 @@
 package zombieenderman5.ghostly.common.entity.projectile;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
+import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.monster.EntityShade;
+import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
 
-public class EntityDustedCorporealityArrow extends EntityCorporealityArrow
+public class EntityDustedCorporealityArrow extends EntityCorporealityArrow implements ICorporealityProjectile
 {
     public EntityDustedCorporealityArrow(World worldIn)
     {
@@ -46,14 +45,14 @@ public class EntityDustedCorporealityArrow extends EntityCorporealityArrow
     @Override
     protected ItemStack getArrowStack()
     {
-        return new ItemStack(Items.SPECTRAL_ARROW);
+        return new ItemStack(GhostlyItemManager.dustedArrowOfCorporeality);
     }
 
     @Override
     protected void arrowHit(EntityLivingBase living)
     {
         super.arrowHit(living);
-        if (living instanceof EntityShade) {
+        if (living instanceof IPartiallyIncorporeal) {
         	living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
         } else {
         	living.addPotionEffect(new PotionEffect(MobEffects.WITHER, 200));

@@ -10,7 +10,7 @@
             "translate": "advancements.ghostly.obtain_bow_of_corporeality.description"
         }
     },
-    "parent": "ghostly:root",
+    "parent": "ghostly:obtain_corporealite_ingot",
     "criteria": {
         "bow_of_corporeality": {
             "trigger": "minecraft:inventory_changed",

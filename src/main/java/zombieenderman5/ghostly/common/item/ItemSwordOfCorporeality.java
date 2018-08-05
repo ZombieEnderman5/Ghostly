@@ -17,8 +17,9 @@ import zombieenderman5.ghostly.client.core.GhostlyCreativeTabManager;
 import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
+import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
 
-public class ItemSwordOfCorporeality extends ItemSword {
+public class ItemSwordOfCorporeality extends ItemSword implements IToolOfCorporeality {
 
 	public ItemSwordOfCorporeality() {
 		
@@ -33,7 +34,7 @@ public class ItemSwordOfCorporeality extends ItemSword {
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
     {
-        if (target instanceof EntityShade) {
+        if (target instanceof IPartiallyIncorporeal) {
         	stack.damageItem(1, attacker);
         	target.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
         }

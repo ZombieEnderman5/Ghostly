@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -53,9 +54,11 @@ import zombieenderman5.ghostly.common.entity.ai.EntityAIFleeLight;
 import zombieenderman5.ghostly.common.entity.ai.EntityAIRestrictLight;
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
+import zombieenderman5.ghostly.common.entity.projectile.ICorporealityProjectile;
+import zombieenderman5.ghostly.common.item.IToolOfCorporeality;
 import zombieenderman5.theboxingdead.common.entity.monster.IBoxer;
 
-public class EntityShade extends EntityMob {
+public class EntityShade extends EntityMob implements IPartiallyIncorporeal {
 
 	public static final Map<ResourceLocation, ResourceLocation> POSSESSABLE_ENTITY_CLASSES = new HashMap<ResourceLocation, ResourceLocation>();
 	private static final Predicate<Entity> INFEST_ENDERMAN_SELECTOR = new Predicate<Entity>()
@@ -81,7 +84,18 @@ public class EntityShade extends EntityMob {
 	    {
 	        net.minecraftforge.event.entity.living.LivingKnockBackEvent event = net.minecraftforge.common.ForgeHooks.onLivingKnockBack(this, entityIn, strength, xRatio, zRatio);
 	        if(event.isCanceled()) return;
-	        strength = event.getStrength() / 3; xRatio = event.getRatioX(); zRatio = event.getRatioZ();
+	        EntityLivingBase livingEntity = null;
+	        if (entityIn != null && !(entityIn instanceof IProjectile)) livingEntity = (EntityLivingBase) entityIn;
+	        if (entityIn != null && livingEntity != null && livingEntity.getHeldItemMainhand().getItem() instanceof IToolOfCorporeality) {
+	        	strength = event.getStrength();
+	        } else if (entityIn != null && entityIn instanceof ICorporealityProjectile && !(entityIn instanceof EntityDustedCorporealityArrow)) {
+	        	strength = event.getStrength();
+	        } else if (entityIn != null && entityIn instanceof EntityDustedCorporealityArrow) {
+	        	strength = event.getStrength() * 1.5F;
+	        } else {
+	        	strength = event.getStrength() / 3;
+	        }
+	        xRatio = event.getRatioX(); zRatio = event.getRatioZ();
 	        if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue())
 	        {
 	            this.isAirBorne = true;
@@ -283,7 +297,7 @@ public class EntityShade extends EntityMob {
 
 			return super.attackEntityFrom(source, amount * 1.5F);
 
-		} else if (source.getTrueSource() != null && sourceLiving != null && (sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.swordOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.axeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.pickaxeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.shovelOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.hoeOfCorporeality || sourceLiving.getHeldItemMainhand().getItem() == GhostlyItemManager.bowOfCorporeality)) {
+		} else if (source.getTrueSource() != null && sourceLiving != null && sourceLiving.getHeldItemMainhand().getItem() instanceof IToolOfCorporeality) {
 
 			return super.attackEntityFrom(source, amount);
 
