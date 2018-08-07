@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -61,7 +62,7 @@ public class ItemPickaxeOfCorporeality extends ItemPickaxe implements IToolOfCor
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		
-		tooltip.add(I18n.translateToLocal("ghostly.corporeality.melee_tool.information"));
+		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("ghostly.corporeality.melee_tool.information"));
 		
 	}
 	

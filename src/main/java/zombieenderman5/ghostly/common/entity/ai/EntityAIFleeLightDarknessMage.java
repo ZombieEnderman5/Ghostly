@@ -12,7 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import zombieenderman5.ghostly.GhostlyConfig;
 
-public class EntityAIFleeLight extends EntityAIBase {
+public class EntityAIFleeLightDarknessMage extends EntityAIBase {
 
 	 private final EntityCreature creature;
 	    private double shelterX;
@@ -21,7 +21,7 @@ public class EntityAIFleeLight extends EntityAIBase {
 	    private final double movementSpeed;
 	    private final World world;
 
-	    public EntityAIFleeLight(EntityCreature theCreatureIn, double movementSpeedIn)
+	    public EntityAIFleeLightDarknessMage(EntityCreature theCreatureIn, double movementSpeedIn)
 	    {
 	        this.creature = theCreatureIn;
 	        this.movementSpeed = movementSpeedIn;
@@ -35,7 +35,7 @@ public class EntityAIFleeLight extends EntityAIBase {
 	    @Override
 	    public boolean shouldExecute()
 	    {
-	        if ((float)GhostlyConfig.MOBS.shadeDissipationLightLevel == -0.1D || !(this.world.getLightBrightness(new BlockPos(creature)) > ((float)GhostlyConfig.MOBS.shadeDissipationLightLevel * 0.6))) {
+	        if ((float)GhostlyConfig.MOBS.darknessMageDissipationLightLevel == -0.1D || !(this.world.getLightBrightness(new BlockPos(creature)) > ((float)GhostlyConfig.MOBS.darknessMageDissipationLightLevel * 0.6))) {
 	        	
 	        	return false;
 	        	
@@ -86,7 +86,7 @@ public class EntityAIFleeLight extends EntityAIBase {
 	        {
 	            BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
 
-	            if (this.world.getLightBrightness(blockpos) < ((float)GhostlyConfig.MOBS.shadeDissipationLightLevel * 0.6))
+	            if (this.world.getLightBrightness(blockpos) < ((float)GhostlyConfig.MOBS.darknessMageDissipationLightLevel * 0.6))
 	            {
 	                return new Vec3d((double)blockpos1.getX(), (double)blockpos1.getY(), (double)blockpos1.getZ());
 	            }

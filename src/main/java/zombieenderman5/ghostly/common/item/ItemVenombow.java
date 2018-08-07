@@ -26,6 +26,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -273,8 +274,8 @@ public class ItemVenombow extends Item
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		
-		tooltip.add(I18n.translateToLocal("ghostly.venombow.damage_information"));
-		tooltip.add(I18n.translateToLocal("ghostly.venombow.arrow_information"));
+		tooltip.add(TextFormatting.DARK_GREEN + I18n.translateToLocal("ghostly.venombow.damage_information"));
+		tooltip.add(TextFormatting.DARK_GREEN + I18n.translateToLocal("ghostly.venombow.arrow_information"));
 		
 	}
     

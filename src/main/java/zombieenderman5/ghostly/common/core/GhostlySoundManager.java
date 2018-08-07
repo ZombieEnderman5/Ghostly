@@ -67,13 +67,14 @@ public class GhostlySoundManager {
 	public static final SoundEvent POSSESSED_WITHERED_ZOMBIE_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.possessed_withered_zombie.hurt"));
 	public static final SoundEvent POSSESSED_WITHERED_ZOMBIE_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.possessed_withered_zombie.death"));
 	public static final SoundEvent DARKNESS_MAGE_AMBIENT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.ambient"));
+	public static final SoundEvent DARKNESS_MAGE_AMBIENT_ALTERNATE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.ambient_alternate"));
 	public static final SoundEvent DARKNESS_MAGE_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.hurt"));
 	public static final SoundEvent DARKNESS_MAGE_HURT_ALTERNATE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.hurt_alternate"));
 	public static final SoundEvent DARKNESS_MAGE_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.death"));
 	public static final SoundEvent DARKNESS_MAGE_DISSIPATE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.dissipate"));
 	public static final SoundEvent DARKNESS_MAGE_CAST_SPELL = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.cast_spell"));
 	public static final SoundEvent DARKNESS_MAGE_CAST_SPELL_ALTERNATE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.cast_spell_alternate"));
-	public static final SoundEvent DARKNESS_MAGE_PREPATE_BLINDNESS = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_blindness"));
+	public static final SoundEvent DARKNESS_MAGE_PREPARE_BLINDNESS = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_blindness"));
 	public static final SoundEvent DARKNESS_MAGE_PREPARE_BLINDNESS_ALTERNATE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_blindness_alternate"));
 	public static final SoundEvent DARKNESS_MAGE_PREPARE_WITHER = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_wither"));
 	public static final SoundEvent DARKNESS_MAGE_PREPARE_WITHER_ALTERNATE = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.darkness_mage.prepare_wither_alternate"));

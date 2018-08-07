@@ -8,12 +8,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import zombieenderman5.ghostly.GhostlyConfig;
 
-public class EntityAIRestrictLight extends EntityAIBase {
+public class EntityAIRestrictLightShade extends EntityAIBase {
 
 	private final EntityCreature entity;
 	private final World world;
 
-    public EntityAIRestrictLight(EntityCreature creature)
+    public EntityAIRestrictLightShade(EntityCreature creature)
     {
         this.entity = creature;
         this.world = creature.world;

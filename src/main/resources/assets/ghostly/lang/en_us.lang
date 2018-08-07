@@ -209,6 +209,7 @@ entity.ghostly:sickened_spider.name=Sickened Spider
 entity.ghostly:venom_arrow_of_corporeality.name=Venom Arrow of Corporeality
 entity.ghostly:spectral_venom_arrow_of_corporeality.name=Spectral Venom Arrow of Corporeality
 entity.ghostly:dusted_venom_arrow_of_corporeality.name=Dusted Venom Arrow of Corporeality
+entity.ghostly:darkness_mage.name=Darkness Mage
 
 tile.corporealite_ore.name=Corporealite Ore
 tile.corporealite_block.name=Block of Corporealite
@@ -227,6 +228,7 @@ item.venomstring.name=Venomstring
 item.venombow.name=Venombow
 item.sickened_spider_eye.name=Sickened Spider Eye
 item.venombow_of_corporeality.name=Venombow of Corporeality
+item.darkness_mage_flesh.name=Darkness Mage Flesh
 
 itemGroup.ghostly_combat=Ghostly Combat
 itemGroup.ghostly_tools=Ghostly Tools

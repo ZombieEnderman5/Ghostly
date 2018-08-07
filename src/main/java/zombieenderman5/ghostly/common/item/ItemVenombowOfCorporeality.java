@@ -26,6 +26,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -285,8 +286,8 @@ public class ItemVenombowOfCorporeality extends Item implements IToolOfCorporeal
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		
-		tooltip.add(I18n.translateToLocal("ghostly.corporeality.melee_and_ranged_tool.information"));
-		tooltip.add(I18n.translateToLocal("ghostly.venombow_of_corporeality.information"));
+		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("ghostly.corporeality.melee_and_ranged_tool.information"));
+		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("ghostly.venombow_of_corporeality.information"));
 		
 	}
     

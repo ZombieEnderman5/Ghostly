@@ -50,8 +50,8 @@ import zombieenderman5.ghostly.GhostlyConfig;
 import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlyLootTableManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.ai.EntityAIFleeLight;
-import zombieenderman5.ghostly.common.entity.ai.EntityAIRestrictLight;
+import zombieenderman5.ghostly.common.entity.ai.EntityAIFleeLightShade;
+import zombieenderman5.ghostly.common.entity.ai.EntityAIRestrictLightShade;
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityDustedVenomCorporealityArrow;
@@ -75,7 +75,7 @@ public class EntityShade extends EntityMob implements IPartiallyIncorporeal {
 
 		super(worldIn);
 
-		this.experienceValue = 0;
+		this.experienceValue = 3;
 		this.isImmuneToFire = true;
 
 	}
@@ -146,7 +146,7 @@ public class EntityShade extends EntityMob implements IPartiallyIncorporeal {
 
 		if (!this.onGround && this.motionY < 0.0D)
         {
-            this.motionY *= 0.3D;
+            this.motionY /= 3;
         }
 		
 		if (!GhostlyConfig.MOBS.shades) this.setDead();
@@ -177,8 +177,8 @@ public class EntityShade extends EntityMob implements IPartiallyIncorporeal {
 	protected void initEntityAI() {
 
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIFleeLight(this, 1.0D));
-		this.tasks.addTask(1, new EntityAIRestrictLight(this));
+		this.tasks.addTask(1, new EntityAIFleeLightShade(this, 1.0D));
+		this.tasks.addTask(1, new EntityAIRestrictLightShade(this));
 		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
 		this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 70.0F, 1.0f));

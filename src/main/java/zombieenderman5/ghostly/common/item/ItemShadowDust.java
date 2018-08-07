@@ -8,6 +8,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,8 +36,8 @@ public class ItemShadowDust extends Item {
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		
-		tooltip.add(I18n.translateToLocal("ghostly.shadow_dust.damage_information"));
-		tooltip.add(I18n.translateToLocal("ghostly.shadow_dust.wither_information"));
+		tooltip.add(TextFormatting.DARK_GRAY + I18n.translateToLocal("ghostly.shadow_dust.damage_information"));
+		tooltip.add(TextFormatting.DARK_GRAY + I18n.translateToLocal("ghostly.shadow_dust.wither_information"));
 		
 	}
 	

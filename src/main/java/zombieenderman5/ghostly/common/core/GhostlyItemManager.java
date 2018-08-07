@@ -17,6 +17,7 @@ import zombieenderman5.ghostly.common.item.ItemAxeOfCorporeality;
 import zombieenderman5.ghostly.common.item.ItemBowOfCorporeality;
 import zombieenderman5.ghostly.common.item.ItemCorporealiteIngot;
 import zombieenderman5.ghostly.common.item.ItemCorporealiteNugget;
+import zombieenderman5.ghostly.common.item.ItemDarknessMageFlesh;
 import zombieenderman5.ghostly.common.item.ItemDustedCorporealityArrow;
 import zombieenderman5.ghostly.common.item.ItemHoeOfCorporeality;
 import zombieenderman5.ghostly.common.item.ItemPickaxeOfCorporeality;
@@ -44,6 +45,7 @@ public class GhostlyItemManager {
 	public static Item venombow;
 	public static Item sickenedSpiderEye;
 	public static Item venombowOfCorporeality;
+	public static Item darknessMageFlesh;
 	
 	public static final Item.ToolMaterial CORPOREALITY_TOOL_MATERIAL = EnumHelper.addToolMaterial("corporeality_tool_material", 2, 299, 6.5F, 2.0F, 0);
 	public static final EnumRarity CORPOREAL_RARITY = EnumHelper.addRarity("corporeal", TextFormatting.GOLD, "Corporeal");
@@ -72,6 +74,7 @@ public class GhostlyItemManager {
 		venombow = new ItemVenombow();
 		sickenedSpiderEye = new ItemSickenedSpiderEye();
 		venombowOfCorporeality = new ItemVenombowOfCorporeality();
+		darknessMageFlesh = new ItemDarknessMageFlesh();
 		
 	}
 	
@@ -92,6 +95,7 @@ public class GhostlyItemManager {
 		ForgeRegistries.ITEMS.register(venombow);
 		ForgeRegistries.ITEMS.register(sickenedSpiderEye);
 		ForgeRegistries.ITEMS.register(venombowOfCorporeality);
+		ForgeRegistries.ITEMS.register(darknessMageFlesh);
 		
 	}
 	
@@ -111,6 +115,7 @@ public class GhostlyItemManager {
 		registerRender(venombow);
 		registerRender(sickenedSpiderEye);
 		registerRender(venombowOfCorporeality);
+		registerRender(darknessMageFlesh);
 		
 	}
 	

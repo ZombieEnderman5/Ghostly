@@ -471,6 +471,12 @@
             "name": "ghostly:entity/darkness_mage/ambient2"
         }]
     },
+    "entity.darkness_mage.ambient_alternate": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/darkness_mage/ambient_alternate"
+        }]
+    },
     "entity.darkness_mage.hurt": {
         "replace": false,
         "sounds": [{

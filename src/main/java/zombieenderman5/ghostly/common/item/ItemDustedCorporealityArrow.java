@@ -9,6 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -42,10 +43,10 @@ public class ItemDustedCorporealityArrow extends ItemArrow {
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		
-		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.damage_information"));
-		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.arrow_information"));
-		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.bow_information"));
-		tooltip.add(I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.wither_information"));
+		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.damage_information"));
+		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.arrow_information"));
+		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.bow_information"));
+		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("ghostly.dusted_arrow_of_corporeality.wither_information"));
 		
 	}
 	
