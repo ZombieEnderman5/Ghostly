@@ -428,7 +428,7 @@ public class EntityShadowRemnant extends EntityMob implements IPartiallyIncorpor
         @Override
         public boolean shouldExecute()
         {
-            return this.parentEntity.owner == null && this.parentEntity.getAttackTarget() != null;
+            return this.parentEntity.getOwner() == null && this.parentEntity.getAttackTarget() != null;
         }
 
         /**
@@ -489,7 +489,7 @@ public class EntityShadowRemnant extends EntityMob implements IPartiallyIncorpor
         @Override
         public boolean shouldExecute()
         {
-            return this.parentEntity.owner != null && this.parentEntity.getAttackTarget() != null;
+            return this.parentEntity.getOwner() != null && this.parentEntity.getAttackTarget() != null;
         }
 
         /**
