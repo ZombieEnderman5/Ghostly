@@ -65,6 +65,6 @@ public class EntityShadowOrb extends AbstractShadowOrb
 	@Override
 	protected boolean existenceRequirements()
 	{
-		return GhostlyConfig.MOBS.darknessMages;
+		return (GhostlyConfig.MOBS.darknessMages || GhostlyConfig.MOBS.spiritualTurrets);
 	}
 }

@@ -23,8 +23,8 @@ public class BlockCorporealite extends Block {
 		
 		super(Material.ROCK, MapColor.GREEN);
 		setCreativeTab(GhostlyCreativeTabManager.blocks);
-		setHardness(3.0F);
-		setResistance(5.0F);
+		setHardness(5.0F);
+		setResistance(30.0F);
 		setSoundType(SoundType.METAL);
 		setHarvestLevel("pickaxe", 2);
 		setUnlocalizedName("corporealite_block");

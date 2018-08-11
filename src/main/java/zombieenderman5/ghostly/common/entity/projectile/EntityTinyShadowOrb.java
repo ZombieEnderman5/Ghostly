@@ -83,6 +83,6 @@ public class EntityTinyShadowOrb extends AbstractShadowOrb
     @Override
 	protected boolean existenceRequirements()
 	{
-		return true;
+		return GhostlyConfig.MOBS.shadowRemnants;
 	}
 }
