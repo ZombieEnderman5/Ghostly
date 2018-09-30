@@ -6,10 +6,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import zombieenderman5.ghostly.common.core.GhostlyBlockManager;
 import zombieenderman5.ghostly.common.core.GhostlyEntityManager;
 import zombieenderman5.ghostly.common.core.GhostlyItemManager;
-import zombieenderman5.ghostly.common.proxy.CommonProxy;
+import zombieenderman5.ghostly.common.proxy.ServerProxy;
 
 @SideOnly(Side.CLIENT)
-public class ClientProxy extends CommonProxy {
+public class ClientProxy extends ServerProxy {
 
 	@Override
 	public void registerRenders() {

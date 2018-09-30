@@ -11,6 +11,7 @@ public class GhostlyLootTableManager {
 	public static final ResourceLocation ENTITIES_SPIRITUAL_TURRET = new ResourceLocation(GhostlyReference.MOD_ID, "entities/spiritual_turret");
 	public static final ResourceLocation ENTITIES_SICKENED_SPIDER = new ResourceLocation(GhostlyReference.MOD_ID, "entities/sickened_spider");
 	public static final ResourceLocation ENTITIES_DARKNESS_MAGE = new ResourceLocation(GhostlyReference.MOD_ID, "entities/darkness_mage");
+	public static final ResourceLocation ENTITIES_SHASHKRA = new ResourceLocation(GhostlyReference.MOD_ID, "entities/shashkra");
 	
 	public static void preInitialization(FMLPreInitializationEvent event) {
 		
@@ -18,6 +19,7 @@ public class GhostlyLootTableManager {
 		LootTableList.register(ENTITIES_SPIRITUAL_TURRET);
 		LootTableList.register(ENTITIES_SICKENED_SPIDER);
 		LootTableList.register(ENTITIES_DARKNESS_MAGE);
+		LootTableList.register(ENTITIES_SHASHKRA);
 		
 	}
 	

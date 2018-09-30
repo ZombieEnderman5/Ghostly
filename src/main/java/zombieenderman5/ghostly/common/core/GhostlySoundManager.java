@@ -91,7 +91,12 @@ public class GhostlySoundManager {
 	public static final SoundEvent SICKENED_SPIDER_AMBIENT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.sickened_spider.ambient"));
 	public static final SoundEvent SICKENED_SPIDER_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.sickened_spider.hurt"));
 	public static final SoundEvent SICKENED_SPIDER_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.sickened_spider.death"));
-
+	public static final SoundEvent SHASHKRA_AMBIENT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shashkra.ambient"));
+	public static final SoundEvent SHASHKRA_HURT = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shashkra.hurt"));
+	public static final SoundEvent SHASHKRA_DEATH = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shashkra.death"));
+	public static final SoundEvent SHASHKRA_CAST_SPELL = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shashkra.cast_spell"));
+	public static final SoundEvent SHASHKRA_PREPARE_LIGHTNING = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shashkra.prepare_lightning"));
+	public static final SoundEvent SHASHKRA_FIREBALL_WARNING = register(new ResourceLocation(GhostlyReference.MOD_ID, "entity.shashkra.fireball_warning"));
 	public static SoundEvent register(ResourceLocation name) {
         
         SoundEvent soundevent = new SoundEvent(name);

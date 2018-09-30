@@ -636,5 +636,41 @@
         "sounds": [{
             "name": "ghostly:entity/sickened_spider/death"
         }]
+    },
+    "entity.shashkra.ambient": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shashkra/ambient"
+        }]
+    },
+    "entity.shashkra.hurt": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shashkra/hurt"
+        }]
+    },
+    "entity.shashkra.death": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shashkra/death"
+        }]
+    },
+    "entity.shashkra.cast_spell": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shashkra/cast_spell"
+        }]
+    },
+    "entity.shashkra.prepare_lightning": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shashkra/prepare_lightning"
+        }]
+    },
+    "entity.shashkra.fireball_warning": {
+        "replace": false,
+        "sounds": [{
+            "name": "ghostly:entity/shashkra/fireball_warning"
+        }]
     }
 }

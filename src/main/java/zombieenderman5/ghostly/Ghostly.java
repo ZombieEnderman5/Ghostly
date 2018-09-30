@@ -24,7 +24,7 @@ import zombieenderman5.ghostly.common.core.GhostlyItemManager;
 import zombieenderman5.ghostly.common.core.GhostlyRecipeManager;
 import zombieenderman5.ghostly.common.core.GhostlySoundManager;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
-import zombieenderman5.ghostly.common.proxy.CommonProxy;
+import zombieenderman5.ghostly.common.proxy.ServerProxy;
 import zombieenderman5.ghostly.common.world.gen.GhostlyOreGenerator;
 import zombieenderman5.theboxingdead.TBDReference;
 
@@ -37,8 +37,8 @@ public class Ghostly {
 	@Instance
 	public static Ghostly instance;
 
-	@SidedProxy(clientSide = GhostlyReference.CLIENT_PROXY_PATH, serverSide = GhostlyReference.COMMON_PROXY_PATH)
-	public static CommonProxy proxy;
+	@SidedProxy(clientSide = GhostlyReference.CLIENT_PROXY_PATH, serverSide = GhostlyReference.SERVER_PROXY_PATH)
+	public static ServerProxy proxy;
 
 	@EventHandler
 	public void preInitialization(FMLPreInitializationEvent event) {

@@ -17,6 +17,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
+import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemSpectralArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -39,7 +40,7 @@ import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporeality
 import zombieenderman5.ghostly.common.entity.projectile.EntitySpectralCorporealityArrow;
 import zombieenderman5.ghostly.common.entity.projectile.EntityTippedCorporealityArrow;
 
-public class ItemBowOfCorporeality extends Item implements IToolOfCorporeality
+public class ItemBowOfCorporeality extends ItemBow implements IToolOfCorporeality
 {
     public ItemBowOfCorporeality()
     {
@@ -101,6 +102,7 @@ public class ItemBowOfCorporeality extends Item implements IToolOfCorporeality
         }
     }
 
+    @Override
     protected boolean isArrow(ItemStack stack)
     {
         return stack.getItem() instanceof ItemArrow;

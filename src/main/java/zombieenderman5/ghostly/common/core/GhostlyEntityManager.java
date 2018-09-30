@@ -35,6 +35,7 @@ import zombieenderman5.ghostly.client.entity.rendering.monster.RenderPossessedWi
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderPossessedZombie;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderShade;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderShadowRemnant;
+import zombieenderman5.ghostly.client.entity.rendering.monster.RenderShashkra;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderSickenedSpider;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderSpiritualTurret;
 import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderCorporealityArrow;
@@ -65,6 +66,7 @@ import zombieenderman5.ghostly.common.entity.monster.EntityPossessedWitheredZomb
 import zombieenderman5.ghostly.common.entity.monster.EntityPossessedZombie;
 import zombieenderman5.ghostly.common.entity.monster.EntityShade;
 import zombieenderman5.ghostly.common.entity.monster.EntityShadowRemnant;
+import zombieenderman5.ghostly.common.entity.monster.EntityShashkra;
 import zombieenderman5.ghostly.common.entity.monster.EntitySickenedSpider;
 import zombieenderman5.ghostly.common.entity.monster.EntitySpiritualTurret;
 import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
@@ -190,9 +192,14 @@ public class GhostlyEntityManager {
 			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "sickened_spider"), EntitySickenedSpider.class, GhostlyReference.MOD_ID + ":sickened_spider", id++, mod, 64, 1, false);
 		}
 		if (GhostlyConfig.MOBS.darknessMages) {
-			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "darkness_mage"), EntityDarknessMage.class, GhostlyReference.MOD_ID + ":darkness_mage", id++, mod, 64, 1, false, 0x221F1F, 0x131111);
+			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "darkness_mage"), EntityDarknessMage.class, GhostlyReference.MOD_ID + ":darkness_mage", id++, mod, 80, 1, false, 0x221F1F, 0x131111);
 		} else {
-			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "darkness_mage"), EntityDarknessMage.class, GhostlyReference.MOD_ID + ":darkness_mage", id++, mod, 64, 1, false);
+			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "darkness_mage"), EntityDarknessMage.class, GhostlyReference.MOD_ID + ":darkness_mage", id++, mod, 80, 1, false);
+		}
+		if (GhostlyConfig.MOBS.shashkras) {
+			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "shashkra"), EntityShashkra.class, GhostlyReference.MOD_ID + ":shashkra", id++, mod, 80, 1, false, 0x111111, 0x050505);
+		} else {
+			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "shashkra"), EntityShashkra.class, GhostlyReference.MOD_ID + ":shashkra", id++, mod, 80, 1, false);
 		}
 		
 		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "shadow_orb"), EntityShadowOrb.class, GhostlyReference.MOD_ID + ":shadow_orb", id++, mod, 64, 1, true);
@@ -231,6 +238,7 @@ public class GhostlyEntityManager {
 		if (GhostlyConfig.MOBS.possessedWitheredZombies) RenderingRegistry.registerEntityRenderingHandler(EntityPossessedWitheredZombie.class, RenderPossessedWitheredZombie.FACTORY);
 		if (GhostlyConfig.MOBS.spiritualTurrets) RenderingRegistry.registerEntityRenderingHandler(EntitySpiritualTurret.class, RenderSpiritualTurret.FACTORY);
 		if (GhostlyConfig.MOBS.sickenedSpiders) RenderingRegistry.registerEntityRenderingHandler(EntitySickenedSpider.class, RenderSickenedSpider.FACTORY);
+		if (GhostlyConfig.MOBS.shashkras) RenderingRegistry.registerEntityRenderingHandler(EntityShashkra.class, RenderShashkra.FACTORY);
 		
 		if (GhostlyConfig.MOBS.darknessMages) {
 			
@@ -252,7 +260,6 @@ public class GhostlyEntityManager {
 			
 		}
 		
-		//RenderingRegistry.registerEntityRenderingHandler(EntityTinyShadowOrb.class, RenderShadowOrb.TINY_SHADOW_ORB_FACTORY); <-- Why is this here?
 		RenderingRegistry.registerEntityRenderingHandler(EntityCorporealityArrow.class, RenderCorporealityArrow.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTippedCorporealityArrow.class, RenderTippedCorporealityArrow.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpectralCorporealityArrow.class, RenderSpectralCorporealityArrow.FACTORY);
@@ -330,6 +337,7 @@ public class GhostlyEntityManager {
 		if (GhostlyConfig.MOBS.spiritualTurrets && GhostlyConfig.MOBS.spiritualTurretSpawnRate != 0) EntityRegistry.addSpawn(EntitySpiritualTurret.class, GhostlyConfig.MOBS.spiritualTurretSpawnRate, 1, 5, EnumCreatureType.MONSTER, netherBiomeArray);
 		if (GhostlyConfig.MOBS.sickenedSpiders && GhostlyConfig.MOBS.sickenedSpiderSpawnRate != 0) EntityRegistry.addSpawn(EntitySickenedSpider.class, GhostlyConfig.MOBS.sickenedSpiderSpawnRate, 4, 2, EnumCreatureType.MONSTER, biomeArray);
 		if (GhostlyConfig.MOBS.darknessMages && GhostlyConfig.MOBS.darknessMageSpawnRate != 0) EntityRegistry.addSpawn(EntityDarknessMage.class, GhostlyConfig.MOBS.darknessMageSpawnRate, 1, 1, EnumCreatureType.MONSTER, biomeArray);
+		if (GhostlyConfig.MOBS.shashkras && GhostlyConfig.MOBS.shashkraSpawnRate != 0) EntityRegistry.addSpawn(EntityShashkra.class, GhostlyConfig.MOBS.shashkraSpawnRate, 1, 3, EnumCreatureType.MONSTER, netherBiomeArray);
 		
 
 	}

@@ -123,7 +123,7 @@ public class EntityPossessedHunchbone extends AbstractSkeleton implements IPosse
 		
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(9.0D);
 	}
