@@ -57,7 +57,7 @@ public class LayerPossessedBoxerStrayEyes implements LayerRenderer<EntityPossess
 			
 			stoneGolemRenderer.bindTexture(RES_RED_POSSESSED_BOXER_STRAY_EYES);
 			
-		} else if (GhostlyConfig.AESTHETICS.multicolorPossessedStrayEyes) {
+		} else if (GhostlyConfig.AESTHETICS.multicolorPossessedBoxerStrayEyes) {
 			
 			if (entitylivingbaseIn.getEyeType() == 4) {
 				

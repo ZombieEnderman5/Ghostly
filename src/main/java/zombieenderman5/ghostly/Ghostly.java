@@ -105,8 +105,6 @@ public class Ghostly {
 			logger.info("<Ghostly> Beginning post-initialization stage");
 
 		}
-
-		GhostlyEntityManager.postInitialization(event);
 		
 		EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation("minecraft", "zombie"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_zombie"));
         EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation("minecraft", "skeleton"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_skeleton"));

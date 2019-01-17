@@ -57,7 +57,7 @@ public class LayerPossessedBoxerWitherSkeletonEyes implements LayerRenderer<Enti
 			
 			stoneGolemRenderer.bindTexture(RES_RED_POSSESSED_BOXER_WITHER_SKELETON_EYES);
 			
-		} else if (GhostlyConfig.AESTHETICS.multicolorPossessedWitherSkeletonEyes) {
+		} else if (GhostlyConfig.AESTHETICS.multicolorPossessedBoxerWitherSkeletonEyes) {
 			
 			if (entitylivingbaseIn.getEyeType() == 4) {
 				

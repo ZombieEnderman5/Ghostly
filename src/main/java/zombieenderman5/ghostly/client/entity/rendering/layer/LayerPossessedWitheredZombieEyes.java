@@ -57,7 +57,7 @@ public class LayerPossessedWitheredZombieEyes implements LayerRenderer<EntityPos
 			
 			stoneGolemRenderer.bindTexture(RES_RED_POSSESSED_WITHERED_ZOMBIE_EYES);
 			
-		} else if (GhostlyConfig.AESTHETICS.multicolorPossessedHuskEyes) {
+		} else if (GhostlyConfig.AESTHETICS.multicolorPossessedWitheredZombieEyes) {
 			
 			if (entitylivingbaseIn.getEyeType() == 4) {
 				

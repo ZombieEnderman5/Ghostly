@@ -57,7 +57,7 @@ public class LayerPossessedWitherHunchboneEyes implements LayerRenderer<EntityPo
 			
 			stoneGolemRenderer.bindTexture(RES_RED_POSSESSED_WITHER_HUNCHBONE_EYES);
 			
-		} else if (GhostlyConfig.AESTHETICS.multicolorPossessedZombieEyes) {
+		} else if (GhostlyConfig.AESTHETICS.multicolorPossessedWitherHunchboneEyes) {
 			
 			if (entitylivingbaseIn.getEyeType() == 4) {
 				
