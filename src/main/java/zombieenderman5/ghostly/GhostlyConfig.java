@@ -51,6 +51,10 @@ public class GhostlyConfig {
 		public int mutatedDonkeySavannaSpawnRate = 21;
 		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
 		public int mutatedSheepSpawnRate = 32;
+		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
+		public int mutatedLlamaHighSavannaSpawnRate = 28;
+		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
+		public int mutatedLlamaMountainSpawnRate = 25;
 		@Config.RangeDouble(min = -0.1D, max = 1.0D)
 		public double shadeDissipationLightLevel = 0.15D;
 		@Config.RangeDouble(min = -0.1D, max = 1.0D)
@@ -68,6 +72,7 @@ public class GhostlyConfig {
 		public boolean mutatedPigs = true;
 		public boolean mutatedDonkeys = true;
 		public boolean mutatedSheep = true;
+		public boolean mutatedLlamas = true;
 		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
 		public int possessedSwordSpawnRate = 100;
 		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)
@@ -93,6 +98,8 @@ public class GhostlyConfig {
 		public double mutatedDonkeyFleeHealthPercentage = 0.25D;
 		@Config.RangeDouble(min = 0.0D, max = 0.99D)
 		public double mutatedSheepFleeHealthPercentage = 0.25D;
+		@Config.RangeDouble(min = 0.0D, max = 0.99D)
+		public double mutatedLlamaFleeHealthPercentage = 0.25D;
 		@Config.RangeDouble(min = -0.1D, max = 0.99D)
 		public double mutatedHorseArmorSpawnIronChance = -0.1D;
 		@Config.RangeDouble(min = -0.1D, max = 0.99D)

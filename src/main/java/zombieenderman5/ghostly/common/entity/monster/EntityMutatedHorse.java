@@ -67,6 +67,7 @@ public class EntityMutatedHorse extends EntityMob implements IInventoryChangedLi
 
 	private static final DataParameter<Byte> STATUS = EntityDataManager.<Byte>createKey(AbstractHorse.class, DataSerializers.BYTE);
 	private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("556E1665-8B10-40C8-8F9D-CF9B1667F295");
+	private static final UUID ARMOR_TOUGHNESS_MODIFIER_UUID = UUID.fromString("50BBC6D1-BEEC-4675-97F8-931C5C9A5494");
 	private static final DataParameter<Integer> MUTATED_HORSE_VARIANT = EntityDataManager.<Integer>createKey(EntityMutatedHorse.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> MUTATED_HORSE_ARMOR = EntityDataManager.<Integer>createKey(EntityMutatedHorse.class, DataSerializers.VARINT);
     private static final DataParameter<ItemStack> MUTATED_HORSE_ARMOR_STACK = EntityDataManager.<ItemStack>createKey(EntityMutatedHorse.class, DataSerializers.ITEM_STACK);
@@ -147,17 +148,23 @@ public class EntityMutatedHorse extends EntityMob implements IInventoryChangedLi
 
         if (!this.world.isRemote) {
             this.getEntityAttribute(SharedMonsterAttributes.ARMOR).removeModifier(ARMOR_MODIFIER_UUID);
-            int i = 0;
+            int armorAmount = 0;
+            int armorToughnessAmount = 0;
             if (horsearmortype == HorseArmorType.IRON) {
-            	i = 15;
+            	armorAmount = 15;
             } else if (horsearmortype == HorseArmorType.GOLD) {
-            	i = 11;
+            	armorAmount = 11;
             } else if (horsearmortype == HorseArmorType.DIAMOND) {
-            	i = 20;
+            	armorAmount = 20;
+            	armorToughnessAmount = 8;
             }
 
-            if (i != 0) {
-                this.getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier((new AttributeModifier(ARMOR_MODIFIER_UUID, "Mutated horse armor bonus", (double)i, 0)).setSaved(false));
+            if (armorAmount != 0) {
+                this.getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier((new AttributeModifier(ARMOR_MODIFIER_UUID, "Mutated horse armor bonus", (double)armorAmount, 0)).setSaved(false));
+            }
+            if (armorToughnessAmount != 0) {
+            	this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).removeModifier(ARMOR_TOUGHNESS_MODIFIER_UUID);
+                this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).applyModifier((new AttributeModifier(ARMOR_TOUGHNESS_MODIFIER_UUID, "Mutated horse armor toughness bonus", (double)armorToughnessAmount, 0)).setSaved(false));
             }
         }
     }
@@ -363,6 +370,7 @@ public class EntityMutatedHorse extends EntityMob implements IInventoryChangedLi
 		
 		List<Entity> intersectionList = this.world.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(new Vec3d(this.getEntityBoundingBox().minX, this.getEntityBoundingBox().minY, this.getEntityBoundingBox().minZ), new Vec3d(this.getEntityBoundingBox().maxX, this.getEntityBoundingBox().maxY, this.getEntityBoundingBox().maxZ)));
 		EntityItem intersectionItemEntity = null;
+		EntityItem oldIntersectionItemEntity = null;
 		
 		if (!intersectionList.isEmpty()) {
 			for (int i = 0; i < intersectionList.size(); i++) {
@@ -390,6 +398,46 @@ public class EntityMutatedHorse extends EntityMob implements IInventoryChangedLi
 							this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0F, 1.0F);
 							intersectionItemEntity = null;
 							this.pickedUpArmor = true;
+						}
+					}
+					if (intersectionItemEntity != null && this.dataManager.get(MUTATED_HORSE_ARMOR_STACK) != ItemStack.EMPTY) {
+						if (this.dataManager.get(MUTATED_HORSE_ARMOR_STACK).getItem() == Items.GOLDEN_HORSE_ARMOR) {
+							if (intersectionItemEntity.getItem().getItem() == Items.IRON_HORSE_ARMOR) {
+								oldIntersectionItemEntity = new EntityItem(this.world, this.posX, this.posY, this.posZ);
+								oldIntersectionItemEntity.setItem(this.dataManager.get(MUTATED_HORSE_ARMOR_STACK));
+								this.setMutatedHorseArmorStack(intersectionItemEntity.getItem());
+								this.mutatedHorseChest.setInventorySlotContents(0, intersectionItemEntity.getItem());
+								intersectionList.get(i).setDead();
+								this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 1.0F);
+								intersectionItemEntity = null;
+								this.world.spawnEntity(oldIntersectionItemEntity);
+								oldIntersectionItemEntity = null;
+								this.pickedUpArmor = true;
+							} else if (intersectionItemEntity.getItem().getItem() == Items.DIAMOND_HORSE_ARMOR) {
+								oldIntersectionItemEntity = new EntityItem(this.world, this.posX, this.posY, this.posZ);
+								oldIntersectionItemEntity.setItem(this.dataManager.get(MUTATED_HORSE_ARMOR_STACK));
+								this.setMutatedHorseArmorStack(intersectionItemEntity.getItem());
+								this.mutatedHorseChest.setInventorySlotContents(0, intersectionItemEntity.getItem());
+								intersectionList.get(i).setDead();
+								this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0F, 1.0F);
+								intersectionItemEntity = null;
+								this.world.spawnEntity(oldIntersectionItemEntity);
+								oldIntersectionItemEntity = null;
+								this.pickedUpArmor = true;
+							}
+						} else if (this.dataManager.get(MUTATED_HORSE_ARMOR_STACK).getItem() == Items.IRON_HORSE_ARMOR) {
+							if (intersectionItemEntity.getItem().getItem() == Items.DIAMOND_HORSE_ARMOR) {
+								oldIntersectionItemEntity = new EntityItem(this.world, this.posX, this.posY, this.posZ);
+								oldIntersectionItemEntity.setItem(this.dataManager.get(MUTATED_HORSE_ARMOR_STACK));
+								this.setMutatedHorseArmorStack(intersectionItemEntity.getItem());
+								this.mutatedHorseChest.setInventorySlotContents(0, intersectionItemEntity.getItem());
+								intersectionList.get(i).setDead();
+								this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0F, 1.0F);
+								intersectionItemEntity = null;
+								this.world.spawnEntity(oldIntersectionItemEntity);
+								oldIntersectionItemEntity = null;
+								this.pickedUpArmor = true;
+							}
 						}
 					}
 				}
@@ -535,7 +583,7 @@ public class EntityMutatedHorse extends EntityMob implements IInventoryChangedLi
 		@Override
 		public boolean shouldExecute() {
 
-		    if (this.mutatedHorse.getAttackTarget() == null || this.mutatedHorse.getHealth() > (this.mutatedHorse.getMaxHealth() * (float) GhostlyConfig.MOBS.mutatedWolfFleeHealthPercentage) || (this.mutatedHorse.getAttackTarget() != null && this.mutatedHorse.getAttackTarget().getAttributeMap().getAttributeInstanceByName("generic.attackDamage") != null && this.mutatedHorse.getAttackTarget().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue() < 1.0D) || (this.mutatedHorse.getAttackTarget() != null && this.mutatedHorse.getAttackTarget().getAttributeMap().getAttributeInstanceByName("generic.attackDamage") == null)) {
+		    if (this.mutatedHorse.getAttackTarget() == null || this.mutatedHorse.getHealth() > (this.mutatedHorse.getMaxHealth() * (float) GhostlyConfig.MOBS.mutatedHorseFleeHealthPercentage) || (this.mutatedHorse.getAttackTarget() != null && this.mutatedHorse.getAttackTarget().getAttributeMap().getAttributeInstanceByName("generic.attackDamage") != null && this.mutatedHorse.getAttackTarget().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue() < 1.0D) || (this.mutatedHorse.getAttackTarget() != null && this.mutatedHorse.getAttackTarget().getAttributeMap().getAttributeInstanceByName("generic.attackDamage") == null)) {
 		        return false;
 		    } else {
 		        this.closestLivingEntity = this.mutatedHorse.getAttackTarget();
@@ -557,7 +605,7 @@ public class EntityMutatedHorse extends EntityMob implements IInventoryChangedLi
 		 */
 		@Override
 		public boolean shouldContinueExecuting() {
-		    return !this.navigation.noPath() && this.mutatedHorse.getHealth() <= (this.mutatedHorse.getMaxHealth() * (float) GhostlyConfig.MOBS.mutatedWolfFleeHealthPercentage);
+		    return !this.navigation.noPath() && this.mutatedHorse.getHealth() <= (this.mutatedHorse.getMaxHealth() * (float) GhostlyConfig.MOBS.mutatedHorseFleeHealthPercentage);
 		}
 
 		/**

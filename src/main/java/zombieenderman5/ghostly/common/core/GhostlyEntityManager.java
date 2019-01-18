@@ -22,6 +22,7 @@ import zombieenderman5.ghostly.client.entity.rendering.monster.RenderInfestedEnd
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderMutatedCow;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderMutatedDonkey;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderMutatedHorse;
+import zombieenderman5.ghostly.client.entity.rendering.monster.RenderMutatedLlama;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderMutatedOcelot;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderMutatedPig;
 import zombieenderman5.ghostly.client.entity.rendering.monster.RenderMutatedSheep;
@@ -59,6 +60,7 @@ import zombieenderman5.ghostly.common.entity.monster.EntityInfestedEnderman;
 import zombieenderman5.ghostly.common.entity.monster.EntityMutatedCow;
 import zombieenderman5.ghostly.common.entity.monster.EntityMutatedDonkey;
 import zombieenderman5.ghostly.common.entity.monster.EntityMutatedHorse;
+import zombieenderman5.ghostly.common.entity.monster.EntityMutatedLlama;
 import zombieenderman5.ghostly.common.entity.monster.EntityMutatedOcelot;
 import zombieenderman5.ghostly.common.entity.monster.EntityMutatedPig;
 import zombieenderman5.ghostly.common.entity.monster.EntityMutatedSheep;
@@ -108,6 +110,8 @@ public class GhostlyEntityManager {
 	public static final ArrayList<Biome> PLAINS_BIOMES = new ArrayList<>();
 	public static final ArrayList<Biome> SAVANNA_BIOMES = new ArrayList<>();
 	public static final ArrayList<Biome> JUNGLE_BIOMES = new ArrayList<>();
+	public static final ArrayList<Biome> MOUNTAIN_BIOMES = new ArrayList<>();
+	public static final ArrayList<Biome> HIGH_SAVANNA_BIOMES = new ArrayList<>();
 	
 	public static void preInitialization(FMLPreInitializationEvent event) {
 
@@ -248,6 +252,11 @@ public class GhostlyEntityManager {
 		} else {
 			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "mutated_sheep"), EntityMutatedSheep.class, GhostlyReference.MOD_ID + ":mutated_sheep", id++, mod, 64, 1, false);
 		}
+		if (GhostlyConfig.MOBS.mutatedLlamas) {
+			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "mutated_llama"), EntityMutatedLlama.class, GhostlyReference.MOD_ID + ":mutated_llama", id++, mod, 64, 1, false, 12623485, 10051392);
+		} else {
+			EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "mutated_llama"), EntityMutatedLlama.class, GhostlyReference.MOD_ID + ":mutated_llama", id++, mod, 64, 1, false);
+		}
 		
 		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "shadow_orb"), EntityShadowOrb.class, GhostlyReference.MOD_ID + ":shadow_orb", id++, mod, 64, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(GhostlyReference.MOD_ID, "giant_shadow_orb"), EntityGiantShadowOrb.class, GhostlyReference.MOD_ID + ":giant_shadow_orb", id++, mod, 64, 1, true);
@@ -292,6 +301,7 @@ public class GhostlyEntityManager {
 		if (GhostlyConfig.MOBS.mutatedPigs) RenderingRegistry.registerEntityRenderingHandler(EntityMutatedPig.class, RenderMutatedPig.FACTORY);
 		if (GhostlyConfig.MOBS.mutatedDonkeys) RenderingRegistry.registerEntityRenderingHandler(EntityMutatedDonkey.class, RenderMutatedDonkey.FACTORY);
 		if (GhostlyConfig.MOBS.mutatedSheep) RenderingRegistry.registerEntityRenderingHandler(EntityMutatedSheep.class, RenderMutatedSheep.FACTORY);
+		if (GhostlyConfig.MOBS.mutatedLlamas) RenderingRegistry.registerEntityRenderingHandler(EntityMutatedLlama.class, RenderMutatedLlama.FACTORY);
 		
 		if (GhostlyConfig.MOBS.darknessMages) {
 			
@@ -337,6 +347,8 @@ public class GhostlyEntityManager {
 		Biome[] plainsBiomeArray = new Biome[0];
 		Biome[] savannaBiomeArray = new Biome[0];
 		Biome[] jungleBiomeArray = new Biome[0];
+		Biome[] mountainBiomeArray = new Biome[0];
+		Biome[] highSavannaBiomeArray = new Biome[0];
 
 		for (Biome biome : ForgeRegistries.BIOMES) {
 
@@ -372,6 +384,14 @@ public class GhostlyEntityManager {
 					JUNGLE_BIOMES.add(biome);
 				}
 				
+				if (BiomeDictionary.hasType(biome, Type.MOUNTAIN) && !BiomeDictionary.hasType(biome, Type.COLD) && !BiomeDictionary.hasType(biome, Type.SNOWY)) {
+					MOUNTAIN_BIOMES.add(biome);
+				}
+				
+				if (BiomeDictionary.hasType(biome, Type.SAVANNA) && biome.getBaseHeight() > 1.1F) {
+					HIGH_SAVANNA_BIOMES.add(biome);
+				}
+				
 			} else if (BiomeDictionary.hasType(biome, Type.NETHER)) {
 				NETHER_BIOMES.add(biome);
 			} else if (BiomeDictionary.hasType(biome, Type.END)) {
@@ -390,6 +410,8 @@ public class GhostlyEntityManager {
 		plainsBiomeArray = PLAINS_BIOMES.toArray(plainsBiomeArray);
 		savannaBiomeArray = SAVANNA_BIOMES.toArray(savannaBiomeArray);
 		jungleBiomeArray = JUNGLE_BIOMES.toArray(jungleBiomeArray);
+		mountainBiomeArray = MOUNTAIN_BIOMES.toArray(mountainBiomeArray);
+		highSavannaBiomeArray = HIGH_SAVANNA_BIOMES.toArray(highSavannaBiomeArray);
 
 		if (GhostlyConfig.MOBS.shades && GhostlyConfig.MOBS.shadeSpawnRateNether != 0) EntityRegistry.addSpawn(EntityShade.class, GhostlyConfig.MOBS.shadeSpawnRateNether, 1, 5, EnumCreatureType.MONSTER, netherBiomeArray);
 		if (GhostlyConfig.MOBS.shades && GhostlyConfig.MOBS.shadeSpawnRateOverworld != 0) EntityRegistry.addSpawn(EntityShade.class, GhostlyConfig.MOBS.shadeSpawnRateOverworld, 1, 3, EnumCreatureType.MONSTER, biomeArray);
@@ -422,6 +444,8 @@ public class GhostlyEntityManager {
 		if (GhostlyConfig.MOBS.mutatedDonkeys && GhostlyConfig.MOBS.mutatedDonkeyPlainsSpawnRate != 0) EntityRegistry.addSpawn(EntityMutatedDonkey.class, GhostlyConfig.MOBS.mutatedDonkeyPlainsSpawnRate, 1, 3, EnumCreatureType.MONSTER, plainsBiomeArray);
 		if (GhostlyConfig.MOBS.mutatedDonkeys && GhostlyConfig.MOBS.mutatedDonkeySavannaSpawnRate != 0) EntityRegistry.addSpawn(EntityMutatedDonkey.class, GhostlyConfig.MOBS.mutatedDonkeySavannaSpawnRate, 1, 1, EnumCreatureType.MONSTER, savannaBiomeArray);
 		if (GhostlyConfig.MOBS.mutatedSheep && GhostlyConfig.MOBS.mutatedSheepSpawnRate != 0) EntityRegistry.addSpawn(EntityMutatedSheep.class, GhostlyConfig.MOBS.mutatedSheepSpawnRate, 4, 4, EnumCreatureType.MONSTER, biomeArray);
+		if (GhostlyConfig.MOBS.mutatedLlamas && GhostlyConfig.MOBS.mutatedLlamaMountainSpawnRate != 0) EntityRegistry.addSpawn(EntityMutatedLlama.class, GhostlyConfig.MOBS.mutatedLlamaMountainSpawnRate, 4, 6, EnumCreatureType.MONSTER, mountainBiomeArray);
+		if (GhostlyConfig.MOBS.mutatedLlamas && GhostlyConfig.MOBS.mutatedLlamaHighSavannaSpawnRate != 0) EntityRegistry.addSpawn(EntityMutatedLlama.class, GhostlyConfig.MOBS.mutatedLlamaHighSavannaSpawnRate, 4, 4, EnumCreatureType.MONSTER, highSavannaBiomeArray);
 		
 
 	}

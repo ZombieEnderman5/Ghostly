@@ -36,6 +36,12 @@ ghostly.general.mobs.mutateddonkeyplainsspawnrate=Mutated Donkey Plains Spawn Ra
 ghostly.general.mobs.mutateddonkeyplainsspawnrate.tooltip=Control the spawn rate of Mutated Donkeys in plains (any biome that is considered to be not a savanna and a plains by Forge).
 ghostly.general.mobs.mutateddonkeysavannaspawnrate=Mutated Donkey Savanna Spawn Rate
 ghostly.general.mobs.mutateddonkeysavannaspawnrate.tooltip=Control the spawn rate of Mutated Donkeys in savannas (any biome that is considered to be a savanna by Forge).
+ghostly.general.mobs.mutatedsheepspawnrate=Mutated Sheep Spawn Rate
+ghostly.general.mobs.mutatedsheepspawnrate.tooltip=Control the spawn rate of Mutated Sheep.
+ghostly.general.mobs.mutatedllamamountainspawnrate=Mutated Llama Mountains Spawn Rate
+ghostly.general.mobs.mutatedllamamountainspawnrate.tooltip=Control the spawn rate of Mutated Llamas in mountains (any biome that is considered to be mountains, not cold, and not snowy by Forge).
+ghostly.general.mobs.mutatedllamahighsavannaspawnrate=Mutated Llama High Savanna Spawn Rate
+ghostly.general.mobs.mutatedllamahighsavannaspawnrate.tooltip=Control the spawn rate of Mutated Llamas in high savannas (any biome that is considered to be a savanna by Forge and has a base height greater than 1.1).
 ghostly.general.mobs.shadedissipationlightlevel=Shade Dissipation Light Level
 ghostly.general.mobs.shadedissipationlightlevel.tooltip=Control the light level at which Shades dissipate.\n§e1.0 will make Shades never dissipate.\n§e-0.1 will make Shades always dissipate.
 ghostly.general.mobs.darknessmagedissipationlightlevel=Darkness Mage Dissipation Light Level
@@ -64,6 +70,10 @@ ghostly.general.mobs.mutatedpigs=Mutated Pigs
 ghostly.general.mobs.mutatedpigs.tooltip=Control whether Mutated Pigs exist.
 ghostly.general.mobs.mutateddonkeys=Mutated Donkeys
 ghostly.general.mobs.mutateddonkeys.tooltip=Control whether Mutated Donkeys exist.
+ghostly.general.mobs.mutatedsheep=Mutated Sheep
+ghostly.general.mobs.mutatedsheep.tooltip=Control whether Mutated Sheep exist.
+ghostly.general.mobs.mutatedllamas=Mutated Llamas
+ghostly.general.mobs.mutatedllamas.tooltip=Control whether Mutated Llamas exist.
 ghostly.general.mobs.possessedswordspawnrate=Possessed Sword Spawn Rate
 ghostly.general.mobs.possessedswordspawnrate.tooltip=Control the spawn rate of Possessed Swords.
 ghostly.general.mobs.infestedendermenspawnrate=Infested Endermen Spawn Rate
@@ -90,6 +100,10 @@ ghostly.general.mobs.mutatedpigfleehealthpercentage=Mutated Pig Fleeing Health P
 ghostly.general.mobs.mutatedpigfleehealthpercentage.tooltip=Control the percentage of health a Mutated Pig must reach to flee from its target.\n§eDue to being a percentage, 0.0 = 0% and 0.99 = 99%.\n§eCannot be 1.0 or 100%, set to 0.0 to disable.\n§eFlees when at or below specified health percentage.
 ghostly.general.mobs.mutateddonkeyfleehealthpercentage=Mutated Donkey Fleeing Health Percentage
 ghostly.general.mobs.mutateddonkeyfleehealthpercentage.tooltip=Control the percentage of health a Mutated Donkey must reach to flee from its target.\n§eDue to being a percentage, 0.0 = 0% and 0.99 = 99%.\n§eCannot be 1.0 or 100%, set to 0.0 to disable.\n§eFlees when at or below specified health percentage.
+ghostly.general.mobs.mutatedsheepfleehealthpercentage=Mutated Sheep Fleeing Health Percentage
+ghostly.general.mobs.mutatedsheepfleehealthpercentage.tooltip=Control the percentage of health a Mutated Sheep must reach to flee from its target.\n§eDue to being a percentage, 0.0 = 0% and 0.99 = 99%.\n§eCannot be 1.0 or 100%, set to 0.0 to disable.\n§eFlees when at or below specified health percentage.
+ghostly.general.mobs.mutatedllamafleehealthpercentage=Mutated Llama Fleeing Health Percentage
+ghostly.general.mobs.mutatedllamafleehealthpercentage.tooltip=Control the percentage of health a Mutated Llama must reach to flee from its target.\n§eDue to being a percentage, 0.0 = 0% and 0.99 = 99%.\n§eCannot be 1.0 or 100%, set to 0.0 to disable.\n§eFlees when at or below specified health percentage.
 ghostly.general.mobs.mutatedhorsearmorspawnironchance=Mutated Horse Armor Spawning Iron Chance
 ghostly.general.mobs.mutatedhorsearmorspawnironchance.tooltip=Control the chance a Mutated Horse has of spawning with iron armor.\n§eDue to being a percentage, 0.0 = 0% and 0.99 = 99%.\n§eCannot be 1.0 or 100%, set to -0.1 to disable.
 ghostly.general.mobs.mutatedhorsearmorspawngoldchance=Mutated Horse Armor Spawning Gold Chance
@@ -264,6 +278,8 @@ entity.ghostly:mutated_cow.name=Mutated Cow
 entity.ghostly:mutated_ocelot.name=Mutated Ocelot
 entity.ghostly:mutated_pig.name=Mutated Pig
 entity.ghostly:mutated_donkey.name=Mutated Donkey
+entity.ghostly:mutated_sheep.name=Mutated Sheep
+entity.ghostly:mutated_llama.name=Mutated Llama
 
 tile.corporealite_ore.name=Corporealite Ore
 tile.corporealite_block.name=Block of Corporealite
