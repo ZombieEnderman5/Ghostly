@@ -31,11 +31,13 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import zombieenderman5.ghostly.GhostlyConfig;
@@ -249,6 +251,13 @@ public class EntityPossessedBoxerZombie extends EntityZombie implements IPossess
         return SoundEvents.ENTITY_ZOMBIE_STEP;
     }
 
+    @Override
+    @Nullable
+    protected ResourceLocation getLootTable()
+    {
+        return LootTableList.ENTITIES_ZOMBIE;
+    }
+    
     @Override
     protected void playStepSound(BlockPos pos, Block blockIn)
     {

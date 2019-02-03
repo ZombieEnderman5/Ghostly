@@ -100,12 +100,12 @@ public class GhostlyConfig {
 		public double mutatedSheepFleeHealthPercentage = 0.25D;
 		@Config.RangeDouble(min = 0.0D, max = 0.99D)
 		public double mutatedLlamaFleeHealthPercentage = 0.25D;
-		@Config.RangeDouble(min = -0.1D, max = 0.99D)
-		public double mutatedHorseArmorSpawnIronChance = -0.1D;
-		@Config.RangeDouble(min = -0.1D, max = 0.99D)
-		public double mutatedHorseArmorSpawnGoldChance = -0.1D;
-		@Config.RangeDouble(min = -0.1D, max = 0.99D)
-		public double mutatedHorseArmorSpawnDiamondChance = -0.1D;
+		@Config.RangeDouble(min = 0.0D, max = 1.09D)
+		public double mutatedHorseArmorSpawnIronChance = 0.0D;
+		@Config.RangeDouble(min = 0.0D, max = 1.0D)
+		public double mutatedHorseArmorSpawnGoldChance = 0.0D;
+		@Config.RangeDouble(min = 0.0D, max = 1.0D)
+		public double mutatedHorseArmorSpawnDiamondChance = 0.0D;
 			
 		public boolean possessedWitherSkeletonFortressRestriction = true;
 		@Config.RangeInt(min = 0, max = Integer.MAX_VALUE)

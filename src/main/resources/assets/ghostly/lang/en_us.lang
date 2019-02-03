@@ -105,11 +105,11 @@ ghostly.general.mobs.mutatedsheepfleehealthpercentage.tooltip=Control the percen
 ghostly.general.mobs.mutatedllamafleehealthpercentage=Mutated Llama Fleeing Health Percentage
 ghostly.general.mobs.mutatedllamafleehealthpercentage.tooltip=Control the percentage of health a Mutated Llama must reach to flee from its target.\n§eDue to being a percentage, 0.0 = 0% and 0.99 = 99%.\n§eCannot be 1.0 or 100%, set to 0.0 to disable.\n§eFlees when at or below specified health percentage.
 ghostly.general.mobs.mutatedhorsearmorspawnironchance=Mutated Horse Armor Spawning Iron Chance
-ghostly.general.mobs.mutatedhorsearmorspawnironchance.tooltip=Control the chance a Mutated Horse has of spawning with iron armor.\n§eDue to being a percentage, 0.0 = 0% and 0.99 = 99%.\n§eCannot be 1.0 or 100%, set to -0.1 to disable.
+ghostly.general.mobs.mutatedhorsearmorspawnironchance.tooltip=Control the chance a Mutated Horse has of spawning with iron armor.\n§eDue to being a percentage, 0.0 = 0% and 1.0 = 100%.\n§eNot recommended to set to 100%, set to 0.0 to disable.
 ghostly.general.mobs.mutatedhorsearmorspawngoldchance=Mutated Horse Armor Spawning Gold Chance
-ghostly.general.mobs.mutatedhorsearmorspawngoldchance.tooltip=Control the chance a Mutated Horse has of spawning with gold armor.\n§eDue to being a percentage, 0.0 = 0% and 0.99 = 99%.\n§eCannot be 1.0 or 100%, set to -0.1 to disable.
+ghostly.general.mobs.mutatedhorsearmorspawngoldchance.tooltip=Control the chance a Mutated Horse has of spawning with gold armor.\n§eDue to being a percentage, 0.0 = 0% and 1.0 = 100%.\n§eNot recommended to set to 100%, set to 0.0 to disable.
 ghostly.general.mobs.mutatedhorsearmorspawndiamondchance=Mutated Horse Armor Spawning Diamond Chance
-ghostly.general.mobs.mutatedhorsearmorspawndiamondchance.tooltip=Control the chance a Mutated Horse has of spawning with diamond armor.\n§eDue to being a percentage, 0.0 = 0% and 0.99 = 99%.\n§eCannot be 1.0 or 100%, set to -0.1 to disable.
+ghostly.general.mobs.mutatedhorsearmorspawndiamondchance.tooltip=Control the chance a Mutated Horse has of spawning with diamond armor.\n§eDue to being a percentage, 0.0 = 0% and 1.0 = 100%.\n§eNot recommended to set to 100%, set to 0.0 to disable.
 ghostly.general.mobs.possessedwitherskeletonfortressrestriction=Possessed Wither Skeleton Fortress Restriction
 ghostly.general.mobs.possessedwitherskeletonfortressrestriction.tooltip=Turn this off to disable Possessed Wither Skeletons\n§espawning only in Nether Fortresses.
 ghostly.general.mobs.possessedzombiespawnrate=Possessed Zombie Spawn Rate

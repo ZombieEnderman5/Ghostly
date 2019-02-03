@@ -1,6 +1,7 @@
 package zombieenderman5.ghostly.common.entity.monster;
 
 import java.util.Calendar;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -30,10 +31,12 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import zombieenderman5.ghostly.GhostlyConfig;
@@ -284,6 +287,28 @@ public class EntityPossessedBoxerSkeleton extends AbstractSkeleton implements IR
 		
 		return SoundEvents.ENTITY_SKELETON_STEP;
 	}
+	
+	@Override
+    @Nullable
+    protected ResourceLocation getLootTable()
+    {
+        return LootTableList.ENTITIES_SKELETON;
+    }
+	
+	@Override
+    public void onDeath(DamageSource cause) {
+    	super.onDeath(cause);
+    	Random random = new Random();
+    	
+    	if (GhostlyConfig.MOBS.shadowRemnants && random.nextDouble() < GhostlyConfig.MOBS.shadowRemnantChance) {
+    		EntityShadowRemnant entityshadowremnant = new EntityShadowRemnant(this.world);
+    		entityshadowremnant.setOwner(this);
+    		entityshadowremnant.posX = this.posX;
+    		entityshadowremnant.posY = this.posY;
+    		entityshadowremnant.posZ = this.posZ;
+    		this.world.spawnEntity(entityshadowremnant);
+    	}
+    }
 	
 	public static boolean dissolutionGeneratePossessedVersion() {
     	

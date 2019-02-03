@@ -1,5 +1,6 @@
 package zombieenderman5.ghostly.common.entity.monster;
 
+import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -24,10 +25,12 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -170,6 +173,13 @@ public class EntityPossessedZombie extends EntityZombie implements IPossessed {
     }
 
     @Override
+    @Nullable
+    protected ResourceLocation getLootTable()
+    {
+        return LootTableList.ENTITIES_ZOMBIE;
+    }
+    
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
@@ -210,6 +220,21 @@ public class EntityPossessedZombie extends EntityZombie implements IPossessed {
     	return livingdata;
     }
 	
+    @Override
+    public void onDeath(DamageSource cause) {
+    	super.onDeath(cause);
+    	Random random = new Random();
+    	
+    	if (GhostlyConfig.MOBS.shadowRemnants && random.nextDouble() < GhostlyConfig.MOBS.shadowRemnantChance) {
+    		EntityShadowRemnant entityshadowremnant = new EntityShadowRemnant(this.world);
+    		entityshadowremnant.setOwner(this);
+    		entityshadowremnant.posX = this.posX;
+    		entityshadowremnant.posY = this.posY;
+    		entityshadowremnant.posZ = this.posZ;
+    		this.world.spawnEntity(entityshadowremnant);
+    	}
+    }
+    
     public static boolean dissolutionGeneratePossessedVersion() {
     	
     	return false;

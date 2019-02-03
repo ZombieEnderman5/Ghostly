@@ -1,5 +1,7 @@
 package zombieenderman5.ghostly.common.entity.monster;
 
+import java.util.Random;
+
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.EntityLiving;
@@ -189,6 +191,17 @@ public class EntityPossessedWitherHunchbone extends AbstractSkeleton implements 
 				entityDropItem(new ItemStack(Items.SKULL, 1, 1), 0.0F);
 			}
 		}
+		
+		Random random = new Random();
+    	
+    	if (GhostlyConfig.MOBS.shadowRemnants && random.nextDouble() < GhostlyConfig.MOBS.shadowRemnantChance) {
+    		EntityShadowRemnant entityshadowremnant = new EntityShadowRemnant(this.world);
+    		entityshadowremnant.setOwner(this);
+    		entityshadowremnant.posX = this.posX;
+    		entityshadowremnant.posY = this.posY;
+    		entityshadowremnant.posZ = this.posZ;
+    		this.world.spawnEntity(entityshadowremnant);
+    	}
 	}
 	
 	@Override

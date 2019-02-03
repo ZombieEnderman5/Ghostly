@@ -522,13 +522,13 @@ public class EntityMutatedHorse extends EntityMob implements IInventoryChangedLi
 
         this.setMutatedHorseVariant(i | this.rand.nextInt(5) << 8);
         
-        if (this.rand.nextFloat() <= GhostlyConfig.MOBS.mutatedHorseArmorSpawnIronChance && GhostlyConfig.MOBS.mutatedHorseArmorSpawnIronChance > -0.1D) {
+        if (this.rand.nextFloat() < GhostlyConfig.MOBS.mutatedHorseArmorSpawnIronChance && GhostlyConfig.MOBS.mutatedHorseArmorSpawnIronChance > 0.0D) {
         	this.setMutatedHorseArmorStack(new ItemStack(Items.IRON_HORSE_ARMOR, 1));
 			this.mutatedHorseChest.setInventorySlotContents(0, new ItemStack(Items.IRON_HORSE_ARMOR, 1));
-        } else if (this.rand.nextFloat() <= GhostlyConfig.MOBS.mutatedHorseArmorSpawnGoldChance && GhostlyConfig.MOBS.mutatedHorseArmorSpawnGoldChance > -0.1D) {
+        } else if (this.rand.nextFloat() < GhostlyConfig.MOBS.mutatedHorseArmorSpawnGoldChance && GhostlyConfig.MOBS.mutatedHorseArmorSpawnGoldChance > 0.0D) {
         	this.setMutatedHorseArmorStack(new ItemStack(Items.GOLDEN_HORSE_ARMOR, 1));
 			this.mutatedHorseChest.setInventorySlotContents(0, new ItemStack(Items.GOLDEN_HORSE_ARMOR, 1));
-        } else if (this.rand.nextFloat() <= GhostlyConfig.MOBS.mutatedHorseArmorSpawnDiamondChance && GhostlyConfig.MOBS.mutatedHorseArmorSpawnDiamondChance > -0.1D) {
+        } else if (this.rand.nextFloat() < GhostlyConfig.MOBS.mutatedHorseArmorSpawnDiamondChance && GhostlyConfig.MOBS.mutatedHorseArmorSpawnDiamondChance > 0.0D) {
         	this.setMutatedHorseArmorStack(new ItemStack(Items.DIAMOND_HORSE_ARMOR, 1));
 			this.mutatedHorseChest.setInventorySlotContents(0, new ItemStack(Items.DIAMOND_HORSE_ARMOR, 1));
         }

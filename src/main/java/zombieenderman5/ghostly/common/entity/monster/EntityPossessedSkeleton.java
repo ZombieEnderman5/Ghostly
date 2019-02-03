@@ -28,9 +28,11 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -203,6 +205,13 @@ public class EntityPossessedSkeleton extends AbstractSkeleton implements IRanged
 		
 		return SoundEvents.ENTITY_SKELETON_STEP;
 	}
+	
+	@Override
+    @Nullable
+    protected ResourceLocation getLootTable()
+    {
+        return LootTableList.ENTITIES_SKELETON;
+    }
 	
 	public static boolean dissolutionGeneratePossessedVersion() {
     	

@@ -1,5 +1,7 @@
 package zombieenderman5.ghostly.common.entity.monster;
 
+import java.util.Random;
+
 import javax.annotation.Nullable;
 
 import gatocreador887.hardcoredimensionexpansion.common.core.HDELootTableManager;
@@ -250,6 +252,21 @@ public class EntityPossessedWitheredZombie extends EntityZombie implements IPoss
     	return livingdata;
     }
 	
+    @Override
+    public void onDeath(DamageSource cause) {
+    	super.onDeath(cause);
+    	Random random = new Random();
+    	
+    	if (GhostlyConfig.MOBS.shadowRemnants && random.nextDouble() < GhostlyConfig.MOBS.shadowRemnantChance) {
+    		EntityShadowRemnant entityshadowremnant = new EntityShadowRemnant(this.world);
+    		entityshadowremnant.setOwner(this);
+    		entityshadowremnant.posX = this.posX;
+    		entityshadowremnant.posY = this.posY;
+    		entityshadowremnant.posZ = this.posZ;
+    		this.world.spawnEntity(entityshadowremnant);
+    	}
+    }
+    
     public static boolean dissolutionGeneratePossessedVersion() {
     	
     	return false;

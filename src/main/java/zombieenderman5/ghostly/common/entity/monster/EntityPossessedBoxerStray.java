@@ -1,6 +1,7 @@
 package zombieenderman5.ghostly.common.entity.monster;
 
 import java.util.Calendar;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -332,6 +333,21 @@ public class EntityPossessedBoxerStray extends AbstractSkeleton implements IRang
         return entityarrow;
     }
 	
+    @Override
+    public void onDeath(DamageSource cause) {
+    	super.onDeath(cause);
+    	Random random = new Random();
+    	
+    	if (GhostlyConfig.MOBS.shadowRemnants && random.nextDouble() < GhostlyConfig.MOBS.shadowRemnantChance) {
+    		EntityShadowRemnant entityshadowremnant = new EntityShadowRemnant(this.world);
+    		entityshadowremnant.setOwner(this);
+    		entityshadowremnant.posX = this.posX;
+    		entityshadowremnant.posY = this.posY;
+    		entityshadowremnant.posZ = this.posZ;
+    		this.world.spawnEntity(entityshadowremnant);
+    	}
+    }
+    
     public static boolean dissolutionGeneratePossessedVersion() {
     	
     	return false;
