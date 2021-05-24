@@ -1,0 +1,48 @@
+modLoader="javafml" #mandatory
+
+loaderVersion="[36,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+
+license="GNU GENERAL PUBLIC LICENSE"
+
+issueTrackerURL="https://github.com/ZombieEnderman5/Ghostly" #optional
+
+[[mods]] #mandatory
+itemIcon="ghostly:axe_of_corporeality"
+
+configBackground="ghostly:textures/blocks/corporealite_block.png"
+
+modId="ghostly" #mandatory
+
+version="1.0.16" #mandatory
+
+displayName="Ghostly" #mandatory
+
+logoFile="logo.png" #optional
+
+credits="GatoCreador887 (in-game GatoGamer887), for help with glowing eyes of Possessed Undead, the Shade dissipate sound, rendering of Possessed Swords, and more contributions; the Betweenlands team (mod link: https://minecraft.curseforge.com/projects/angry-pixel-the-betweenlands-mod/ GitHub source code link: https://github.com/Angry-Pixel/The-Betweenlands/ ), for making their mod open source on GitHub and allowing ZombieEnderman to look at their Wight code; and Pyrofab, an author of Dissolution and owner of the Dissolution CurseForge project (mod link: https://minecraft.curseforge.com/projects/dissolution/ GitHub source code link: https://github.com/Ladysnake/Dissolution/ ), for help with making Possessed Undead un-possessable." #optional
+
+authors="ZombieEnderman5 and GatoGamer887 for 1.12.2 and RedRoseWarrior1 aka DevMaster1015 for 1.16.5+" #optional
+
+description='''
+Brings DangerZone to Minecraft
+'''
+
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.ghostly]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[36,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.ghostly]]
+    modId="minecraft"
+    mandatory=true
+versionRange="[1.16.5,1.17]"
+    ordering="NONE"
+    side="BOTH"
