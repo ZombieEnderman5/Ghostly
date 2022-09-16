@@ -1,176 +1,41 @@
 package zombieenderman5.ghostly;
 
-import org.apache.logging.log4j.Logger;
 
-import gatocreador887.hardcoredimensionexpansion.util.HDEReference;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import zombieenderman5.ghostly.client.core.GhostlyCreativeTabManager;
-import zombieenderman5.ghostly.common.core.GhostlyBlockManager;
-import zombieenderman5.ghostly.common.core.GhostlyEntityManager;
-import zombieenderman5.ghostly.common.core.GhostlyItemManager;
-import zombieenderman5.ghostly.common.core.GhostlyRecipeManager;
-import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.monster.EntityShade;
-import zombieenderman5.ghostly.common.proxy.ServerProxy;
-import zombieenderman5.ghostly.common.world.gen.GhostlyOreGenerator;
-import zombieenderman5.theboxingdead.TBDReference;
 
-@Mod(modid = GhostlyReference.MOD_ID, name = GhostlyReference.MOD_NAME, version = GhostlyReference.MOD_VERSION, dependencies = GhostlyReference.MOD_DEPENDENCIES)
+@Mod("ghostly")
 public class Ghostly {
 
-	public static Logger logger;
-	public static Side side;
+	public Ghostly() {
 
-	@Instance
-	public static Ghostly instance;
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
-	@SidedProxy(clientSide = GhostlyReference.CLIENT_PROXY_PATH, serverSide = GhostlyReference.SERVER_PROXY_PATH)
-	public static ServerProxy proxy;
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-	@EventHandler
-	public void preInitialization(FMLPreInitializationEvent event) {
+		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		modEventBus.addListener(this::setup);
 
-		side = event.getSide();
 
-		logger = event.getModLog();
+		MinecraftForge.EVENT_BUS.register(this);
 
-		if (GhostlyConfig.logging) {
-
-			logger.info("<Ghostly> Beginning pre-initialization stage");
-
-		}
-
-		proxy.entityRegisterRenders(event);
-
-		GhostlyEntityManager.preInitialization(event);
-		GhostlyCreativeTabManager.preInitialization(event);
-		GhostlyBlockManager.preInitialization(event);
-		GhostlyItemManager.preInitialization(event);
-		GhostlyRecipeManager.preInitialization(event);
-
-		MinecraftForge.EVENT_BUS.register(new GhostlyBlockManager());
-		MinecraftForge.EVENT_BUS.register(new GhostlyItemManager());
-		MinecraftForge.EVENT_BUS.register(new GhostlySoundManager());
-		MinecraftForge.EVENT_BUS.register(Ghostly.class);
-		
-		MinecraftForge.TERRAIN_GEN_BUS.register(new GhostlyTerrainGenEventHandler());
-
-		if (GhostlyConfig.logging) {
-
-			logger.info("<Ghostly> Ending pre-initialization stage");
-
-		}
 
 	}
 
-	@EventHandler
-	public void initialization(FMLInitializationEvent event) {
+	private void setup(final FMLCommonSetupEvent event) {
 
-		if (GhostlyConfig.logging) {
-
-			logger.info("<Ghostly> Beginning initialization stage");
-
-		}
-		
-		GameRegistry.registerWorldGenerator(new GhostlyOreGenerator(), 0);
-		
-		GhostlyEntityManager.initialization(event);
-
-		if (GhostlyConfig.logging) {
-
-			logger.info("<Ghostly> Ending initialization stage");
-
-		}
+	}
+	private void doClientStuff(final FMLClientSetupEvent event) {
 
 	}
 
-	@EventHandler
-	public void postInitialization(FMLPostInitializationEvent event) {
 
-		if (GhostlyConfig.logging) {
-
-			logger.info("<Ghostly> Beginning post-initialization stage");
-
-		}
-		
-		EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation("minecraft", "zombie"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_zombie"));
-        EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation("minecraft", "skeleton"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_skeleton"));
-        EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation("minecraft", "husk"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_husk"));
-        EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation("minecraft", "wither_skeleton"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_wither_skeleton"));
-        EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation("minecraft", "stray"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_stray"));
-        
-        if (Loader.isModLoaded("theboxingdead")) {
-        	
-        	try {
-            	
-            	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(TBDReference.MOD_ID, "boxer_zombie"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_boxer_zombie"));
-            	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(TBDReference.MOD_ID, "boxer_skeleton"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_boxer_skeleton"));
-            	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(TBDReference.MOD_ID, "boxer_husk"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_boxer_husk"));
-            	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(TBDReference.MOD_ID, "boxer_wither_skeleton"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_boxer_wither_skeleton"));
-            	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(TBDReference.MOD_ID, "boxer_stray"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_boxer_stray"));
-            	
-            } catch (NoClassDefFoundError ncdfe) {
-            	
-            	
-            	
-            }
-        	
-        }
-        
-        if (Loader.isModLoaded("hardcoredimensionexpansion")) {
-        	
-        	try {
-            	
-            	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(HDEReference.ID, "hunchbone"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_hunchbone"));
-            	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(HDEReference.ID, "wither_hunchbone"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_wither_hunchbone"));
-            	EntityShade.POSSESSABLE_ENTITY_CLASSES.put(new ResourceLocation(HDEReference.ID, "withered_zombie"), new ResourceLocation(GhostlyReference.MOD_ID, "possessed_withered_zombie"));
-            	
-            } catch (NoClassDefFoundError ncdfe) {
-            	
-            	
-            	
-            }
-        	
-        }
-
-		if (GhostlyConfig.logging) {
-
-			logger.info("<Ghostly> Ending post-initialization stage");
-
-		}
-
-	}
-
-	@SubscribeEvent
-	public static void registerModels(ModelRegistryEvent event) {
-		
-		if (GhostlyConfig.logging) {
-			
-			logger.info("<Ghostly> Registering item models");
-			
-		}
-		
-		proxy.registerRenders();
-		
-		if (GhostlyConfig.logging) {
-			
-			logger.info("<Ghostly> Item models registered");
-			
-		}
-		
-	}
-	
 }
+
+
+

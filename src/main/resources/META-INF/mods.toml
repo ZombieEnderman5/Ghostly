@@ -24,8 +24,7 @@ credits="GatoCreador887 (in-game GatoGamer887), for help with glowing eyes of Po
 authors="ZombieEnderman5 and GatoGamer887 for 1.12.2 and RedRoseWarrior1 aka DevMaster1015 for 1.16.5+" #optional
 
 description='''
-Brings DangerZone to Minecraft
-'''
+Adds ghost-themed mobs to the game.'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.ghostly]] #optional
