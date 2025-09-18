@@ -22,7 +22,6 @@ public class RegistryHandler {
     public static void init() {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-
     }
     public static final RegistryObject<Block> CORPOREALITE_BLOCK= registerNormalBlock("corporealite_block", BlockCorporealite::new);
     public static final RegistryObject<Block> CORPOREALITE_ORE= registerNormalBlock("corporealite_ore", BlockCorporealiteOre::new);

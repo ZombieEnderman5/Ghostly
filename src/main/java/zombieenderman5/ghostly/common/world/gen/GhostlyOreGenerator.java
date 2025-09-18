@@ -22,7 +22,6 @@ import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 import zombieenderman5.ghostly.common.core.RegistryHandler;
-
 import static zombieenderman5.ghostly.common.world.gen.GhostlyOreGenerator.OreType.CORPOREALITE_ORE;
 
 public class GhostlyOreGenerator {
