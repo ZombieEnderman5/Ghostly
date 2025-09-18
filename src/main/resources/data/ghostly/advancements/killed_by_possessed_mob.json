@@ -1,0 +1,74 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:skull"
+        },
+        "title": {
+            "translate": "advancements.ghostly.killed_by_possessed_mob.title"
+        },
+        "description": {
+            "translate": "advancements.ghostly.killed_by_possessed_mob.description"
+        }
+    },
+    "parent": "ghostly:root",
+    "criteria": {
+        "possessed_zombie": {
+            "trigger": "minecraft:entity_killed_player",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_zombie"
+                }
+            }
+        },
+        "possessed_skeleton": {
+            "trigger": "minecraft:entity_killed_player",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_skeleton"
+                }
+            }
+        },
+        "possessed_husk": {
+            "trigger": "minecraft:entity_killed_player",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_husk"
+                }
+            }
+        },
+        "possessed_stray": {
+            "trigger": "minecraft:entity_killed_player",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_stray"
+                }
+            }
+        },
+        "possessed_wither_skeleton": {
+            "trigger": "minecraft:entity_killed_player",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_wither_skeleton"
+                }
+            }
+        },
+        "shade": {
+            "trigger": "minecraft:entity_killed_player",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:shade"
+                }
+            }
+        }
+    },
+    "requirements": [
+    [
+      "possessed_zombie",
+      "possessed_skeleton",
+      "possessed_husk",
+      "possessed_stray",
+      "possessed_wither_skeleton",
+      "shade"
+    ]
+  ]
+}

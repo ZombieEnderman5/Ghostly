@@ -13,6 +13,7 @@ import zombieenderman5.ghostly.Ghostly;
 import zombieenderman5.ghostly.common.block.BlockCorporealite;
 import zombieenderman5.ghostly.common.block.BlockCorporealiteOre;
 import zombieenderman5.ghostly.common.item.ItemCorporealiteIngot;
+import zombieenderman5.ghostly.common.item.ItemCorporealiteNugget;
 
 import java.util.function.Supplier;
 
@@ -40,5 +41,6 @@ public class RegistryHandler {
 
     //Items
     public static final RegistryObject<Item> CORPOREALITE_INGOT = ITEMS.register("corporealite_ingot", ItemCorporealiteIngot::new);
+    public static final RegistryObject<Item> CORPOREALITE_NUGGET = ITEMS.register("corporealite_nugget", ItemCorporealiteNugget::new);
 
 }

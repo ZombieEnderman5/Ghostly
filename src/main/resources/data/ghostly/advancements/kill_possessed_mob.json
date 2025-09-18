@@ -1,0 +1,74 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:iron_sword"
+        },
+        "title": {
+            "translate": "advancements.ghostly.kill_possessed_mob.title"
+        },
+        "description": {
+            "translate": "advancements.ghostly.kill_possessed_mob.description"
+        }
+    },
+    "parent": "ghostly:root",
+    "criteria": {
+        "possessed_zombie": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_zombie"
+                }
+            }
+        },
+        "possessed_skeleton": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_skeleton"
+                }
+            }
+        },
+        "possessed_husk": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_husk"
+                }
+            }
+        },
+        "possessed_stray": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_stray"
+                }
+            }
+        },
+        "possessed_wither_skeleton": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:possessed_wither_skeleton"
+                }
+            }
+        },
+        "shade": {
+            "trigger": "minecraft:player_killed_entity",
+            "conditions": {
+                "entity": {
+                    "type": "ghostly:shade"
+                }
+            }
+        }
+    },
+    "requirements": [
+    [
+      "possessed_zombie",
+      "possessed_skeleton",
+      "possessed_husk",
+      "possessed_stray",
+      "possessed_wither_skeleton",
+      "shade"
+    ]
+  ]
+}
