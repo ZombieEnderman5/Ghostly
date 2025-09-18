@@ -42,4 +42,12 @@ public class Ghostly {
 			return new ItemStack(RegistryHandler.CORPOREALITE_BLOCK.get());
 		}
 	};
+
+	public static final ItemGroup ITEMS = new ItemGroup("ghostly_miscellaneous") {
+
+		@Override
+		public ItemStack createIcon() {
+			return new ItemStack(RegistryHandler.CORPOREALITE_INGOT.get());
+		}
+	};
 }

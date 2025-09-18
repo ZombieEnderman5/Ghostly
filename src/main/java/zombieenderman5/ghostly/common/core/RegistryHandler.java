@@ -12,6 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import zombieenderman5.ghostly.Ghostly;
 import zombieenderman5.ghostly.common.block.BlockCorporealite;
 import zombieenderman5.ghostly.common.block.BlockCorporealiteOre;
+import zombieenderman5.ghostly.common.item.ItemCorporealiteIngot;
 
 import java.util.function.Supplier;
 
@@ -23,6 +24,8 @@ public class RegistryHandler {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
+
+    //Blocks
     public static final RegistryObject<Block> CORPOREALITE_BLOCK= registerNormalBlock("corporealite_block", BlockCorporealite::new);
     public static final RegistryObject<Block> CORPOREALITE_ORE= registerNormalBlock("corporealite_ore", BlockCorporealiteOre::new);
 
@@ -34,4 +37,8 @@ public class RegistryHandler {
     private static <T extends Block> RegistryObject<Item> registerNormalBlockItem(String name, RegistryObject<T> block) {
         return RegistryHandler.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(Ghostly.BLOCKS)));
     }
+
+    //Items
+    public static final RegistryObject<Item> CORPOREALITE_INGOT = ITEMS.register("corporealite_ingot", ItemCorporealiteIngot::new);
+
 }
