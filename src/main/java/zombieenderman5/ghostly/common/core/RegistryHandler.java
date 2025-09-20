@@ -12,10 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import zombieenderman5.ghostly.Ghostly;
 import zombieenderman5.ghostly.common.block.BlockCorporealite;
 import zombieenderman5.ghostly.common.block.BlockCorporealiteOre;
-import zombieenderman5.ghostly.common.item.ItemCorporealiteIngot;
-import zombieenderman5.ghostly.common.item.ItemCorporealiteNugget;
-import zombieenderman5.ghostly.common.item.ItemShadowDust;
-import zombieenderman5.ghostly.common.item.ItemVenomstring;
+import zombieenderman5.ghostly.common.item.*;
 
 import java.util.function.Supplier;
 
@@ -45,7 +42,15 @@ public class RegistryHandler {
     public static final RegistryObject<Item> CORPOREALITE_INGOT = ITEMS.register("corporealite_ingot", ItemCorporealiteIngot::new);
     public static final RegistryObject<Item> CORPOREALITE_NUGGET = ITEMS.register("corporealite_nugget", ItemCorporealiteNugget::new);
     public static final RegistryObject<Item> SHADOW_DUST = ITEMS.register("shadow_dust", ItemShadowDust::new);
-
     public static final RegistryObject<Item> VENOMSTRING = ITEMS.register("venomstring", ItemVenomstring::new);
+
+    //Weapons
+
+    //Tools
+
+    //Food
+    public static final RegistryObject<Item> SICKENED_SPIDER_EYE = ITEMS.register("sickened_spider_eye", ItemSickenedSpiderEye::new);
+    public static final RegistryObject<Item> DARKNESS_MAGE_FLESH = ITEMS.register("darkness_mage_flesh", ItemDarknessMageFlesh::new);
+
 
 }

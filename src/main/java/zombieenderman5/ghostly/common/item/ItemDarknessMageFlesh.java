@@ -1,42 +1,23 @@
 package zombieenderman5.ghostly.common.item;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.world.World;
-import zombieenderman5.ghostly.client.core.GhostlyCreativeTabManager;
-import zombieenderman5.ghostly.common.core.GhostlyItemManager;
+import net.minecraft.item.Food;
+import net.minecraft.item.Item;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import zombieenderman5.ghostly.Ghostly;
 
-public class ItemDarknessMageFlesh extends ItemFood {
+public class ItemDarknessMageFlesh extends Item {
 
-	public ItemDarknessMageFlesh() {
-		
-		super(6, 0.3F, true);
-		
-		setUnlocalizedName("darkness_mage_flesh");
-		setRegistryName("darkness_mage_flesh");
-		setCreativeTab(GhostlyCreativeTabManager.foodstuffs);
-		
-	}
-
-	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
-    {
-        super.onItemUseFinish(stack, worldIn, entityLiving);
-        entityLiving.addPotionEffect(new PotionEffect(MobEffects.POISON, 600, 1));
-        entityLiving.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 1));
-        entityLiving.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 600, 0));
-        return stack;
+    public ItemDarknessMageFlesh() {
+        super(new Properties()
+                .group(Ghostly.FOOD)
+                .food(new Food.Builder()
+                        .hunger(6)
+                        .saturation(0.3F)
+                        .effect(() -> new EffectInstance(Effects.POISON, 600, 1), 1.0F) // 100% chance
+                        .effect(() -> new EffectInstance(Effects.HUNGER, 600, 1), 1.0F)
+                        .effect(() -> new EffectInstance(Effects.NAUSEA, 600, 0), 1.0F)
+                        .build()
+                ));
     }
-	
-	@Override
-	public EnumRarity getRarity(ItemStack stack)
-    {
-        return GhostlyItemManager.SHADOW_RARITY;
-    }
-	
 }

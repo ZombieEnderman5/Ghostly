@@ -50,4 +50,12 @@ public class Ghostly {
 			return new ItemStack(RegistryHandler.CORPOREALITE_INGOT.get());
 		}
 	};
+
+	public static final ItemGroup FOOD = new ItemGroup("ghostly_foodstuffs") {
+
+		@Override
+		public ItemStack createIcon() {
+			return new ItemStack(RegistryHandler.SICKENED_SPIDER_EYE.get());
+		}
+	};
 }

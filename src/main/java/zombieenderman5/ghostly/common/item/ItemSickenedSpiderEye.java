@@ -1,30 +1,22 @@
 package zombieenderman5.ghostly.common.item;
 
-import net.minecraft.init.MobEffects;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
-import zombieenderman5.ghostly.client.core.GhostlyCreativeTabManager;
-import zombieenderman5.ghostly.common.core.GhostlyItemManager;
+import net.minecraft.item.Food;
+import net.minecraft.item.Item;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import zombieenderman5.ghostly.Ghostly;
 
-public class ItemSickenedSpiderEye extends ItemFood {
+public class ItemSickenedSpiderEye extends Item {
 	
 	public ItemSickenedSpiderEye() {
-		
-		super(2, 0.8F, false);
-		
-		setUnlocalizedName("sickened_spider_eye");
-		setRegistryName("sickened_spider_eye");
-		setCreativeTab(GhostlyCreativeTabManager.foodstuffs);
-		setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 1), 1.0F);
-		
+
+		super(new Properties()
+				.group(Ghostly.FOOD)
+				.food(new Food.Builder()
+						.hunger(2)
+						.saturation(0.8F)
+						.effect(new EffectInstance(Effects.POISON, 100, 1), 1.0F)
+						.build()
+				));
 	}
-	
-	@Override
-	public EnumRarity getRarity(ItemStack stack)
-    {
-        return GhostlyItemManager.VENOM_RARITY;
-    }
-	
 }
