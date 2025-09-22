@@ -1,6 +1,9 @@
 package zombieenderman5.ghostly.common.core;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.ArrowItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 
@@ -12,6 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import zombieenderman5.ghostly.Ghostly;
 import zombieenderman5.ghostly.common.block.BlockCorporealite;
 import zombieenderman5.ghostly.common.block.BlockCorporealiteOre;
+import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
 import zombieenderman5.ghostly.common.item.*;
 
 import java.util.function.Supplier;
@@ -45,6 +49,13 @@ public class RegistryHandler {
     public static final RegistryObject<Item> VENOMSTRING = ITEMS.register("venomstring", ItemVenomstring::new);
 
     //Weapons
+    public static final RegistryObject<Item> DUSTED_ARROW_OF_CORPOREALITY = ITEMS.register("dusted_arrow_of_corporeality", ItemDustedCorporealityArrow::new);
+    public static final EntityType<EntityDustedCorporealityArrow> DUSTED_ARROW =
+            EntityType.Builder.<EntityDustedCorporealityArrow>create(EntityDustedCorporealityArrow::new, EntityClassification.MISC)
+                    .size(0.5F, 0.5F)
+                    .trackingRange(4)
+                    .updateInterval(20)
+                    .build("dusted_arrow_of_corporeality");
 
     //Tools
 

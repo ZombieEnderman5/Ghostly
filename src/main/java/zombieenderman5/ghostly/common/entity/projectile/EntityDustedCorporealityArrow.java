@@ -1,66 +1,44 @@
 package zombieenderman5.ghostly.common.entity.projectile;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.datafix.DataFixer;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
-import zombieenderman5.ghostly.common.core.GhostlyItemManager;
-import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
 
-public class EntityDustedCorporealityArrow extends EntityCorporealityArrow implements ICorporealityProjectile
+import zombieenderman5.ghostly.common.core.RegistryHandler;
+
+
+public class EntityDustedCorporealityArrow extends ArrowEntity implements ICorporealityProjectile
 {
-    public EntityDustedCorporealityArrow(World worldIn)
-    {
-        super(worldIn);
+    public EntityDustedCorporealityArrow(EntityType<? extends ArrowEntity> type, World world) {
+        super(type, world);
     }
 
-    public EntityDustedCorporealityArrow(World worldIn, EntityLivingBase shooter)
-    {
+    public EntityDustedCorporealityArrow(World worldIn, LivingEntity shooter) {
+
         super(worldIn, shooter);
-    }
-
-    public EntityDustedCorporealityArrow(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
-
-    /**
-     * Called to update the entity's position/logic.
-     */
-    @Override
-    public void onUpdate()
-    {
-        super.onUpdate();
-
-        if (this.world.isRemote && !this.inGround)
-        {
-            this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
-        }
     }
 
     @Override
     protected ItemStack getArrowStack()
     {
-        return new ItemStack(GhostlyItemManager.dustedArrowOfCorporeality);
+        return new ItemStack(RegistryHandler.DUSTED_ARROW_OF_CORPOREALITY.get());
     }
 
     @Override
-    protected void arrowHit(EntityLivingBase living)
-    {
+    protected void arrowHit(LivingEntity living) {
         super.arrowHit(living);
-        if (living instanceof IPartiallyIncorporeal) {
-        	living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
-        } else {
-        	living.addPotionEffect(new PotionEffect(MobEffects.WITHER, 200));
+        this.world.addParticle(ParticleTypes.SMOKE, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
+
+        // Your custom effect
+       /* if (!(living instanceof IPartiallyIncorporeal)) {
+            living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
+        }
+        else{*/
+            living.addPotionEffect(new EffectInstance(Effects.WITHER, 200));
         }
     }
-
-    public static void registerFixesDustedArrow(DataFixer fixer)
-    {
-        EntityCorporealityArrow.registerFixesArrow(fixer, "DustedCorporealityArrow");
-    }
-}

@@ -1,15 +1,20 @@
 package zombieenderman5.ghostly;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ArrowRenderer;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 
+import zombieenderman5.ghostly.client.entity.rendering.projectile.RenderDustedCorporealityArrow;
 import zombieenderman5.ghostly.common.core.RegistryHandler;
 import zombieenderman5.ghostly.common.world.gen.GhostlyOreGenerator;
 
@@ -33,6 +38,9 @@ public class Ghostly {
 	private void setup(final FMLCommonSetupEvent event) {
 	}
 	private void doClientStuff(final FMLClientSetupEvent event) {
+		RenderingRegistry.registerEntityRenderingHandler(RegistryHandler.DUSTED_ARROW,
+				RenderDustedCorporealityArrow::new);
+
 	}
 
 	public static final ItemGroup BLOCKS = new ItemGroup("ghostly_blocks") {
