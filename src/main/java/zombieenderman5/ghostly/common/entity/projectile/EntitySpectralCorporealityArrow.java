@@ -1,49 +1,31 @@
 package zombieenderman5.ghostly.common.entity.projectile;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.datafix.DataFixer;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
-import zombieenderman5.ghostly.common.core.GhostlySoundManager;
+
 import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
 
-public class EntitySpectralCorporealityArrow extends EntityCorporealityArrow implements ICorporealityProjectile
+public class EntitySpectralCorporealityArrow extends ArrowEntity implements ICorporealityProjectile
 {
     private int duration = 200;
 
-    public EntitySpectralCorporealityArrow(World worldIn)
-    {
-        super(worldIn);
+    public EntitySpectralCorporealityArrow(EntityType<? extends ArrowEntity> type, World world) {
+        super(type, world);
     }
 
-    public EntitySpectralCorporealityArrow(World worldIn, EntityLivingBase shooter)
-    {
+    public EntitySpectralCorporealityArrow(World worldIn, LivingEntity shooter) {
+
         super(worldIn, shooter);
     }
 
-    public EntitySpectralCorporealityArrow(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
-
-    /**
-     * Called to update the entity's position/logic.
-     */
-    @Override
-    public void onUpdate()
-    {
-        super.onUpdate();
-
-        if (this.world.isRemote && !this.inGround)
-        {
-            this.world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
-        }
-    }
 
     @Override
     protected ItemStack getArrowStack()
@@ -52,30 +34,28 @@ public class EntitySpectralCorporealityArrow extends EntityCorporealityArrow imp
     }
 
     @Override
-    protected void arrowHit(EntityLivingBase living)
+    protected void arrowHit(LivingEntity living)
     {
         super.arrowHit(living);
-        PotionEffect potioneffect = new PotionEffect(MobEffects.GLOWING, this.duration, 0);
-        living.addPotionEffect(potioneffect);
-        if (living instanceof IPartiallyIncorporeal) living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
-    }
+        this.world.addParticle(ParticleTypes.INSTANT_EFFECT, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
 
-    public static void registerFixesSpectralArrow(DataFixer fixer)
-    {
-        EntityCorporealityArrow.registerFixesArrow(fixer, "SpectralCorporealityArrow");
+        living.addPotionEffect(new EffectInstance(Effects.GLOWING, 0));
+        if (living instanceof IPartiallyIncorporeal) {
+         //   living.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
     }
+}
 
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void readAdditional(CompoundNBT compound)
     {
-        super.readEntityFromNBT(compound);
+        super.readAdditional(compound);
 
-        if (compound.hasKey("Duration"))
+        if (compound.contains("Duration"))
         {
-            this.duration = compound.getInteger("Duration");
+            this.duration = compound.getInt("Duration");
         }
     }
 
@@ -83,9 +63,9 @@ public class EntitySpectralCorporealityArrow extends EntityCorporealityArrow imp
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
+    public void writeAdditional(CompoundNBT compound)
     {
-        super.writeEntityToNBT(compound);
-        compound.setInteger("Duration", this.duration);
+        super.writeAdditional(compound);
+        compound.putInt("Duration", this.duration);
     }
 }

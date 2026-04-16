@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 
+import zombieenderman5.ghostly.Ghostly;
 import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
 
 public class RenderDustedCorporealityArrow extends ArrowRenderer<EntityDustedCorporealityArrow> {
@@ -13,7 +14,7 @@ public class RenderDustedCorporealityArrow extends ArrowRenderer<EntityDustedCor
 
 	@Override
 	public ResourceLocation getEntityTexture(EntityDustedCorporealityArrow entity) {
-		return new ResourceLocation("textures/entity/projectiles/dusted_arrow_of_corporeality.png");
+		return new ResourceLocation(Ghostly.MOD_ID, "textures/entity/projectiles/dusted_arrow_of_corporeality.png");
 
 	}
 }

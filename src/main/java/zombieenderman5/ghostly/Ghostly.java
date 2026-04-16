@@ -4,8 +4,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -38,9 +40,24 @@ public class Ghostly {
 	private void setup(final FMLCommonSetupEvent event) {
 	}
 	private void doClientStuff(final FMLClientSetupEvent event) {
-		RenderingRegistry.registerEntityRenderingHandler(RegistryHandler.DUSTED_ARROW,
-				RenderDustedCorporealityArrow::new);
+		RenderingRegistry.registerEntityRenderingHandler(RegistryHandler.DUSTED_ARROW.get(), RenderDustedCorporealityArrow::new);
 
+		ItemModelsProperties.registerProperty(RegistryHandler.BOW_OF_CORPOREALITY.get(),
+				new ResourceLocation("pull"),
+				(stack, world, entity) -> {
+					if (entity == null) {
+						return 0.0F;
+					} else {
+						return entity.getActiveItemStack() != stack ? 0.0F :
+								(float)(stack.getUseDuration() - entity.getItemInUseCount()) / 20.0F;
+					}
+				});
+
+		ItemModelsProperties.registerProperty(RegistryHandler.BOW_OF_CORPOREALITY.get(),
+				new ResourceLocation("pulling"),
+				(stack, world, entity) -> {
+					return entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack ? 1.0F : 0.0F;
+				});
 	}
 
 	public static final ItemGroup BLOCKS = new ItemGroup("ghostly_blocks") {

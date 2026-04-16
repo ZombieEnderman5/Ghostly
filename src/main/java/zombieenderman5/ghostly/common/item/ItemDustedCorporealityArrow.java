@@ -17,6 +17,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import zombieenderman5.ghostly.Ghostly;
+import zombieenderman5.ghostly.common.core.RegistryHandler;
 import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
 
 public class ItemDustedCorporealityArrow extends ArrowItem {
@@ -45,10 +46,11 @@ public class ItemDustedCorporealityArrow extends ArrowItem {
 		ItemStack activeBow = shooter.getActiveItemStack();
 
 		// If the shooter is using YOUR custom bow → spawn dusted arrow entity
-		/*if (activeBow.getItem() == RegistryHandler.CORPOREALITY_BOW.get()) {
+		if (activeBow.getItem() == RegistryHandler.BOW_OF_CORPOREALITY.get()) {
 			return new EntityDustedCorporealityArrow(world, shooter);
-		}*/
+		}
 
 		// Otherwise → spawn vanilla arrow entity
-		return new EntityDustedCorporealityArrow(world, shooter);	}
+		return new ArrowEntity(world, shooter);
+	}
 }

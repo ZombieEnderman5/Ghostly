@@ -6,85 +6,44 @@ import javax.annotation.Nullable;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArrow;
-import net.minecraft.item.ItemBow;
-import net.minecraft.item.ItemSpectralArrow;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.projectile.SpectralArrowEntity;
+import net.minecraft.item.*;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.*;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import zombieenderman5.ghostly.client.core.GhostlyCreativeTabManager;
-import zombieenderman5.ghostly.common.core.GhostlyItemManager;
-import zombieenderman5.ghostly.common.core.GhostlySoundManager;
-import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
-import zombieenderman5.ghostly.common.entity.projectile.EntityCorporealityArrow;
-import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
-import zombieenderman5.ghostly.common.entity.projectile.EntitySpectralCorporealityArrow;
-import zombieenderman5.ghostly.common.entity.projectile.EntityTippedCorporealityArrow;
 
-public class ItemBowOfCorporeality extends ItemBow implements IToolOfCorporeality
+import net.minecraftforge.event.ForgeEventFactory;
+
+import zombieenderman5.ghostly.Ghostly;
+import zombieenderman5.ghostly.common.entity.monster.IPartiallyIncorporeal;
+import zombieenderman5.ghostly.common.entity.projectile.EntityDustedCorporealityArrow;
+
+public class ItemBowOfCorporeality extends BowItem implements IToolOfCorporeality
 {
-    public ItemBowOfCorporeality()
-    {
-        this.maxStackSize = 1;
-        this.setMaxDamage(433);
-        this.setCreativeTab(GhostlyCreativeTabManager.combat);
-        setUnlocalizedName("bow_of_corporeality");
-        setRegistryName("bow_of_corporeality");
-        this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
-        {
-        	@Override
-            @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
-            {
-                if (entityIn == null)
-                {
-                    return 0.0F;
-                }
-                else
-                {
-                    return entityIn.getActiveItemStack().getItem() != GhostlyItemManager.bowOfCorporeality ? 0.0F : (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
-                }
-            }
-        });
-        this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter()
-        {
-        	@Override
-            @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
-            {
-                return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
-            }
-        });
+    public ItemBowOfCorporeality() {
+        super(new Properties()
+                .maxStackSize( 1)
+                .group(Ghostly.ITEMS)
+                .maxDamage(433));
     }
 
-    private ItemStack findAmmo(EntityPlayer player)
+    private ItemStack findAmmo(PlayerEntity player)
     {
-        if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND)))
+        if (this.isArrow(player.getHeldItem(Hand.OFF_HAND)))
         {
-            return player.getHeldItem(EnumHand.OFF_HAND);
+            return player.getHeldItem(Hand.OFF_HAND);
         }
-        else if (this.isArrow(player.getHeldItem(EnumHand.MAIN_HAND)))
+        else if (this.isArrow(player.getHeldItem(Hand.MAIN_HAND)))
         {
-            return player.getHeldItem(EnumHand.MAIN_HAND);
+            return player.getHeldItem(Hand.MAIN_HAND);
         }
         else
         {
@@ -102,25 +61,24 @@ public class ItemBowOfCorporeality extends ItemBow implements IToolOfCorporealit
         }
     }
 
-    @Override
     protected boolean isArrow(ItemStack stack)
     {
-        return stack.getItem() instanceof ItemArrow;
+        return stack.getItem() instanceof ArrowItem;
     }
 
     /**
      * Called when the player stops using an Item (stops holding the right mouse button).
      */
-    @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft)
-    {
-        if (entityLiving instanceof EntityPlayer)
-        {
-        	EntityPlayer entityplayer = (EntityPlayer)entityLiving;
-            boolean flag = entityplayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
+
+        @Override
+        public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+
+        if (entityLiving instanceof PlayerEntity) {
+        	PlayerEntity entityplayer = (PlayerEntity) entityLiving;
+            boolean flag = entityplayer.abilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
             ItemStack itemstack = this.findAmmo(entityplayer);
 
-            int i = this.getMaxItemUseDuration(stack) - timeLeft;
+            int i = this.getUseDuration(stack) - timeLeft;
             i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, worldIn, entityplayer, i, !itemstack.isEmpty() || flag);
             if (i < 0) return;
 
@@ -135,13 +93,13 @@ public class ItemBowOfCorporeality extends ItemBow implements IToolOfCorporealit
 
                 if ((double)f >= 0.1D)
                 {
-                    boolean flag1 = entityplayer.capabilities.isCreativeMode || (itemstack.getItem() instanceof ItemArrow && ((ItemArrow) itemstack.getItem()).isInfinite(itemstack, stack, entityplayer));
+                    boolean flag1 = entityplayer.abilities.isCreativeMode || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, stack, entityplayer));
 
                     if (!worldIn.isRemote)
                     {
-                        ItemArrow itemarrow = (ItemArrow)(itemstack.getItem() instanceof ItemArrow ? itemstack.getItem() : Items.ARROW);
-                        EntityCorporealityArrow entityarrow = createArrow(worldIn, itemstack, entityplayer);
-                        entityarrow.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+                        ArrowItem itemarrow = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
+                        AbstractArrowEntity entityarrow = createArrow(worldIn, itemstack, entityplayer);
+                        entityarrow.setDirectionAndMovement(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 
                         if (f == 1.0F)
                         {
@@ -167,19 +125,21 @@ public class ItemBowOfCorporeality extends ItemBow implements IToolOfCorporealit
                             entityarrow.setFire(100);
                         }
 
-                        stack.damageItem(1, entityplayer);
+                        stack.damageItem(1, entityplayer, (player) -> {
+                            player.sendBreakAnimation(entityplayer.getActiveHand());
+                        });
 
-                        if (flag1 || entityplayer.capabilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW))
+                        if (flag1 || entityplayer.abilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW))
                         {
-                            entityarrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
+                            entityarrow.pickupStatus = ArrowEntity.PickupStatus.CREATIVE_ONLY;
                         }
 
-                        worldIn.spawnEntity(entityarrow);
+                        worldIn.addEntity(entityarrow);
                     }
 
-                    worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                    worldIn.playSound((PlayerEntity) null, entityplayer.getPosX(), entityplayer.getPosY(), entityplayer.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-                    if (!flag1 && !entityplayer.capabilities.isCreativeMode)
+                    if (!flag1 && !entityplayer.abilities.isCreativeMode)
                     {
                         itemstack.shrink(1);
 
@@ -189,7 +149,7 @@ public class ItemBowOfCorporeality extends ItemBow implements IToolOfCorporealit
                         }
                     }
 
-                    entityplayer.addStat(StatList.getObjectUseStats(this));
+                    entityplayer.addStat(Stats.ITEM_USED.get(this));
                 }
             }
         }
@@ -215,7 +175,7 @@ public class ItemBowOfCorporeality extends ItemBow implements IToolOfCorporealit
      * How long it takes to use or consume an item
      */
     @Override
-    public int getMaxItemUseDuration(ItemStack stack)
+    public int getUseDuration(ItemStack stack)
     {
         return 72000;
     }
@@ -224,31 +184,31 @@ public class ItemBowOfCorporeality extends ItemBow implements IToolOfCorporealit
      * returns the action that specifies what animation to play when the items is being used
      */
     @Override
-    public EnumAction getItemUseAction(ItemStack stack)
+    public UseAction getUseAction(ItemStack stack)
     {
-        return EnumAction.BOW;
+        return UseAction.BOW;
     }
 
     /**
      * Called when the equipped item is right clicked.
      */
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+        @Override
+        public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         boolean flag = !this.findAmmo(playerIn).isEmpty();
 
-        ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, flag);
+        ActionResult<ItemStack> ret = ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, flag);
         if (ret != null) return ret;
 
-        if (!playerIn.capabilities.isCreativeMode && !flag)
+        if (!playerIn.abilities.isCreativeMode && !flag)
         {
-            return flag ? new ActionResult(EnumActionResult.PASS, itemstack) : new ActionResult(EnumActionResult.FAIL, itemstack);
+            return flag ? new ActionResult(ActionResultType.PASS, itemstack) : new ActionResult(ActionResultType.FAIL, itemstack);
         }
         else
         {
             playerIn.setActiveHand(handIn);
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+            return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
         }
     }
 
@@ -262,45 +222,35 @@ public class ItemBowOfCorporeality extends ItemBow implements IToolOfCorporealit
     }
     
     @Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
+	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
     {
         if (target instanceof IPartiallyIncorporeal) {
-        	target.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
+        	//target.playSound(GhostlySoundManager.CORPOREALITY_TOOL_HIT, 1.0F, 1.0F);
         }
         return true;
     }
 	
 	@Override
-	@SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack)
     {
         return true;
     }
-	
-	@Override
-	public EnumRarity getRarity(ItemStack stack)
-    {
-        return GhostlyItemManager.CORPOREAL_RARITY;
+
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(new TranslationTextComponent("ghostly.corporeality.melee_and_ranged_tool.information").mergeStyle(TextFormatting.GOLD));
     }
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		
-		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("ghostly.corporeality.melee_and_ranged_tool.information"));
-		
-	}
-    
-	public EntityCorporealityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter)
+
+	public AbstractArrowEntity createArrow(World worldIn, ItemStack stack, LivingEntity shooter)
     {
-        if (stack.getItem() instanceof ItemSpectralArrow) {
-        	EntitySpectralCorporealityArrow entityspectralarrow = new EntitySpectralCorporealityArrow(worldIn, shooter);
+        if (stack.getItem() instanceof SpectralArrowItem) {
+        	SpectralArrowEntity entityspectralarrow = new SpectralArrowEntity(worldIn, shooter);
             return entityspectralarrow;
         } else if (stack.getItem() instanceof ItemDustedCorporealityArrow) {
         	EntityDustedCorporealityArrow entitydustedcorporealityarrow = new EntityDustedCorporealityArrow(worldIn, shooter);
             return entitydustedcorporealityarrow;
         } else {
-        	EntityTippedCorporealityArrow entitytippedarrow = new EntityTippedCorporealityArrow(worldIn, shooter);
+            ArrowEntity entitytippedarrow = new ArrowEntity(worldIn, shooter);
             entitytippedarrow.setPotionEffect(stack);
             return entitytippedarrow;
         }

@@ -23,10 +23,14 @@ import java.util.function.Supplier;
 public class RegistryHandler {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Ghostly.MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Ghostly.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Ghostly.MOD_ID);
+
 
     public static void init() {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+
     }
 
     //Blocks
@@ -50,12 +54,16 @@ public class RegistryHandler {
 
     //Weapons
     public static final RegistryObject<Item> DUSTED_ARROW_OF_CORPOREALITY = ITEMS.register("dusted_arrow_of_corporeality", ItemDustedCorporealityArrow::new);
-    public static final EntityType<EntityDustedCorporealityArrow> DUSTED_ARROW =
-            EntityType.Builder.<EntityDustedCorporealityArrow>create(EntityDustedCorporealityArrow::new, EntityClassification.MISC)
-                    .size(0.5F, 0.5F)
-                    .trackingRange(4)
-                    .updateInterval(20)
-                    .build("dusted_arrow_of_corporeality");
+    public static final RegistryObject<EntityType<EntityDustedCorporealityArrow>> DUSTED_ARROW =
+            ENTITIES.register("dusted_arrow_of_corporeality", () ->
+                    EntityType.Builder.<EntityDustedCorporealityArrow>create(EntityDustedCorporealityArrow::new, EntityClassification.MISC)
+                            .size(0.5F, 0.5F)
+                            .trackingRange(64)
+                            .updateInterval(20)
+                            .build("dusted_arrow_of_corporeality")
+            );
+    public static final RegistryObject<Item> BOW_OF_CORPOREALITY = ITEMS.register("bow_of_corporeality", ItemBowOfCorporeality::new);
+
 
     //Tools
 
